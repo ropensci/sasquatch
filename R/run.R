@@ -9,5 +9,5 @@
 sas_run_string <- function(input) {
   results <- .pkgenv[["session"]]$submit(input)
 
-  sas_widget(paste(results$LST, collapse ="\n"))
+  sas_widget(paste(results$LST, "<style>table {margin-left: auto; margin-right: auto;}</style>", collapse ="\n"))
 }
