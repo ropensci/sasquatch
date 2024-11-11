@@ -53,6 +53,6 @@ rstudio_selection <- function(context = rstudio_context()) {
 #' @return No return value.
 #' 
 #' @export
-repl_sas_selected <- function() {
+run_sas_selected <- function() {
   repl_sas(paste(rstudio_selection(), collapse = "\n"))
 }
