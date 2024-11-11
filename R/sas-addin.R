@@ -54,5 +54,5 @@ rstudio_selection <- function(context = rstudio_context()) {
 #' 
 #' @export
 sas_run_selected <- function() {
-  repl_sas(paste(rstudio_selection(), collapse = "\n"))
+  sas_run_string(paste(rstudio_selection(), collapse = "\n"))
 }
