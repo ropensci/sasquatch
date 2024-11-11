@@ -1,10 +1,11 @@
 Package: sasr
-Title: What the Package Does (One Line, Title Case)
+Title: Use 'SAS' and R together
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+    person("Ryan", "Zomorrodi", , "rzomor2@uic.edu", role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0009-0003-6417-5985"))
+Description: Allows you to use 'SAS' and R simultaneously by leveraging the 
+'saspy' and 'reticulate' packages.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
