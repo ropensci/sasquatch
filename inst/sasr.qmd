@@ -12,6 +12,7 @@ sas_connect()
 ```
 
 ```{sas}
-
+PROC MEANS DATA = sashelp.cars;
+RUN;
 ```
 

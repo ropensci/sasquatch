@@ -9,6 +9,5 @@
 sas_run_string <- function(input) {
   results <- .pkgenv[["session"]]$submit(input)
 
-  results_html <- htmltools::HTML(results$LST)
-  htmltools::html_print(results_html)
+  sas_widget(paste(results$LST, collapse ="\n"))
 }

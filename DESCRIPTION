@@ -13,7 +13,7 @@ SystemRequirements:
     python, 
     saspy
 Imports: 
-    htmltools,
+    htmlwidgets,
     knitr,
     reticulate,
     rstudioapi
