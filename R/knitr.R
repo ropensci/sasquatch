@@ -16,7 +16,6 @@ sashtml_engine <- function (options) {
 
   out <- paste(
     out,
-    "<script src = 'https://cdn.jsdelivr.net/npm/@iframe-resizer/parent@5.3.2'></script>",
     "<script>iframeResize({license: 'GPLv3', scrolling: 'yes', waitForLoad: true,}, 'iframe' );</script>",
     sep = "\n"
   )
