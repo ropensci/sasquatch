@@ -1,0 +1,16 @@
+---
+format:
+  html:
+    syntax-definitions: 
+    - sas.xml
+engine: knitr
+---
+
+```{r, include = FALSE}
+library(sasr)
+```
+
+```{sas}
+PROC MEANS DATA = sashelp.cars;
+RUN;
+```

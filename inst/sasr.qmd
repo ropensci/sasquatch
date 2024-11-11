@@ -1,0 +1,17 @@
+---
+format:
+  html:
+    syntax-definitions: 
+    - sas.xml
+engine: knitr
+---
+
+```{r, include = FALSE}
+library(sasr)
+sas_connect()
+```
+
+```{sas}
+
+```
+
