@@ -1,26 +1,35 @@
 sashtml_engine <- function (options) {
   code <- paste(options$code, collapse = "\n")
-  results <- .pkgenv[["session"]]$submit(code)
 
-  out <- paste(results$LST, collapse = "\n")
-  out <- gsub("'", "\"", out)
+  if (identical(options$include, FALSE)) {
+    options$echo <- FALSE
+    options$outputv <- FALSE
+  }
 
-  out <- paste(
-    "<iframe width = '100%' srcdoc = '", 
-    out,
-    "<style>table {margin-left: auto; margin-right: auto;}</style>",
-    "<script src=\"https://cdn.jsdelivr.net/npm/@iframe-resizer/child@5.3.2\"></script>", 
-    "'></iframe>", 
-    sep = "\n"
-  )
+  if (identical(options$eval, FALSE)) {
+    out <- list()
+  } else {
+    results <- .pkgenv$session$submit(code)
 
-  out <- paste(
-    out,
-    "<script>iframeResize({license: 'GPLv3', scrolling: 'yes', waitForLoad: true,}, 'iframe' );</script>",
-    sep = "\n"
-  )
+    if (identical(options$output, FALSE)) {
+      out <- list()
+    } else {
+      if (identical(options$capture, "lst")) {
+        out <- wrap_in_iframe(results$LST)
+      } else if (identical(options$capture, "log")) {
+        out <- wrap_in_pre(results$LOG)
+      } else {
+        lst <- wrap_in_iframe(results$LST)
+        log <- wrap_in_pre(results$LOG)
+        out <- wrap_in_panel_tabset(lst, log)
+      }
+      options$results <- "asis"
+    }
+  }
 
-  options$results <- "asis"
+  if (identical(options$echo, FALSE)) {
+    code <- list()
+  }
   
   knitr::engine_output(options, code, out)
 }
