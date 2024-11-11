@@ -44,7 +44,7 @@ rstudio_selection <- function(context = rstudio_context()) {
 #'     "when": "editorTextFocus",
 #'     "args": {
 #'         "langId": "r",
-#'         "code": "sasr::run_sas_selected()",
+#'         "code": "sasr::sas_run_selected()",
 #'         "focus": true
 #'     }
 #' }
@@ -53,6 +53,6 @@ rstudio_selection <- function(context = rstudio_context()) {
 #' @return No return value.
 #' 
 #' @export
-run_sas_selected <- function() {
+sas_run_selected <- function() {
   repl_sas(paste(rstudio_selection(), collapse = "\n"))
 }
