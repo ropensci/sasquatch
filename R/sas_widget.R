@@ -1,8 +1,9 @@
-sas_widget <- function(sas_html, width = NULL, height = NULL, elementId = NULL) {
+sas_widget <- function(lst, log, width = NULL, height = NULL, elementId = NULL) {
 
   # forward options using x
   x = list(
-    sas_html = sas_html
+    lst = lst,
+    log = log
   )
 
   # create widget
@@ -11,6 +12,10 @@ sas_widget <- function(sas_html, width = NULL, height = NULL, elementId = NULL) 
     x,
     width = width,
     height = height,
+    sizingPolicy = htmlwidgets::sizingPolicy(
+      padding = 0,
+      browser.fill = TRUE
+    ),
     package = 'sasr',
     elementId = elementId
   )

@@ -13,7 +13,7 @@ wrap_in_iframe <- function(html) {
 
   paste(
     html,
-    "<script>iframeResize({license: 'GPLv3', scrolling: 'yes', waitForLoad: true,}, 'iframe' );</script>",
+    "<script>iframeResize({license: 'GPLv3', scrolling: 'yes', waitForLoad: true}, 'iframe' );</script>",
     sep = "\n"
   )
 }

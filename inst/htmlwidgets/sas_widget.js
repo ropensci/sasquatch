@@ -11,16 +11,31 @@ HTMLWidgets.widget({
     return {
 
       renderValue: function(x) {
+        let lst = x.lst;
+        let log = x.log;
+        
 
-        // TODO: code to render the widget, e.g.
-        el.innerHTML = x.sas_html;
+        el.innerHTML = `
+<style>body {overflow: auto !important;}</style>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="lst-tab" data-bs-toggle="tab" data-bs-target="#lst" type="button" role="tab" aria-controls="lst" aria-selected="true">lst</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="log-tab" data-bs-toggle="tab" data-bs-target="#log" type="button" role="tab" aria-controls="log" aria-selected="false">log</button>
+  </li>
+</ul>
+<div style = "height: calc(100% - 49px) !important" class="tab-content" id="myTabContent">
+  <div style = "height: 100% !important" class="tab-pane fade show active" id="lst" role="tabpanel" aria-labelledby="lst-tab">
+    <iframe width = '100%' height = "100%" srcdoc = '${lst}<style>table {margin-left: auto; margin-right: auto;}</style>'></iframe>
+  </div>
+  <div style = "height: 100% !important" class="tab-pane fade" id="log" role="tabpanel" aria-labelledby="log-tab"><pre>${log}</pre></div>
+</div>`;
 
       },
 
       resize: function(width, height) {
-
-        // TODO: code to re-render the widget with a new size
-
+        
       }
 
     };
