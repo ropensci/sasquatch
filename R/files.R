@@ -9,6 +9,11 @@ sas_rm_file <- function(path) {
 }
 
 #' @export
+sas_list_files <- function(path) {
+  .pkgenv[["session"]]$dirlist(path)
+}
+
+#' @export
 sas_read_csv <- function(file, table_name, libref = "WORK") {
   .pkgenv[["session"]]$read_csv(file, table_name, libref)
 }
