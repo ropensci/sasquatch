@@ -9,11 +9,10 @@ engine: knitr
 ---
 
 ```{r, include = FALSE}
-library(sasr)
+library(sasquatch)
 sas_connect()
 ```
 
 ```{sas}
-PROC MEANS DATA = sashelp.cars;
-RUN;
+
 ```

@@ -1,4 +1,4 @@
-Package: sasr
+Package: sasquatch
 Title: Use 'SAS' and R together
 Version: 0.0.0.9000
 Authors@R: 
@@ -17,4 +17,4 @@ Imports:
     knitr,
     reticulate,
     rstudioapi
-URL: https://ryanzomorrodi.github.io/sasr/
+URL: https://ryanzomorrodi.github.io/sasquatch/

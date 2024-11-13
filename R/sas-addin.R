@@ -44,7 +44,7 @@ rstudio_selection <- function(context = rstudio_context()) {
 #'     "when": "editorTextFocus",
 #'     "args": {
 #'         "langId": "r",
-#'         "code": "sasr::sas_run_selected()",
+#'         "code": "sasquatch::sas_run_selected()",
 #'         "focus": true
 #'     }
 #' }

@@ -16,7 +16,7 @@ sas_widget <- function(lst, log, width = NULL, height = NULL, elementId = NULL) 
       padding = 0,
       browser.fill = TRUE
     ),
-    package = 'sasr',
+    package = 'sasquatch',
     elementId = elementId
   )
 }

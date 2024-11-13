@@ -1,4 +1,4 @@
-url: https://ryanzomorrodi.github.io/sasr/
+url: https://ryanzomorrodi.github.io/sasquatch/
 template:
   bootstrap: 5
 
@@ -13,7 +13,7 @@ reference:
   contents:
   - sas_run_string
   - sas_run_selected
-  - use_sasr_quarto
+  - sas_use_quarto
 
 - title: R <-> SAS
   contents:

@@ -21,7 +21,7 @@ code by selecting it and pressing ctrl+shift+enter.
     "when": "editorTextFocus",
     "args": \{
         "langId": "r",
-        "code": "sasr::sas_run_selected()",
+        "code": "sasquatch::sas_run_selected()",
         "focus": true
     \}
 \}
