@@ -23,7 +23,7 @@ sas_upload <- function(local_path, sas_path) {
 #' Downloads a file to the remote SAS server.
 #' 
 #' @param sas_path Path of file on remote SAS server to be download
-#' @param sas_path Path to upload SAS file to on local machine.
+#' @param local_path Path to upload SAS file to on local machine.
 #' 
 #' @return No return value.
 #' 
@@ -49,6 +49,8 @@ sas_download <- function(sas_path, local_path) {
 #' @export
 sas_remove <- function(path) {
   .pkgenv$session$file_delete(path, sas_path)
+
+  invisible()
 }
 
 #' List contents of a SAS directory
