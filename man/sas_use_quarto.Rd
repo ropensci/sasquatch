@@ -2,7 +2,7 @@
 % Please edit documentation in R/use_quarto.R
 \name{sas_use_quarto}
 \alias{sas_use_quarto}
-\title{Add sasquatch quarto template to current directory}
+\title{Add SAS quarto template to current directory}
 \usage{
 sas_use_quarto()
 }
@@ -10,5 +10,5 @@ sas_use_quarto()
 No return value.
 }
 \description{
-Adds sasquatch quarto template and syntax highlighting XML to current directory.
+Adds SAS quarto template and syntax highlighting XML to current directory.
 }
