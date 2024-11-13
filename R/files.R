@@ -1,16 +1,67 @@
+#' Upload a file to SAS
+#' 
+#' Uploads a file to the remote SAS server.
+#' 
+#' @param local_path Path of file on local machine to be uploaded.
+#' @param sas_path Path to upload local file to on the remote SAS server.
+#' 
+#' @return No return value.
+#' 
 #' @export
-sas_copy_file <- function(local_path, sas_path) {
-  .pkgenv[["session"]]$file_copy(path, sas_path)
+sas_upload <- function(local_path, sas_path) {
+  result <- .pkgenv$session$upload(local_path, sas_path)
+
+  if (!result$Success) {
+    warning(result$LOG)
+  }
+
+  invisible()
 }
 
+#' Download a file from SAS
+#' 
+#' Downloads a file to the remote SAS server.
+#' 
+#' @param sas_path Path of file on remote SAS server to be download
+#' @param sas_path Path to upload SAS file to on local machine.
+#' 
+#' @return No return value.
+#' 
 #' @export
-sas_rm_file <- function(path) {
-  .pkgenv[["session"]]$file_copy(path, sas_path)
+sas_download <- function(sas_path, local_path) {
+  result <- .pkgenv$session$download(local_path, sas_path)
+
+  if (!result$Success) {
+    warning(result$LOG)
+  }
+
+  invisible()
 }
 
+#' Delete a file or directory from SAS
+#' 
+#' Deletes a file or directory from the remote SAS server.
+#' 
+#' @param path Path of file on remote SAS server to be deleted.
+#' 
+#' @return No return value.
+#' 
 #' @export
-sas_list_files <- function(path) {
-  .pkgenv[["session"]]$dirlist(path)
+sas_remove <- function(path) {
+  .pkgenv$session$file_delete(path, sas_path)
+}
+
+#' List contents of a SAS directory
+#' 
+#' Lists the files or directories of a directory within the remote SAS server.
+#' 
+#' @param path Path of directory on remote SAS server to list the contents of.
+#' 
+#' @return No return value.
+#' 
+#' @export
+sas_list <- function(path) {
+  .pkgenv$session$dirlist(path)
 }
 
 #' @export
