@@ -6,6 +6,11 @@
 \usage{
 sas_to_r(table_name, libref = "WORK")
 }
+\arguments{
+\item{table_name}{Name of table in SAS.}
+
+\item{libref}{Name of libref SAS table is stored within.}
+}
 \value{
 R \code{data.frame}.
 }

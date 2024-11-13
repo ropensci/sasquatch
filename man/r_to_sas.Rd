@@ -6,6 +6,13 @@
 \usage{
 r_to_sas(x, table_name, libref = "WORK")
 }
+\arguments{
+\item{x}{R table}
+
+\item{table_name}{Name of table to be created in SAS.}
+
+\item{libref}{Name of libref to store SAS table within.}
+}
 \value{
 No return value.
 }

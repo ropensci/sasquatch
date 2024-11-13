@@ -4,6 +4,10 @@
 #' Converts R table into a table in the current SAS session. Translation errors 
 #' may occur.
 #' 
+#' @param x R table
+#' @param table_name Name of table to be created in SAS.
+#' @param libref Name of libref to store SAS table within. 
+#' 
 #' @return No return value.
 #' 
 #' @export
@@ -19,6 +23,9 @@ r_to_sas <- function(x, table_name, libref = "WORK") {
 #' @description
 #' Converts table from current SAS session into a R `data.frame`. Translation 
 #' errors may occur.
+#' 
+#' @param table_name Name of table in SAS.
+#' @param libref Name of libref SAS table is stored within. 
 #' 
 #' @return R `data.frame`.
 #' 
