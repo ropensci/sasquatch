@@ -2,3 +2,28 @@ url: https://ryanzomorrodi.github.io/sasr/
 template:
   bootstrap: 5
 
+reference:
+- title: Session Management
+  contents:
+  - sas_connect
+  - sas_disconnect
+  - sas_get_session
+
+- title: Executing Code
+  contents:
+  - sas_run_string
+  - sas_run_selected
+  - use_sasr_quarto
+
+- title: R <-> SAS
+  contents:
+  - r_to_sas
+  - sas_to_r
+
+- title: Input Output
+  contents:
+  - sas_list
+  - sas_upload
+  - sas_download
+  - sas_remove
+
