@@ -1,6 +1,10 @@
 sashtml_engine <- function (options) {
   code <- paste(options$code, collapse = "\n")
 
+  if (!isTRUE(getOption('knitr.in.progress'))) {
+    return(sas_run_string(code))
+  }
+
   if (identical(options$include, FALSE)) {
     options$echo <- FALSE
     options$outputv <- FALSE
