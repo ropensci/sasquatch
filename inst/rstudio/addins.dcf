@@ -1,0 +1,4 @@
+Name: Run selected in SAS
+Description: Sends the selected code to the current SAS session, evaluates it, and returns an html widget of the results.
+Binding: sas_run_selected
+Interactive: true

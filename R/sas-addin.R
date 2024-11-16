@@ -32,23 +32,8 @@ rstudio_selection <- function(context = rstudio_context()) {
 #' Execute selected SAS code
 #' 
 #' @description
-#' Execute selected SAS code in current session and render html output.
-#' 
-#' You can add the following to your Positron keybindings.json and run SAS
-#' code by selecting it and pressing ctrl+shift+enter.
-#' 
-#' ```
-#' {
-#'     "key": "ctrl+shift+enter",
-#'     "command": "workbench.action.executeCode.console",
-#'     "when": "editorTextFocus",
-#'     "args": {
-#'         "langId": "r",
-#'         "code": "sasquatch::sas_run_selected()",
-#'         "focus": true
-#'     }
-#' }
-#' ```
+#' Execute selected SAS code in current session and render html output as SAS
+#' widget.
 #' 
 #' @return No return value.
 #' 
