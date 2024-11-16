@@ -14,8 +14,7 @@ sas_widget <- function(lst, log, width = NULL, height = NULL, elementId = NULL) 
     height = height,
     sizingPolicy = htmlwidgets::sizingPolicy(
       padding = 0,
-      browser.fill = TRUE,
-      knitr.figure = FALSE
+      browser.fill = TRUE
     ),
     package = 'sasquatch',
     elementId = elementId
