@@ -68,15 +68,15 @@ sas_list <- function(path) {
 
 #' @export
 sas_read_csv <- function(file, table_name, libref = "WORK") {
-  .pkgenv[["session"]]$read_csv(file, table_name, libref)
+  .pkgenv$session$read_csv(file, table_name, libref)
 }
 
 #' @export
 sas_write_csv <- function(table_name, path, libref = "WORK") {
-  .pkgenv[["session"]]$write_csv(path, table_name, libref)
+  .pkgenv$session$write_csv(path, table_name, libref)
 }
 
 #' @export
 sas_write_parquet <- function(table_name, path, libref = "WORK") {
-  .pkgenv[["session"]]$sasdata2parquet(path, table_name, libref)
+  .pkgenv$session$sasdata2parquet(path, table_name, libref)
 }

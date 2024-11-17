@@ -7,8 +7,7 @@
 #' 
 #' @export
 sas_connect <- function() {
-  saspy <- reticulate::import("saspy")
-  .pkgenv[["session"]] <- saspy$SASsession()
+  .pkgenv$session <- .pkgenv$saspy$SASsession()
 }
 
 #' Disconnect SAS session
@@ -20,5 +19,5 @@ sas_connect <- function() {
 #' 
 #' @export
 sas_disconnect <- function() {
-  .pkgenv[["session"]]$disconnect()
+  .pkgenv$session$disconnect()
 }

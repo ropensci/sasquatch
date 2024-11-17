@@ -7,7 +7,7 @@
 #' 
 #' @export
 sas_run_string <- function(input) {
-  results <- .pkgenv[["session"]]$submit(input)
+  results <- .pkgenv$session$submit(input)
 
   sas_widget(
     paste(gsub("'", "\"", results$LST), collapse = "\n"), 
