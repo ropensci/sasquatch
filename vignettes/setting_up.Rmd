@@ -192,9 +192,9 @@ engine: knitr
 
 ### Interactive use
 
-#### Rstudio
+#### RStudio
 
-Within RStudio, you should be able to run SAS chunks as you would any other chunk. However, if you want to be able to view SAS output within the Viewer instead of beneath the chunk, you can utilize the `sas_run_selected()` addin. To add a keyboard shortcut for this addin, open Tools -\> Modify Keyboard Shortcuts and search "Run selected in SAS", type in the box to set the keyboard shortcut to your liking and click Apply.
+Within RStudio, you should be able to run SAS chunks as you would any other chunk. However, if you want to be able to view SAS output within the Viewer instead of beneath the chunk, you can utilize the `sas_run_selected()` addin. To add a keyboard shortcut for this addin, open Tools -\> Modify Keyboard Shortcuts and search "Run selected in SAS", type in the box under Shortcut to set the keyboard shortcut to your liking and click Apply.
 
 ![](images/rstudio_shrtcts.png)
 
