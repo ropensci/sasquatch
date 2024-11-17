@@ -3,6 +3,8 @@
 #' @description
 #' Execute SAS code in current session and render html output.
 #' 
+#' @param input String of SAS code input to run.
+#' 
 #' @return No return value.
 #' 
 #' @export

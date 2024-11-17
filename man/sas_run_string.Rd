@@ -6,6 +6,9 @@
 \usage{
 sas_run_string(input)
 }
+\arguments{
+\item{input}{String of SAS code input to run.}
+}
 \value{
 No return value.
 }
