@@ -10,6 +10,8 @@
 #' 
 #' @export
 sas_connect <- function(config) {
+  .pkgenv$saspy <- reticulate::import("saspy")
+  
   if (missing(config)) {
     .pkgenv$session <- .pkgenv$saspy$SASsession()
   } else {
