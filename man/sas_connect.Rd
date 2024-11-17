@@ -4,7 +4,11 @@
 \alias{sas_connect}
 \title{Establish SAS session}
 \usage{
-sas_connect()
+sas_connect(config)
+}
+\arguments{
+\item{config}{Configuration to use from the SAS_config_names list in
+\code{sascfg_personal.py}.}
 }
 \value{
 No return value.

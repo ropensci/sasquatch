@@ -3,11 +3,14 @@
 #' @description
 #' Starts a SAS session. This is required before doing anything!
 #' 
+#' @param config Configuration to use from the SAS_config_names list in 
+#' `sascfg_personal.py`.
+#' 
 #' @return No return value.
 #' 
 #' @export
-sas_connect <- function() {
-  .pkgenv$session <- .pkgenv$saspy$SASsession()
+sas_connect <- function(config) {
+  .pkgenv$session <- .pkgenv$saspy$SASsession(config)
 }
 
 #' Disconnect SAS session
