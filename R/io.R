@@ -8,6 +8,14 @@
 #' @return No return value.
 #' 
 #' @export
+#' 
+#' @examples
+#' \dontrun{
+#' sas_connect()
+#' 
+#' quarto_file <- system.file("sasquatch.qmd", package = "sasquatch")
+#' sas_upload(quarto_file, "sasquatch.qmd")
+#' }
 sas_upload <- function(local_path, sas_path) {
   check_connection()
 
@@ -30,6 +38,18 @@ sas_upload <- function(local_path, sas_path) {
 #' @return No return value.
 #' 
 #' @export
+#' 
+#' @examples
+#' \dontrun{
+#' sas_connect()
+#' 
+#' # upload document to SAS
+#' quarto_file <- system.file("sasquatch.qmd", package = "sasquatch")
+#' sas_upload(quarto_file, "sasquatch.qmd")
+#' 
+#' # download document from SAS
+#' sas_download("sasquatch.qmd", "sasquatch.qmd")
+#' }
 sas_download <- function(sas_path, local_path) {
   check_connection()
 
@@ -51,6 +71,18 @@ sas_download <- function(sas_path, local_path) {
 #' @return No return value.
 #' 
 #' @export
+#' 
+#' @examples
+#' \dontrun{
+#' sas_connect()
+#' 
+#' # upload document to SAS
+#' quarto_file <- system.file("sasquatch.qmd", package = "sasquatch")
+#' sas_upload(quarto_file, "sasquatch.qmd")
+#' 
+#' # remove document from SAS
+#' sas_remove("sasquatch.qmd")
+#' }
 sas_remove <- function(path) {
   check_connection()
 
@@ -68,6 +100,12 @@ sas_remove <- function(path) {
 #' @return No return value.
 #' 
 #' @export
+#' 
+#' @examples
+#' \dontrun{
+#' sas_connect()
+#' sas_list(".")
+#' }
 sas_list <- function(path) {
   check_connection()
 

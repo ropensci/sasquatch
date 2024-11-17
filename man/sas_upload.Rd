@@ -17,3 +17,11 @@ No return value.
 \description{
 Uploads a file to the remote SAS server.
 }
+\examples{
+\dontrun{
+sas_connect()
+
+quarto_file <- system.file("sasquatch.qmd", package = "sasquatch")
+sas_upload(quarto_file, "sasquatch.qmd")
+}
+}

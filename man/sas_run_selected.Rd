@@ -13,3 +13,12 @@ No return value.
 Execute selected SAS code in current session and render html output as SAS
 widget.
 }
+\examples{
+\dontrun{
+sas_connect()
+
+# highlight something in the active editor of RStudio or Positron
+
+sas_run_selected()
+}
+}

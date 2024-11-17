@@ -4,11 +4,13 @@
 \alias{sas_use_quarto}
 \title{Add SAS quarto template to specified directory}
 \usage{
-sas_use_quarto(path)
+sas_use_quarto(path, xml = TRUE)
 }
 \arguments{
 \item{path}{(Default: Current directory) Path to copy quarto template and
 syntax highlighting XML into.}
+
+\item{xml}{Include syntax highlighting XML?}
 }
 \value{
 No return value.
@@ -16,4 +18,10 @@ No return value.
 \description{
 Adds SAS quarto template and syntax highlighting XML to a specified
 directory.
+}
+\examples{
+\dontrun{
+sas_connect()
+sas_use_quarto()
+}
 }

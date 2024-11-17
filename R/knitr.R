@@ -20,6 +20,9 @@
 #' @return `knitr` engine output.
 #' 
 #' @export
+#' 
+#' @examples
+#' knitr::knit_engines$set(sas = sas_engine)
 sas_engine <- function (options) {
   check_connection()
 

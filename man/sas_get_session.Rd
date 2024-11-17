@@ -13,3 +13,9 @@ Current SAS session.
 Gets current SAS session so that you can use functions not yet implemented.
 Can also be useful for testing.
 }
+\examples{
+\dontrun{
+sas_connect()
+sas_get_session()
+}
+}

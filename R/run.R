@@ -8,6 +8,12 @@
 #' @return No return value.
 #' 
 #' @export
+#' 
+#' @examples
+#' \dontrun{
+#' sas_connect()
+#' sas_run_string("PROC MEANS DATA = sashelp.cars;\n RUN;")
+#' }
 sas_run_string <- function(input) {
   check_connection()
 
@@ -30,6 +36,16 @@ sas_run_string <- function(input) {
 #' @param overwrite Can output overwrite prior output?
 #' 
 #' @return No return value.
+#' 
+#' @export
+#' 
+#' @examples
+#' \dontrun{
+#' cat("PROC MEANS DATA = sashelp.cars;\n RUN;", file = "test.sas")
+#' 
+#' sas_connect()
+#' sas_run_file("test.sas", "test.html")
+#' }
 sas_run_file <- function(input_path, output_path, overwrite = FALSE) {
   check_connection()
 

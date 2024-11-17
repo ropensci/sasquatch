@@ -20,3 +20,9 @@ No return value.
 Converts R table into a table in the current SAS session. Translation errors
 may occur.
 }
+\examples{
+\dontrun{
+sas_connect()
+r_to_sas(mtcars, "mtcars")
+}
+}

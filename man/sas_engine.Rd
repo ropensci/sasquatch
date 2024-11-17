@@ -32,3 +32,6 @@ If \code{"lst"}, only output is included. If \code{"log"} only log is included.
 }
 }
 }
+\examples{
+knitr::knit_engines$set(sas = sas_engine)
+}

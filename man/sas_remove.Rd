@@ -15,3 +15,15 @@ No return value.
 \description{
 Deletes a file or directory from the remote SAS server.
 }
+\examples{
+\dontrun{
+sas_connect()
+
+# upload document to SAS
+quarto_file <- system.file("sasquatch.qmd", package = "sasquatch")
+sas_upload(quarto_file, "sasquatch.qmd")
+
+# remove document from SAS
+sas_remove("sasquatch.qmd")
+}
+}

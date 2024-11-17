@@ -1,5 +1,5 @@
 # from https://github.com/tidyverse/reprex/blob/33ccedffb699d5cdfc9c274bbe4acbdee3266dcf/R/reprex-addin.R
-###############################################################################
+################################################################################
 rstudio_text_tidy <- function(x) {
   if (identical(x, "")) {
     return(character())
@@ -38,6 +38,15 @@ rstudio_selection <- function(context = rstudio_context()) {
 #' @return No return value.
 #' 
 #' @export
+#' 
+#' @examples
+#' \dontrun{
+#' sas_connect()
+#' 
+#' # highlight something in the active editor of RStudio or Positron
+#' 
+#' sas_run_selected()
+#' }
 sas_run_selected <- function() {
   sas_run_string(paste(rstudio_selection(), collapse = "\n"))
 }

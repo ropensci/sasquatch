@@ -11,6 +11,12 @@
 #' @return No return value.
 #' 
 #' @export
+#' 
+#' @examples
+#' \dontrun{
+#' sas_connect()
+#' r_to_sas(mtcars, "mtcars")
+#' }
 r_to_sas <- function(x, table_name, libref = "WORK") {
   check_connection()
 
@@ -32,6 +38,12 @@ r_to_sas <- function(x, table_name, libref = "WORK") {
 #' @return R `data.frame`.
 #' 
 #' @export
+#' 
+#' @examples
+#' \dontrun{
+#' sas_connect()
+#' cars <- sas_to_r("cars", "sashelp")
+#' }
 sas_to_r <- function(table_name, libref = "WORK")  {
   check_connection()
   

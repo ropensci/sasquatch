@@ -18,3 +18,9 @@ R \code{data.frame}.
 Converts table from current SAS session into a R \code{data.frame}. Translation
 errors may occur.
 }
+\examples{
+\dontrun{
+sas_connect()
+cars <- sas_to_r("cars", "sashelp")
+}
+}

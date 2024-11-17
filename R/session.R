@@ -6,6 +6,12 @@
 #' @return Current SAS session.
 #' 
 #' @export
+#' 
+#' @examples
+#' \dontrun{
+#' sas_connect()
+#' sas_get_session()
+#' }
 sas_get_session <- function() {
   check_connection()
 

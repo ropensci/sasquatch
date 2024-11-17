@@ -12,3 +12,8 @@ No return value.
 \description{
 Disconnects from the current SAS session.
 }
+\examples{
+\dontrun{
+sas_disconnect()
+}
+}

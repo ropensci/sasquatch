@@ -15,3 +15,9 @@ No return value.
 \description{
 Execute SAS code in current session and render html output.
 }
+\examples{
+\dontrun{
+sas_connect()
+sas_run_string("PROC MEANS DATA = sashelp.cars;\n RUN;")
+}
+}

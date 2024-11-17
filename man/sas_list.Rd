@@ -15,3 +15,9 @@ No return value.
 \description{
 Lists the files or directories of a directory within the remote SAS server.
 }
+\examples{
+\dontrun{
+sas_connect()
+sas_list(".")
+}
+}

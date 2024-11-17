@@ -16,3 +16,8 @@ No return value.
 \description{
 Starts a SAS session. This is required before doing anything!
 }
+\examples{
+\dontrun{
+sas_connect(config = "oda")
+}
+}

@@ -20,3 +20,11 @@ No return value.
 \description{
 Execute a SAS file and render html output or save output as html and log.
 }
+\examples{
+\dontrun{
+cat("PROC MEANS DATA = sashelp.cars;\n RUN;", file = "test.sas")
+
+sas_connect()
+sas_run_file("test.sas", "test.html")
+}
+}

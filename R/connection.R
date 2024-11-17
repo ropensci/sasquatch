@@ -9,6 +9,11 @@
 #' @return No return value.
 #' 
 #' @export
+#' 
+#' @examples
+#' \dontrun{
+#' sas_connect(config = "oda")
+#' }
 sas_connect <- function(config) {
   .pkgenv$saspy <- reticulate::import("saspy")
   
@@ -27,6 +32,11 @@ sas_connect <- function(config) {
 #' @return No return value.
 #' 
 #' @export
+#' 
+#' @examples
+#' \dontrun{
+#' sas_disconnect()
+#' }
 sas_disconnect <- function() {
   check_connection()
   .pkgenv$session$disconnect()
