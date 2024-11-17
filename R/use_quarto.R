@@ -11,7 +11,7 @@
 #' 
 #' @export
 sas_use_quarto <- function(path) {
-  if (!hasArg(path)) {
+  if (missing(path)) {
     path <- "."
   } else if (!dir.exists(path)) {
     stop("Specified directory does not exist")

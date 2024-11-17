@@ -10,10 +10,10 @@
 #' 
 #' @export
 sas_connect <- function(config) {
-  if (hasArg(config)) {
-    .pkgenv$session <- .pkgenv$saspy$SASsession(config)
-  } else {
+  if (missing(config)) {
     .pkgenv$session <- .pkgenv$saspy$SASsession()
+  } else {
+    .pkgenv$session <- .pkgenv$saspy$SASsession(config)
   }
 }
 

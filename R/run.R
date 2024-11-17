@@ -35,7 +35,7 @@ sas_run_file <- function(input_path, output_path, overwrite = FALSE) {
 
   input <- read_file(input_path)
 
-  if (!hasArg(output_path)) {
+  if (missing(output_path)) {
     return(sas_run_string(input))
   }
 
