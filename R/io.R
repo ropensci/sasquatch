@@ -54,7 +54,7 @@ sas_download <- function(sas_path, local_path) {
 sas_remove <- function(path) {
   check_connection()
 
-  .pkgenv$session$file_delete(path, sas_path)
+  .pkgenv$session$file_delete(path)
 
   invisible()
 }
