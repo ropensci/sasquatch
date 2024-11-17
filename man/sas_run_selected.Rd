@@ -10,20 +10,6 @@ sas_run_selected()
 No return value.
 }
 \description{
-Execute selected SAS code in current session and render html output.
-
-You can add the following to your Positron keybindings.json and run SAS
-code by selecting it and pressing ctrl+shift+enter.
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{\{
-    "key": "ctrl+shift+enter",
-    "command": "workbench.action.executeCode.console",
-    "when": "editorTextFocus",
-    "args": \{
-        "langId": "r",
-        "code": "sasquatch::sas_run_selected()",
-        "focus": true
-    \}
-\}
-}\if{html}{\out{</div>}}
+Execute selected SAS code in current session and render html output as SAS
+widget.
 }
