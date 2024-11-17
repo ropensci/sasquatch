@@ -19,5 +19,6 @@ sas_connect <- function() {
 #' 
 #' @export
 sas_disconnect <- function() {
+  check_connection()
   .pkgenv$session$disconnect()
 }

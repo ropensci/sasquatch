@@ -9,6 +9,8 @@
 #' 
 #' @export
 sas_upload <- function(local_path, sas_path) {
+  check_connection()
+
   result <- .pkgenv$session$upload(local_path, sas_path)
 
   if (!result$Success) {
@@ -29,6 +31,8 @@ sas_upload <- function(local_path, sas_path) {
 #' 
 #' @export
 sas_download <- function(sas_path, local_path) {
+  check_connection()
+
   result <- .pkgenv$session$download(local_path, sas_path)
 
   if (!result$Success) {
@@ -48,6 +52,8 @@ sas_download <- function(sas_path, local_path) {
 #' 
 #' @export
 sas_remove <- function(path) {
+  check_connection()
+
   .pkgenv$session$file_delete(path, sas_path)
 
   invisible()
@@ -63,20 +69,28 @@ sas_remove <- function(path) {
 #' 
 #' @export
 sas_list <- function(path) {
+  check_connection()
+
   .pkgenv$session$dirlist(path)
 }
 
 #' @export
 sas_read_csv <- function(file, table_name, libref = "WORK") {
+  check_connection()
+
   .pkgenv$session$read_csv(file, table_name, libref)
 }
 
 #' @export
 sas_write_csv <- function(table_name, path, libref = "WORK") {
+  check_connection()
+
   .pkgenv$session$write_csv(path, table_name, libref)
 }
 
 #' @export
 sas_write_parquet <- function(table_name, path, libref = "WORK") {
+  check_connection()
+  
   .pkgenv$session$sasdata2parquet(path, table_name, libref)
 }

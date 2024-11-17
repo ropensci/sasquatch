@@ -12,6 +12,8 @@
 #' 
 #' @export
 r_to_sas <- function(x, table_name, libref = "WORK") {
+  check_connection()
+
   x <- reticulate::r_to_py(x)
   .pkgenv$session$dataframe2sasdata(x, table_name, libref)
 
@@ -31,6 +33,8 @@ r_to_sas <- function(x, table_name, libref = "WORK") {
 #' 
 #' @export
 sas_to_r <- function(table_name, libref = "WORK")  {
+  check_connection()
+  
   x <- .pkgenv$session$sasdata2dataframe(table_name, libref)
   reticulate::py_to_r(x)
 }

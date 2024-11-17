@@ -35,3 +35,9 @@ wrap_in_panel_tabset <- function(lst, log) {
     sep="\n"
   )
 }
+
+check_connection <- function() {
+  if (!exists("session", envir = .pkgenv)) {
+    stop("No current SAS session. Use sas_connect() to start one.")
+  }
+}

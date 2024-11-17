@@ -7,6 +7,8 @@
 #' 
 #' @export
 sas_run_string <- function(input) {
+  check_connection()
+
   results <- .pkgenv$session$submit(input)
 
   sas_widget(

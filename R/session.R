@@ -7,5 +7,7 @@
 #' 
 #' @export
 sas_get_session <- function() {
+  check_connection()
+
   .pkgenv$session
 }

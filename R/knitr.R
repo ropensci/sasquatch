@@ -21,6 +21,8 @@
 #' 
 #' @export
 sas_engine <- function (options) {
+  check_connection()
+
   code <- paste(options$code, collapse = "\n")
 
   if (!isTRUE(getOption('knitr.in.progress'))) {
