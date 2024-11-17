@@ -2,13 +2,18 @@
 % Please edit documentation in R/use_quarto.R
 \name{sas_use_quarto}
 \alias{sas_use_quarto}
-\title{Add SAS quarto template to current directory}
+\title{Add SAS quarto template to specified directory}
 \usage{
-sas_use_quarto()
+sas_use_quarto(path)
+}
+\arguments{
+\item{path}{(Default: Current directory) Path to copy quarto template and
+syntax highlighting XML into.}
 }
 \value{
 No return value.
 }
 \description{
-Adds SAS quarto template and syntax highlighting XML to current directory.
+Adds SAS quarto template and syntax highlighting XML to a specified
+directory.
 }
