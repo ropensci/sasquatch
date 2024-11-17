@@ -41,3 +41,19 @@ check_connection <- function() {
     stop("No current SAS session. Use sas_connect() to start one.")
   }
 }
+
+read_file <- function(path) {
+  if (!file.exists(path)) {
+    stop("Input file does not exist.")
+  }
+
+  readChar(path, file.info(path)$size)
+}
+
+write_file <- function(output, path, overwrite) {
+  if (file.exists(path) && !overwrite) {
+    stop("Output file already exists. If you would like to overwrite the file, use overwrite = TRUE.")
+  }
+
+  cat(output, file = path)
+}

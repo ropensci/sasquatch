@@ -17,6 +17,7 @@ reference:
   contents:
   - sas_run_string
   - sas_run_selected
+  - sas_run_file
   - sas_use_quarto
   - sas_engine
 
