@@ -8,12 +8,12 @@
 
 Use SAS, R, and Quarto together
 
-`sasquatch` is currently in a very rudimentary form, but it is not hard
-to use once you have [`saspy`](https://sassoftware.github.io/saspy/)
-installed and set up. Feel free to contribute by adding an [issue or
-pull request](http://github.com/ryanzomorrodi/sasquatch).
+`sasquatch` allows you to combine the power of R, SAS, and quarto
+together to create reproducable multilingual reports. `sasquatch` can
+run SAS code blocks interactively, send data back and forth between SAS
+and R, and render SAS HTML output within quarto documents.
 
-Don’t have a SAS License? You can still set up saspy with [SAS OnDemand
+Don’t have a SAS License? You can still set up SASPy with [SAS OnDemand
 for
 Academics](https://www.sas.com/en_us/software/on-demand-for-academics.html#928a7e06-1416-4d88-b966-311df1bdfea6).
 Check out `vignette("setting_up")` for how to get started with SAS ODA
@@ -29,7 +29,7 @@ pak::pkg_install("ryanzomorrodi/sasquatch")
 
 ## Usage
 
-Once you have setup `saspy` and connected to the right python
+Once you have setup `SASPy` and connected to the right python
 environment using `reticulate` (if necessary), use `sas_use_quarto()` to
 create the `sasquatch` template to a specified directory.
 
@@ -46,7 +46,7 @@ sas_connect()
 
 #### Code blocks
 
-Now, you should be able to run sas code blocks in RStudio like any
+Now, you should be able to run SAS code blocks in RStudio like any
 other.
 
 <figure>

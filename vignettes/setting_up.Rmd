@@ -14,9 +14,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-Sasquatch works by utilizing the [`saspy`](https://sassoftware.github.io/saspy/) python package, similar to packages like [`sasr`](https://github.com/insightsengineering/sasr) or [configSAS](https://github.com/baselr/configSAS). This means everything we do to connect R and SAS, needs to go through the translation layer which is `saspy`.
+Sasquatch works by utilizing the [`SASPy`](https://sassoftware.github.io/SASPy/) python package, similar to packages like [`sasr`](https://github.com/insightsengineering/sasr) or [configSAS](https://github.com/baselr/configSAS). This means everything we do to connect R and SAS, needs to go through the translation layer which is `SASPy`.
 
-Setting up isn't too hard, but when it goes wrong, it can be hard to troubleshoot. Keep in mind there are many different ways to connect to SAS and different operating systems will have different steps. The following vignette will only address connecting to SAS On Demand for Academics (ODA) servers. If you are looking to utilize other SAS clients, take a look at the [`saspy` configuration documentation](https://sassoftware.github.io/saspy/configuration.html#). Although it is quite lengthy, it will provide you with all the necessary steps to connect to any SAS client from any machine.
+Setting up isn't too hard, but when it goes wrong, it can be hard to troubleshoot. Keep in mind there are many different ways to connect to SAS and different operating systems will have different steps. The following vignette will only address connecting to SAS On Demand for Academics (ODA) servers. If you are looking to utilize other SAS clients, take a look at the [`SASPy` configuration documentation](https://sassoftware.github.io/SASPy/configuration.html#). Although it is quite lengthy, it will provide you with all the necessary steps to connect to any SAS client from any machine.
 
 ## Signing up for SAS ODA
 
@@ -50,15 +50,15 @@ which java
 
 Note the Java path for later.
 
-## Setting up `saspy`
+## Setting up `SASPy`
 
-Note we are going install the `saspy` package in our global python install. It's often a better practice to create a virtual environment, conda environment, or use one of the many other ways to isolate package installs. This isn't necessarily a worry if you only plan to use SAS and R together.
+Note we are going install the `SASPy` package in our global python install. It's often a better practice to create a virtual environment, conda environment, or use one of the many other ways to isolate package installs. This isn't necessarily a worry if you only plan to use SAS and R together.
 
 In windows, open up a command prompt type in:
 
 ```         
 py -m pip install wheel
-py -m pip install saspy
+py -m pip install SASPy
 py -m pip install pandas
 py -m site --user-site
 ```
@@ -67,12 +67,12 @@ In linux or max, open up a terminal abd type in:
 
 ```         
 python3 -m pip install wheel
-python3 -m pip install saspy
+python3 -m pip install SASPy
 python3 -m pip install pandas
 python3 -m site --user-site
 ```
 
-This will install the required packages for `saspy` and then print out the path where they were installed. Navigate to this path and find the `saspy` folder. This is where the `saspy` package is stored. Create a new file within the saspy package called `sascfg_personal.py`.
+This will install the required packages for `SASPy` and then print out the path where they were installed. Navigate to this path and find the `SASPy` folder. This is where the `SASPy` package is stored. Create a new file within the SASPy package called `sascfg_personal.py`.
 
 Inside that file paste the the following:
 
@@ -138,7 +138,7 @@ Within this file write the following:
 authkey user {your SAS ODA username} password {your SAS ODA password}
 ```
 
-Substitute the `{your SAS ODA username}` with the username you noted earlier, and `{your SAS ODA password}` with your ODA password. You're done setting up `saspy`!
+Substitute the `{your SAS ODA username}` with the username you noted earlier, and `{your SAS ODA password}` with your ODA password. You're done setting up `SASPy`!
 
 ## Using `sasquatch`
 

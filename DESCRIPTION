@@ -1,17 +1,21 @@
 Package: sasquatch
-Title: Use 'SAS', R, and 'Quarto' together
+Title: Use 'SAS', R, and 'quarto' together
 Version: 0.0.0.9000
 Authors@R: 
     person("Ryan", "Zomorrodi", , "rzomor2@uic.edu", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0009-0003-6417-5985"))
-Description: Allows you to use 'SAS' and R simultaneously by leveraging the 'saspy' and 'reticulate' packages.
+Description: Use R and 'SAS' within reproducable multilingual 'quarto' 
+    documents. Run 'SAS' code blocks interactively, send data back and forth
+    between 'SAS' and R, and render 'SAS' output within quarto documents. 'SAS'
+    connections are established through a combination of 'SASPy' and 
+    'reticulate'.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 SystemRequirements: 
     python, 
-    saspy
+    SASPy
 Imports: 
     htmlwidgets,
     knitr,

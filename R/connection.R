@@ -15,12 +15,12 @@
 #' sas_connect(config = "oda")
 #' }
 sas_connect <- function(config) {
-  .pkgenv$saspy <- reticulate::import("saspy")
+  .pkgenv$SASPy <- reticulate::import("saspy")
   
   if (missing(config)) {
-    .pkgenv$session <- .pkgenv$saspy$SASsession()
+    .pkgenv$session <- .pkgenv$SASPy$SASsession()
   } else {
-    .pkgenv$session <- .pkgenv$saspy$SASsession(config)
+    .pkgenv$session <- .pkgenv$SASPy$SASsession(config)
   }
 }
 
