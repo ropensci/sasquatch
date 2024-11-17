@@ -1,6 +1,10 @@
 url: https://ryanzomorrodi.github.io/sasquatch/
 template:
   bootstrap: 5
+  bslib:
+    bg: "#edf2f9"
+    fg: "#112277"
+
 
 reference:
 - title: Session Management
@@ -14,6 +18,7 @@ reference:
   - sas_run_string
   - sas_run_selected
   - sas_use_quarto
+  - sas_engine
 
 - title: R <-> SAS
   contents:
