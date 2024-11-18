@@ -27,6 +27,50 @@ jobs:
           extra-packages: any::covr, any::xml2
           needs: coverage
 
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'oracle'
+          java-version: '21'
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: setup r-reticulate venv
+        shell: Rscript {0}
+        run: |
+
+          path_to_python <- reticulate::virtualenv_create(
+            envname = "r-reticulate",
+            python = Sys.which("python"), # placed on PATH by the setup-python action
+            packages = c(
+              "wheel", "saspy", "pandas"
+            )
+          )
+
+          writeLines(sprintf("RETICULATE_PYTHON=%s", path_to_python),
+                     Sys.getenv("GITHUB_ENV"))
+
+      - name: setup saspy
+        env:
+          SAS_ODA_USERNAME: ${{ secrets.SAS_ODA_USERNAME }}
+          SAS_ODA_PASSWORD: ${{ secrets.SAS_ODA_PASSWORD }}
+        run: |
+          oda_username = Sys.getenv("SAS_ODA_USERNAME")
+          oda_password = Sys.getenv("SAS_ODA_PASSWORD")
+          cat(paste("oda user", oda_username,  "password", oda_password), file = "~/.authinfo")
+          saspy_path <- paste0(gsub("Location: ", "", system(paste(reticulate::virtualenv_python("r-reticulate"), "-m pip show saspy"), intern = TRUE)[8]), "/saspy")
+          cat("SAS_config_names = ['oda']
+          
+          oda = {
+              'java' : '/usr/bin/java',
+              'iomhost' : ['odaws01-usw2-2.oda.sas.com','odaws02-usw2-2.oda.sas.com'],
+              'iomport' : 8591,
+              'encoding' : 'utf-8',
+              'authkey' : 'oda'
+          }", file = paste0(saspy_path, "/sascfg_personal.py"))
+        shell: Rscript {0}
+
       - name: Test coverage
         run: |
           cov <- covr::package_coverage(
