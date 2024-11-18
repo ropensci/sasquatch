@@ -1,6 +1,6 @@
 test_that("uploading files to SAS", {
-  local_path <- "test.sas"
-  sas_path <- paste0("/home/", sas_username, "/test.sas")
+  local_path <- paste0("test", test_number, ".sas")
+  sas_path <- paste("/home", sas_username, local_path, sep = "/")
 
   "no connection + no file"
   expect_error(sas_upload(local_path, sas_path))
@@ -23,8 +23,8 @@ test_that("uploading files to SAS", {
 })
 
 test_that("download files from SAS", {
-  local_path <- "test.sas"
-  sas_path <- paste0("/home/", sas_username, "/test.sas")
+  local_path <- paste0("test", test_number, ".sas")
+  sas_path <- paste("/home", sas_username, local_path, sep = "/")
 
   "no connection + no file"
   expect_error(sas_download(sas_path, local_path))
@@ -50,8 +50,8 @@ test_that("download files from SAS", {
 })
 
 test_that("removing files from SAS", {
-  local_path <- "test.sas"
-  sas_path <- paste0("/home/", sas_username, "/test.sas")
+  local_path <- paste0("test", test_number, ".sas")
+  sas_path <- paste("/home", sas_username, local_path, sep = "/")
 
   "no connection + no file"
   expect_error(sas_remove(sas_path))
