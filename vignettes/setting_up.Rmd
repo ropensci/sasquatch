@@ -14,9 +14,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-Sasquatch works by utilizing the [`SASPy`](https://sassoftware.github.io/SASPy/) python package, similar to packages like [`sasr`](https://github.com/insightsengineering/sasr) or [configSAS](https://github.com/baselr/configSAS). This means everything we do to connect R and SAS, needs to go through the translation layer which is `SASPy`.
+`sasquatch` works by utilizing the [`SASPy`](https://sassoftware.github.io/SASPy/) python package, similar to packages like [`sasr`](https://github.com/insightsengineering/sasr) or [configSAS](https://github.com/baselr/configSAS). This means everything we do to connect R and SAS, needs to go through the translation layer which is `SASPy`.
 
-Setting up isn't too hard, but when it goes wrong, it can be hard to troubleshoot. Keep in mind there are many different ways to connect to SAS and different operating systems will have different steps. The following vignette will only address connecting to SAS On Demand for Academics (ODA) servers. If you are looking to utilize other SAS clients, take a look at the [`SASPy` configuration documentation](https://sassoftware.github.io/SASPy/configuration.html#). Although it is quite lengthy, it will provide you with all the necessary steps to connect to any SAS client from any machine.
+Setting up can be difficult, but this guide is here to help you! Keep in mind there are many different ways to connect to SAS and different operating systems will have different steps. The following vignette will only address connecting to SAS On Demand for Academics (ODA) servers. If you are looking to utilize other SAS clients, check out the [`SASPy` configuration documentation](https://sassoftware.github.io/SASPy/configuration.html#). Although it is quite lengthy, it will provide you with all the necessary steps to connect to any SAS client from any machine.
 
 ## Signing up for SAS ODA
 
@@ -135,7 +135,7 @@ On Mac or Linux, create a file named `.authinfo` in `/home/{your username}/` a.k
 Within this file write the following:
 
 ```         
-authkey user {your SAS ODA username} password {your SAS ODA password}
+oda user {your SAS ODA username} password {your SAS ODA password}
 ```
 
 Substitute the `{your SAS ODA username}` with the username you noted earlier, and `{your SAS ODA password}` with your ODA password. You're done setting up `SASPy`!
