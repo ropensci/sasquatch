@@ -70,7 +70,7 @@ sas_run_file <- function(input_path, output_path, overwrite = FALSE) {
   )
   write_file(
     output = paste(results$LOG, collapse = "\n"), 
-    path = paste0(output_path[2], ".log"),
+    path = paste0(output_path[1], ".log"),
     overwrite
   )
 }
