@@ -22,7 +22,7 @@ sas_upload <- function(local_path, sas_path) {
   result <- .pkgenv$session$upload(local_path, sas_path)
 
   if (!result$Success) {
-    warning(result$LOG)
+    stop(result$LOG)
   }
 
   invisible()
@@ -56,7 +56,7 @@ sas_download <- function(sas_path, local_path) {
   result <- .pkgenv$session$download(local_path, sas_path)
 
   if (!result$Success) {
-    warning(result$LOG)
+    stop(result$LOG)
   }
 
   invisible()
@@ -86,7 +86,11 @@ sas_download <- function(sas_path, local_path) {
 sas_remove <- function(path) {
   check_connection()
 
-  .pkgenv$session$file_delete(path)
+  result <- .pkgenv$session$file_delete(path)
+
+  if (!result$Success) {
+    stop(result$LOG)
+  }
 
   invisible()
 }
