@@ -16,10 +16,11 @@
 #' }
 sas_connect <- function(config) {
   if (missing(config)) {
-    .pkgenv$session <- .pkgenv$SASPy$SASsession()
+    reticulate::py_capture_output(.pkgenv$session <- .pkgenv$SASPy$SASsession())
   } else {
-    .pkgenv$session <- .pkgenv$SASPy$SASsession(config)
+    reticulate::py_capture_output(.pkgenv$session <- .pkgenv$SASPy$SASsession(config = config))
   }
+  cat("SAS Connection established.\n")
 
   invisible()
 }
@@ -39,8 +40,9 @@ sas_connect <- function(config) {
 #' }
 sas_disconnect <- function() {
   check_connection()
-  .pkgenv$session$endsas()
+  reticulate::py_capture_output(.pkgenv$session$endsas())
   .pkgenv$session <- NULL
+  cat("SAS Connection terminated.\n")
 
   invisible()
 }
