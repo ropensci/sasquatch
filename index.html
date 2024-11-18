@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Use SAS, R, and Quarto together • sasquatch</title>
+<title>Use SAS, R, and quarto together • sasquatch</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
@@ -16,9 +16,9 @@
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Use SAS, R, and Quarto together">
-<meta name="description" content="Allows you to use SAS and R simultaneously by leveraging the saspy and reticulate packages.">
-<meta property="og:description" content="Allows you to use SAS and R simultaneously by leveraging the saspy and reticulate packages.">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Use SAS, R, and quarto together">
+<meta name="description" content="Use R and SAS within reproducable multilingual quarto documents. Run SAS code blocks interactively, send data back and forth between SAS and R, and render SAS output within quarto documents. SAS connections are established through a combination of SASPy and reticulate.">
+<meta property="og:description" content="Use R and SAS within reproducable multilingual quarto documents. Run SAS code blocks interactively, send data back and forth between SAS and R, and render SAS output within quarto documents. SAS connections are established through a combination of SASPy and reticulate.">
 <meta property="og:image" content="https://ryanzomorrodi.github.io/sasquatch/logo.png">
 </head>
 <body>
@@ -63,10 +63,10 @@
 </h1>
 </div>
 <!-- badges: start -->
-<!-- badges: end -->
+
 <p>Use SAS, R, and Quarto together</p>
-<p><code>sasquatch</code> is currently in a very rudimentary form, but it is not hard to use once you have <a href="https://sassoftware.github.io/saspy/" class="external-link"><code>saspy</code></a> installed and set up. Feel free to contribute by adding an <a href="http://github.com/ryanzomorrodi/sasquatch" class="external-link">issue or pull request</a>.</p>
-<p>Don’t have a SAS License? You can still set up saspy with <a href="https://www.sas.com/en_us/software/on-demand-for-academics.html#928a7e06-1416-4d88-b966-311df1bdfea6" class="external-link">SAS OnDemand for Academics</a>. Check out <code><a href="articles/setting_up.html">vignette("setting_up")</a></code> for how to get started with SAS ODA and <code>sasquatch</code>.</p>
+<p><code>sasquatch</code> allows you to combine the power of R, SAS, and quarto together to create reproducable multilingual reports. <code>sasquatch</code> can run SAS code blocks interactively, send data back and forth between SAS and R, and render SAS HTML output within quarto documents.</p>
+<p>Don’t have a SAS License? You can still set up SASPy with <a href="https://www.sas.com/en_us/software/on-demand-for-academics.html#928a7e06-1416-4d88-b966-311df1bdfea6" class="external-link">SAS OnDemand for Academics</a>. Check out <code><a href="articles/setting_up.html">vignette("setting_up")</a></code> for how to get started with SAS ODA and <code>sasquatch</code>.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -77,7 +77,7 @@
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<p>Once you have setup <code>saspy</code> and connected to the right python environment using <code>reticulate</code> (if necessary), use <code><a href="reference/sas_use_quarto.html">sas_use_quarto()</a></code> to create the <code>sasquatch</code> template to a specified directory.</p>
+<p>Once you have setup <code>SASPy</code> and connected to the right python environment using <code>reticulate</code> (if necessary), use <code><a href="reference/sas_use_quarto.html">sas_use_quarto()</a></code> to create the <code>sasquatch</code> template to a specified directory.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sasquatch</span><span class="fu">::</span><span class="fu"><a href="reference/sas_use_quarto.html">sas_use_quarto</a></span><span class="op">(</span><span class="st">"path to directory"</span><span class="op">)</span></span></code></pre></div>
 <p>Run the first code block within the template.</p>
@@ -87,7 +87,7 @@
 <div class="section level4">
 <h4 id="code-blocks">Code blocks<a class="anchor" aria-label="anchor" href="#code-blocks"></a>
 </h4>
-<p>Now, you should be able to run sas code blocks in RStudio like any other.</p>
+<p>Now, you should be able to run SAS code blocks in RStudio like any other.</p>
 <figure><img src="reference/figures/run_sas_chunk.gif" alt="Executing a SAS chunk"><figcaption aria-hidden="true">
 Executing a SAS chunk
 </figcaption></figure>
@@ -141,7 +141,12 @@ Rendered Quarto Document
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/ryanzomorrodi/sasr/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/ryanzomorrodi/sasr/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>

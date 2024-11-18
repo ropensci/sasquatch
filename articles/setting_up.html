@@ -68,17 +68,17 @@
 
     
     
-<p>Sasquatch works by utilizing the <a href="https://sassoftware.github.io/saspy/" class="external-link"><code>saspy</code></a>
+<p>Sasquatch works by utilizing the <a href="https://sassoftware.github.io/SASPy/" class="external-link"><code>SASPy</code></a>
 python package, similar to packages like <a href="https://github.com/insightsengineering/sasr" class="external-link"><code>sasr</code></a>
 or <a href="https://github.com/baselr/configSAS" class="external-link">configSAS</a>. This
 means everything we do to connect R and SAS, needs to go through the
-translation layer which is <code>saspy</code>.</p>
+translation layer which is <code>SASPy</code>.</p>
 <p>Setting up isn’t too hard, but when it goes wrong, it can be hard to
 troubleshoot. Keep in mind there are many different ways to connect to
 SAS and different operating systems will have different steps. The
 following vignette will only address connecting to SAS On Demand for
 Academics (ODA) servers. If you are looking to utilize other SAS
-clients, take a look at the <a href="https://sassoftware.github.io/saspy/configuration.html#" class="external-link"><code>saspy</code>
+clients, take a look at the <a href="https://sassoftware.github.io/SASPy/configuration.html#" class="external-link"><code>SASPy</code>
 configuration documentation</a>. Although it is quite lengthy, it will
 provide you with all the necessary steps to connect to any SAS client
 from any machine.</p>
@@ -116,27 +116,27 @@ terminal and typing in:</p>
 <p>Note the Java path for later.</p>
 </div>
 <div class="section level2">
-<h2 id="setting-up-saspy">Setting up <code>saspy</code><a class="anchor" aria-label="anchor" href="#setting-up-saspy"></a>
+<h2 id="setting-up-saspy">Setting up <code>SASPy</code><a class="anchor" aria-label="anchor" href="#setting-up-saspy"></a>
 </h2>
-<p>Note we are going install the <code>saspy</code> package in our
+<p>Note we are going install the <code>SASPy</code> package in our
 global python install. It’s often a better practice to create a virtual
 environment, conda environment, or use one of the many other ways to
 isolate package installs. This isn’t necessarily a worry if you only
 plan to use SAS and R together.</p>
 <p>In windows, open up a command prompt type in:</p>
 <pre><code>py -m pip install wheel
-py -m pip install saspy
+py -m pip install SASPy
 py -m pip install pandas
 py -m site --user-site</code></pre>
 <p>In linux or max, open up a terminal abd type in:</p>
 <pre><code>python3 -m pip install wheel
-python3 -m pip install saspy
+python3 -m pip install SASPy
 python3 -m pip install pandas
 python3 -m site --user-site</code></pre>
-<p>This will install the required packages for <code>saspy</code> and
+<p>This will install the required packages for <code>SASPy</code> and
 then print out the path where they were installed. Navigate to this path
-and find the <code>saspy</code> folder. This is where the
-<code>saspy</code> package is stored. Create a new file within the saspy
+and find the <code>SASPy</code> folder. This is where the
+<code>SASPy</code> package is stored. Create a new file within the SASPy
 package called <code>sascfg_personal.py</code>.</p>
 <p>Inside that file paste the the following:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>SAS_config_names <span class="op">=</span> [<span class="st">'oda'</span>]</span>
@@ -191,7 +191,7 @@ the <code>#</code> for the line after your SAS ODA server.</p>
 <pre><code>authkey user {your SAS ODA username} password {your SAS ODA password}</code></pre>
 <p>Substitute the <code>{your SAS ODA username}</code> with the username
 you noted earlier, and <code>{your SAS ODA password}</code> with your
-ODA password. You’re done setting up <code>saspy</code>!</p>
+ODA password. You’re done setting up <code>SASPy</code>!</p>
 </div>
 <div class="section level2">
 <h2 id="using-sasquatch">Using <code>sasquatch</code><a class="anchor" aria-label="anchor" href="#using-sasquatch"></a>
