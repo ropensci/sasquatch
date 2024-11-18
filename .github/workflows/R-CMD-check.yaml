@@ -20,7 +20,6 @@ jobs:
       matrix:
         config:
           - {os: macos-latest,   r: 'release'}
-          - {os: windows-latest, r: 'release'}
           - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,   r: 'release'}
           - {os: ubuntu-latest,   r: 'oldrel-1'}
@@ -68,6 +67,26 @@ jobs:
 
           writeLines(sprintf("RETICULATE_PYTHON=%s", path_to_python),
                      Sys.getenv("GITHUB_ENV"))
+
+      - name: setup saspy
+        env:
+          SAS_ODA_USERNAME: ${{ secrets.SAS_ODA_USERNAME }}
+          SAS_ODA_PASSWORD: ${{ secrets.SAS_ODA_PASSWORD }}
+        run: |
+          oda_username = Sys.getenv("SAS_ODA_USERNAME")
+          oda_password = Sys.getenv("SAS_ODA_PASSWORD")
+          cat(paste("authkey user", oda_username,  "password", oda_password), file = "~/.authinfo")
+          saspy_path <- paste0(gsub("Location: ", "", system(paste(reticulate::py_exe(), "-m pip show saspy"), intern = TRUE)[8]), "/saspy")
+          cat("SAS_config_names = ['oda']
+          
+          oda = {
+              'java' : '/usr/bin/java',
+              'iomhost' : ['odaws01-usw2-2.oda.sas.com','odaws02-usw2-2.oda.sas.com'],
+              'iomport' : 8591,
+              'encoding' : 'utf-8',
+              'authkey' : 'oda'
+          }", file = paste0(saspy_path, "/sascfg_personal.py"))
+        shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
         with:
