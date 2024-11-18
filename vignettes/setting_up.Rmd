@@ -34,7 +34,7 @@ If you do not already have Python already installed, [install Python](https://ww
 
 If you do not already have Java installed, install [Java](https://www.java.com/en/download/). Note the path that you install java in.
 
-If you do have Java installed, but do not rememeber where you installed it, then...
+If you do have Java installed, but do not remember where you installed it, then...
 
 In windows, it is usually installed in `C:\Program Files\Java\jdk{version number}`, but you can double check by opening up a terminal and typing in:
 
@@ -63,7 +63,7 @@ py -m pip install pandas
 py -m site --user-site
 ```
 
-In linux or max, open up a terminal abd type in:
+In linux or max, open up a terminal and type in:
 
 ```         
 python3 -m pip install wheel
@@ -166,7 +166,7 @@ sas_connect()
 
 You may also notice that there are a few quarto yaml options applied within the `sasquatch` quarto template.
 
-The following portion of the yaml options, specfies that quarto will render to html and that the sas xml file downloaded will be used for syntax highlighting.
+The following portion of the yaml options, specifies that quarto will render to html and that the sas xml file downloaded will be used for syntax highlighting.
 
 ``` yml
 format:
@@ -177,7 +177,7 @@ format:
 
 **Note:** At this time only rendering to html is supported.
 
-The next section of the xml specifies that a javascript library called `iframe-resizer`. This allows the SAS output to be render to its full extent within the quarto output.
+The next section of the xml specifies that a JavaScript library called `iframe-resizer`. This allows the SAS output to be render to its full extent within the quarto output.
 
 ``` yml
 include-in-header:
@@ -200,7 +200,7 @@ Within RStudio, you should be able to run SAS chunks as you would any other chun
 
 #### Positron
 
-Within Positron, you will not be able to run SAS chunks as you would R or Python chunks. Hoever, just as in RStudio, you can create a keyboard shortcut which will allow you to view SAS output within the Plots pane. Open up the command pallete with `ctrl+shift+p` or `command+shift+p` and search "Preferences: Open Keyboard Shortcuts (JSON)". Add the following to your shortcuts.
+Within Positron, you will not be able to run SAS chunks as you would R or Python chunks. However, just as in RStudio, you can create a keyboard shortcut which will allow you to view SAS output within the Plots pane. Open up the command palette with `ctrl+shift+p` or `command+shift+p` and search "Preferences: Open Keyboard Shortcuts (JSON)". Add the following to your shortcuts.
 
 ``` json
 {

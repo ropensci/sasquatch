@@ -4,7 +4,7 @@ Version: 0.0.0.9003
 Authors@R: 
     person("Ryan", "Zomorrodi", , "rzomor2@uic.edu", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0009-0003-6417-5985"))
-Description: Use R and 'SAS' within reproducable multilingual 'quarto' 
+Description: Use R and 'SAS' within reproducible multilingual 'quarto' 
     documents. Run 'SAS' code blocks interactively, send data back and forth
     between 'SAS' and R, and render 'SAS' output within quarto documents. 'SAS'
     connections are established through a combination of 'SASPy' and 

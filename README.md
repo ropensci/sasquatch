@@ -13,7 +13,7 @@ coverage](https://codecov.io/gh/ryanzomorrodi/healthatlas/branch/main/graph/badg
 Use SAS, R, and Quarto together
 
 `sasquatch` allows you to combine the power of R, SAS, and quarto
-together to create reproducable multilingual reports. `sasquatch` can
+together to create reproducible multilingual reports. `sasquatch` can
 run SAS code blocks interactively, send data back and forth between SAS
 and R, and render SAS HTML output within quarto documents.
 
@@ -25,7 +25,7 @@ you
 - Don’t have a SAS License
 
 Check out `vignette("setting_up")` for guidance on how to get started
-with a free [SAS OnDemand for
+with a free [SAS On Demand for
 Academics](https://www.sas.com/en_us/software/on-demand-for-academics)
 license (you don’t need to be an academic!).
 

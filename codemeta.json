@@ -2,7 +2,7 @@
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "sasquatch",
-  "description": "Use R and 'SAS' within reproducable multilingual 'quarto' documents. Run 'SAS' code blocks interactively, send data back and forth between 'SAS' and R, and render 'SAS' output within quarto documents. 'SAS' connections are established through a combination of 'SASPy' and 'reticulate'.",
+  "description": "Use R and 'SAS' within reproducible multilingual 'quarto' documents. Run 'SAS' code blocks interactively, send data back and forth between 'SAS' and R, and render 'SAS' output within quarto documents. 'SAS' connections are established through a combination of 'SASPy' and 'reticulate'.",
   "name": "sasquatch: Use 'SAS', R, and 'quarto' together",
   "codeRepository": "https://github.com/ryanzomorrodi/sasr",
   "license": "https://spdx.org/licenses/MIT",
