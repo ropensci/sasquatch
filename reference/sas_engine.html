@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">sasquatch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9004</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,6 +22,7 @@
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/ryanzomorrodi/sasr/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -30,7 +31,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>A SAS HTML5 engine for <code>knitr</code></h1>
-
+      <small class="dont-index">Source: <a href="https://github.com/ryanzomorrodi/sasr/blob/main/R/knitr.R" class="external-link"><code>R/knitr.R</code></a></small>
       <div class="d-none name"><code>sas_engine.Rd</code></div>
     </div>
 
@@ -62,12 +63,14 @@
 
 
 <p><code>sasquatch</code>'s engine implements may of the same options as the R engine in
-<code>knitr</code>, but not all.</p><ul><li><p><code>eval</code> (Default: <code>TRUE</code>): Evaluate the code chunk (if false, just echos the code into the output)</p></li>
+<code>knitr</code>, but not all.</p><ul><li><p><code>eval</code> (Default: <code>TRUE</code>): Evaluate the code chunk (if false, just echos the
+code into the output)</p></li>
 <li><p><code>echo</code> (Default: <code>TRUE</code>): Include the source code in output</p></li>
 <li><p><code>output</code> (Default: <code>TRUE</code>): Include the results of executing the code in
 the output (<code>TRUE</code> or <code>FALSE</code>).</p></li>
 <li><p><code>include</code> (Default: <code>TRUE</code>): Include any output (code or results).</p></li>
-<li><p><code>capture</code> (Default: <code>"both"</code>): If <code>"both"</code>, tabpanel with output and log included.
+<li><p><code>capture</code> (Default: <code>"both"</code>): If <code>"both"</code>, tabpanel with output and log
+included.
 If <code>"lst"</code>, only output is included. If <code>"log"</code> only log is included.</p></li>
 </ul></div>
 

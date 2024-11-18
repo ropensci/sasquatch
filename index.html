@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Use SAS, R, and quarto together • sasquatch</title>
+<title>Use SAS, R, and quarto Together • sasquatch</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
@@ -16,9 +16,9 @@
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Use SAS, R, and quarto together">
-<meta name="description" content="Use R and SAS within reproducable multilingual quarto documents. Run SAS code blocks interactively, send data back and forth between SAS and R, and render SAS output within quarto documents. SAS connections are established through a combination of SASPy and reticulate.">
-<meta property="og:description" content="Use R and SAS within reproducable multilingual quarto documents. Run SAS code blocks interactively, send data back and forth between SAS and R, and render SAS output within quarto documents. SAS connections are established through a combination of SASPy and reticulate.">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Use SAS, R, and quarto Together">
+<meta name="description" content="Use R and SAS within reproducible multilingual quarto documents. Run SAS code blocks interactively, send data back and forth between SAS and R, and render SAS output within quarto documents. SAS connections are established through a combination of SASPy and reticulate.">
+<meta property="og:description" content="Use R and SAS within reproducible multilingual quarto documents. Run SAS code blocks interactively, send data back and forth between SAS and R, and render SAS output within quarto documents. SAS connections are established through a combination of SASPy and reticulate.">
 <meta property="og:image" content="https://ryanzomorrodi.github.io/sasquatch/logo.png">
 </head>
 <body>
@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="index.html">sasquatch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9004</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,6 +50,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/ryanzomorrodi/sasr/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -65,8 +66,14 @@
 <!-- badges: start -->
 
 <p>Use SAS, R, and Quarto together</p>
-<p><code>sasquatch</code> allows you to combine the power of R, SAS, and quarto together to create reproducable multilingual reports. <code>sasquatch</code> can run SAS code blocks interactively, send data back and forth between SAS and R, and render SAS HTML output within quarto documents.</p>
-<p>Don’t have a SAS License? You can still set up SASPy with <a href="https://www.sas.com/en_us/software/on-demand-for-academics.html#928a7e06-1416-4d88-b966-311df1bdfea6" class="external-link">SAS OnDemand for Academics</a>. Check out <code><a href="articles/setting_up.html">vignette("setting_up")</a></code> for how to get started with SAS ODA and <code>sasquatch</code>.</p>
+<p><code>sasquatch</code> allows you to combine the power of R, SAS, and quarto together to create reproducible multilingual reports. <code>sasquatch</code> can run SAS code blocks interactively, send data back and forth between SAS and R, and render SAS HTML output within quarto documents.</p>
+<p><code>sasquatch</code> relies on the <a href="https://sassoftware.github.io/saspy/" class="external-link"><code>SASPy</code></a> Python package. But if you</p>
+<ul>
+<li>Don’t have <code>SASPy</code> already installed, or<br>
+</li>
+<li>Don’t have a SAS License</li>
+</ul>
+<p>Check out <code><a href="articles/setting_up.html">vignette("setting_up")</a></code> for guidance on how to get started with a free <a href="https://www.sas.com/en_us/software/on-demand-for-academics" class="external-link">SAS On Demand for Academics</a> license (you don’t need to be an academic!).</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -117,8 +124,21 @@ Rendered Quarto Document
 </figcaption></figure>
 </div>
 </div>
+<div class="section level2">
+<h2 id="similar-packages">Similar packages<a class="anchor" aria-label="anchor" href="#similar-packages"></a>
+</h2>
+<p><code>saquatch</code> works similarly to packages like <a href="https://sassoftware.github.io/saspy/" class="external-link"><code>sasr</code></a> or <a href="https://github.com/baselr/configSAS" class="external-link"><code>configSAS</code></a>. In fact, <code>configSAS</code> author <a href="https://www.youtube.com/watch?v=4c9T6-__vI8" class="external-link">Johann Laurent’s talk</a> at a useR! event inspired <code>sasquatch</code>’s creation. <code>sasr</code>, while similar to <code>sasquatch</code>, does not include interactive SAS functionality or a <code>knitr</code> engine. On the other hand, <code>configSAS</code> includes a <code>knitr</code> engine, but no interactive SAS functionality. <code>configSAS</code> <code>knitr</code> output also does not include syntax highlighting and nested SAS output interferes with the styles of the rest of the document.</p>
 </div>
-  </main><aside class="col-md-3"><div class="license">
+</div>
+  </main><aside class="col-md-3"><div class="links">
+<h2 data-toc-skip>Links</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/ryanzomorrodi/sasr/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/ryanzomorrodi/sasr/issues" class="external-link">Report a bug</a></li>
+</ul>
+</div>
+
+<div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
@@ -126,6 +146,12 @@ Rendered Quarto Document
 </ul>
 </div>
 
+<div class="community">
+<h2 data-toc-skip>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CONTRIBUTING.html">Contributing guide</a></li>
+</ul>
+</div>
 
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
@@ -145,6 +171,7 @@ Rendered Quarto Document
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://github.com/ryanzomorrodi/sasr/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/ryanzomorrodi/sasr/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://app.codecov.io/gh/ryanzomorrodi/healthatlas?branch=main" class="external-link"><img src="https://codecov.io/gh/ryanzomorrodi/healthatlas/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 
