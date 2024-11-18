@@ -15,13 +15,13 @@
 #' sas_connect(config = "oda")
 #' }
 sas_connect <- function(config) {
-  .pkgenv$SASPy <- reticulate::import("saspy")
-  
   if (missing(config)) {
     .pkgenv$session <- .pkgenv$SASPy$SASsession()
   } else {
     .pkgenv$session <- .pkgenv$SASPy$SASsession(config)
   }
+
+  invisible()
 }
 
 #' Disconnect SAS session
@@ -39,5 +39,28 @@ sas_connect <- function(config) {
 #' }
 sas_disconnect <- function() {
   check_connection()
-  .pkgenv$session$disconnect()
+  .pkgenv$session$endsas()
+  .pkgenv$session <- NULL
+
+  invisible()
+}
+
+#' Get current SAS session
+#' 
+#' Gets current SAS session so that you can use functions not yet implemented.
+#' Can also be useful for testing or using Python.
+#' 
+#' @return Current SAS session.
+#' 
+#' @export
+#' 
+#' @examples
+#' \dontrun{
+#' sas_connect()
+#' sas_get_session()
+#' }
+sas_get_session <- function() {
+  check_connection()
+
+  .pkgenv$session
 }
