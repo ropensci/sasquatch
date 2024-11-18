@@ -9,12 +9,14 @@
 #' `sasquatch`'s engine implements may of the same options as the R engine in
 #' `knitr`, but not all.
 #' 
-#' - `eval` (Default: `TRUE`): Evaluate the code chunk (if false, just echos the code into the output)
+#' - `eval` (Default: `TRUE`): Evaluate the code chunk (if false, just echos the 
+#' code into the output)
 #' - `echo` (Default: `TRUE`): Include the source code in output
 #' - `output` (Default: `TRUE`): Include the results of executing the code in 
 #' the output (`TRUE` or `FALSE`).
 #' - `include` (Default: `TRUE`): Include any output (code or results).  
-#' - `capture` (Default: `"both"`): If `"both"`, tabpanel with output and log included. 
+#' - `capture` (Default: `"both"`): If `"both"`, tabpanel with output and log 
+#' included. 
 #' If `"lst"`, only output is included. If `"log"` only log is included.
 #' 
 #' @return `knitr` engine output.

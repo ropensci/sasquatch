@@ -18,7 +18,9 @@ sas_connect <- function(config) {
   if (missing(config)) {
     reticulate::py_capture_output(.pkgenv$session <- .pkgenv$SASPy$SASsession())
   } else {
-    reticulate::py_capture_output(.pkgenv$session <- .pkgenv$SASPy$SASsession(config = config))
+    reticulate::py_capture_output(
+      .pkgenv$session <- .pkgenv$SASPy$SASsession(config = config)
+    )
   }
   cat("SAS Connection established.\n")
 

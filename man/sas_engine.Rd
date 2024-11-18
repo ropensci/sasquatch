@@ -22,12 +22,14 @@ Will be activated by running \code{library(sasquatch)}
 \code{sasquatch}'s engine implements may of the same options as the R engine in
 \code{knitr}, but not all.
 \itemize{
-\item \code{eval} (Default: \code{TRUE}): Evaluate the code chunk (if false, just echos the code into the output)
+\item \code{eval} (Default: \code{TRUE}): Evaluate the code chunk (if false, just echos the
+code into the output)
 \item \code{echo} (Default: \code{TRUE}): Include the source code in output
 \item \code{output} (Default: \code{TRUE}): Include the results of executing the code in
 the output (\code{TRUE} or \code{FALSE}).
 \item \code{include} (Default: \code{TRUE}): Include any output (code or results).
-\item \code{capture} (Default: \code{"both"}): If \code{"both"}, tabpanel with output and log included.
+\item \code{capture} (Default: \code{"both"}): If \code{"both"}, tabpanel with output and log
+included.
 If \code{"lst"}, only output is included. If \code{"log"} only log is included.
 }
 }

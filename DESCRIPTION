@@ -22,9 +22,10 @@ Imports:
     knitr,
     reticulate,
     rstudioapi
-URL: https://ryanzomorrodi.github.io/sasquatch/
+URL: https://ryanzomorrodi.github.io/sasquatch/, https://github.com/ryanzomorrodi/sasr
 Suggests: 
     rmarkdown,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3
+BugReports: https://github.com/ryanzomorrodi/sasr/issues
