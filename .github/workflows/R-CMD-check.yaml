@@ -76,7 +76,7 @@ jobs:
           oda_username = Sys.getenv("SAS_ODA_USERNAME")
           oda_password = Sys.getenv("SAS_ODA_PASSWORD")
           cat(paste("authkey user", oda_username,  "password", oda_password), file = "~/.authinfo")
-          saspy_path <- paste0(gsub("Location: ", "", system(paste(reticulate::py_exe(), "-m pip show saspy"), intern = TRUE)[8]), "/saspy")
+          saspy_path <- paste0(gsub("Location: ", "", system(paste(reticulate::virtualenv_python("r-reticulate"), "-m pip show saspy"), intern = TRUE)[8]), "/saspy")
           cat("SAS_config_names = ['oda']
           
           oda = {
