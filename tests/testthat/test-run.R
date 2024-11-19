@@ -1,4 +1,6 @@
 test_that("Run SAS code from string", {
+  skip_if_offline()
+
   expect_error(sas_run_string("PROC MEANS DATA = sashelp.cars;\nRUN;"))
 
   sas_connect()
@@ -9,6 +11,8 @@ test_that("Run SAS code from string", {
 })
 
 test_that("Run SAS code from file", {
+  skip_if_offline()
+
   local_path <- "test.sas"
   output_path <- "test.html"
   cat("PROC MEANS DATA = sashelp.cars;\nRUN;", file = local_path)

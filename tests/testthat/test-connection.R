@@ -1,4 +1,6 @@
 test_that("test connection", {
+  skip_if_offline()
+
   expect_no_error(sas_connect())
 
   expect_no_error(sas_connect("oda"))

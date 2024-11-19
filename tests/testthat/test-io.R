@@ -1,4 +1,6 @@
 test_that("uploading files to SAS", {
+  skip_if_offline()
+
   local_path <- paste0("test", test_number, ".sas")
   sas_path <- paste("/home", sas_username, local_path, sep = "/")
 
@@ -23,6 +25,8 @@ test_that("uploading files to SAS", {
 })
 
 test_that("download files from SAS", {
+  skip_if_offline()
+
   local_path <- paste0("test", test_number, ".sas")
   sas_path <- paste("/home", sas_username, local_path, sep = "/")
 
@@ -50,6 +54,8 @@ test_that("download files from SAS", {
 })
 
 test_that("removing files from SAS", {
+  skip_if_offline()
+
   local_path <- paste0("test", test_number, ".sas")
   sas_path <- paste("/home", sas_username, local_path, sep = "/")
 
@@ -76,6 +82,8 @@ test_that("removing files from SAS", {
 })
 
 test_that("listing files", {
+  skip_if_offline()
+
   sas_path <- paste0("/home/", sas_username)
 
   "no connection"

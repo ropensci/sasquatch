@@ -1,4 +1,6 @@
 test_that("SAS to R data.frame", {
+  skip_if_offline()
+
   sas_connect()
 
   iris_sas <- sas_to_r("iris", "sashelp")
@@ -21,6 +23,8 @@ test_that("SAS to R data.frame", {
 })
 
 test_that("R to SAS data.frame", {
+  skip_if_offline()
+
   sas_connect()
 
   data(iris)
