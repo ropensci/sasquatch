@@ -7,7 +7,7 @@
 
 [![R-CMD-check](https://github.com/ryanzomorrodi/sasr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ryanzomorrodi/sasr/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
-coverage](https://codecov.io/gh/ryanzomorrodi/healthatlas/branch/main/graph/badge.svg)](https://app.codecov.io/gh/ryanzomorrodi/healthatlas?branch=main)
+coverage](https://codecov.io/gh/ryanzomorrodi/sasquatch/branch/main/graph/badge.svg)](https://app.codecov.io/gh/ryanzomorrodi/sasquatch?branch=main)
 <!-- badges: end -->
 
 Use SAS, R, and Quarto together
