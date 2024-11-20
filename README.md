@@ -40,19 +40,24 @@ pak::pkg_install("ryanzomorrodi/sasquatch")
 ## Usage
 
 Once you have setup `SASPy` and connected to the right python
-environment using `reticulate` (if necessary), use `sas_use_quarto()` to
-create the `sasquatch` template to a specified directory.
+environment using `reticulate` (if necessary), you can create a quarto
+document like any other, call `sas_connect()`, and just get going!
 
-``` r
-sasquatch::sas_use_quarto("path to directory")
-```
+```` default
+---
+format: html
+engine: knitr
+---
 
-Run the first code block within the template.
-
-``` r
+```{r}
 library(sasquatch)
 sas_connect()
 ```
+
+```{sas}
+
+```
+````
 
 #### Code blocks
 
