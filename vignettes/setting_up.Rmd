@@ -150,45 +150,25 @@ Open up your favorite R IDE and install `sasquatch`
 pak::pkg_install("ryanzomorrodi/sasquatch")
 ```
 
-Use `sas_use_quarto()` to create a `sasquatch` quarto template and download a syntax definitions xml for SAS within the current directory.
+Now you can create SAS quarto code blocks just like any other!
 
-```{r, eval = FALSE}
-library(sasquatch)
-sas_use_quarto()
-```
+Example:
 
-Regardless of your IDE, every sasquatch quarto starts with:
+`````{verbatim}
+---
+format: html
+engine: knitr
+---
 
-```{r, eval = FALSE}
+```{r}
 library(sasquatch)
 sas_connect()
 ```
 
-You may also notice that there are a few quarto yaml options applied within the `sasquatch` quarto template.
+```{sas}
 
-The following portion of the yaml options, specifies that quarto will render to html and that the sas xml file downloaded will be used for syntax highlighting.
-
-``` yml
-format:
-  html:
-    syntax-definitions: 
-    - sas.xml
 ```
-
-**Note:** At this time only rendering to html is supported.
-
-The next section of the xml specifies that a JavaScript library called `iframe-resizer`. This allows the SAS output to be render to its full extent within the quarto output.
-
-``` yml
-include-in-header:
-  text: <script src = 'https://cdn.jsdelivr.net/npm/@iframe-resizer/parent@5.3.2'></script>
-```
-
-Lastly, we specify our rendering engine as `knitr`.
-
-``` yml
-engine: knitr
-```
+`````
 
 ### Interactive use
 

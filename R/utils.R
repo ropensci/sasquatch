@@ -2,18 +2,11 @@ wrap_in_iframe <- function(html) {
   html <- paste(html, collapse = "\n")
   html <- gsub("'", "\"", html)
 
-  html <- paste(
-    "<iframe width = '100%' srcdoc = '", 
+  paste(
+    "<iframe width = '100%' class='resizable-iframe' srcdoc = '", 
     html,
     "<style>table {margin-left: auto; margin-right: auto;}</style>",
-    "<script src=\"https://cdn.jsdelivr.net/npm/@iframe-resizer/child@5.3.2\"></script>", 
-    "'></iframe>", 
-    sep = "\n"
-  )
-
-  paste(
-    html,
-    "<script>iframeResize({license: 'GPLv3', scrolling: 'yes', waitForLoad: true}, 'iframe' );</script>",
+    "'></iframe>",
     sep = "\n"
   )
 }
