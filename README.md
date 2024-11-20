@@ -64,21 +64,14 @@ sas_connect()
 Now, you should be able to run SAS code blocks in RStudio like any
 other.
 
-<figure>
-<img src="man/figures/run_sas_chunk.gif" alt="Executing a SAS chunk" />
-<figcaption aria-hidden="true">Executing a SAS chunk</figcaption>
-</figure>
+![](man/figures/run_sas_chunk.gif)
 
 #### Sending output to viewer
 
 If you want to send the SAS output to the viewer, you can utilize the
 `sas_run_selected()` addin with a custom shortcut.
 
-<figure>
-<img src="man/figures/run_sas_selected.gif"
-alt="Running SAS Selection" />
-<figcaption aria-hidden="true">Running SAS Selection</figcaption>
-</figure>
+![](man/figures/run_sas_selected.gif)
 
 #### Converting tables
 
@@ -94,11 +87,7 @@ cars <- sas_to_r("cars", libref = "sashelp")
 And of course, render beautiful quarto documents in the same style you
 would expect from SAS with the `sas_engine()`.
 
-<figure>
-<img src="man/figures/rendered_quarto.png"
-alt="Rendered Quarto Document" />
-<figcaption aria-hidden="true">Rendered Quarto Document</figcaption>
-</figure>
+![](man/figures/rendered_quarto.png)
 
 ## Similar packages
 
