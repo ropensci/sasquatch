@@ -1,6 +1,7 @@
 wrap_in_iframe <- function(html) {
   html <- paste(html, collapse = "\n")
   html <- gsub("'", "\"", html)
+  html <- gsub("background-color:\\s*?#fafbfe", "background-color: transparent", html)
 
   paste(
     "<iframe width = '100%' class='resizable-iframe' srcdoc = '", 
