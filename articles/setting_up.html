@@ -16,10 +16,7 @@
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="setting_up_files/libs/quarto-html/popper.min.js"></script><script src="setting_up_files/libs/quarto-html/tippy.umd.min.js"></script><link href="setting_up_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="setting_up_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Setting Up">
-<meta property="og:image" content="https://ryanzomorrodi.github.io/sasquatch/logo.png">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Setting Up">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -56,174 +53,104 @@
 
 
   </div>
-</nav><div class="container template-quarto">
+</nav><div class="container template-article">
+
+
+
+
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Setting Up</h1>
-
-
-
-
-      <small class="dont-index">Source: <a href="https://github.com/ryanzomorrodi/sasr/blob/main/vignettes/setting_up.qmd" class="external-link"><code>vignettes/setting_up.qmd</code></a></small>
-      <div class="d-none name"><code></code></div>
+            
+      
+      <small class="dont-index">Source: <a href="https://github.com/ryanzomorrodi/sasr/blob/main/vignettes/setting_up.rmd" class="external-link"><code>vignettes/setting_up.rmd</code></a></small>
+      <div class="d-none name"><code>setting_up.rmd</code></div>
     </div>
 
-
-
-
-
-
-    <p><code>sasquatch</code> works by utilizing the <a href="https://sassoftware.github.io/SASPy/" class="external-link"><code>SASPy</code></a> python package, similar to packages like <a href="https://github.com/insightsengineering/sasr" class="external-link"><code>sasr</code></a> or <a href="https://github.com/baselr/configSAS" class="external-link">configSAS</a>. This means everything we do to connect R and SAS, needs to go through <code>SASPy</code>.</p>
-<p>Setting up <code>SASPy</code> can be difficult, but this guide is here to help you! Keep in mind there are many different ways to connect to SAS and different operating systems will have different steps. The following vignette will go through setting up <code>SASPy</code> with SAS On Demand for Academics (ODA), but the process should be generalizable to other SAS clients.</p>
-<p>For more information about setting up <code>SASPy</code>, check out the <a href="https://sassoftware.github.io/SASPy/configuration.html#" class="external-link"><code>SASPy</code> configuration documentation</a>.</p>
-<section class="level2"><h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+    
+    
+<p><code>sasquatch</code> works by utilizing the <a href="https://sassoftware.github.io/SASPy/" class="external-link"><code>SASPy</code></a>
+python package, similar to packages like <a href="https://github.com/insightsengineering/sasr" class="external-link"><code>sasr</code></a>
+or <a href="https://github.com/baselr/configSAS" class="external-link">configSAS</a>. This
+means everything we do to connect R and SAS, needs to go through
+<code>SASPy</code>.</p>
+<p>Setting up <code>SASPy</code> can be difficult, but this guide is
+here to help you! Keep in mind there are many different ways to connect
+to SAS and different operating systems will have different steps. The
+following vignette will go through setting up <code>SASPy</code> with
+SAS On Demand for Academics (ODA), but the process should be
+generalizable to other SAS clients.</p>
+<p>For more information about setting up <code>SASPy</code>, check out
+the <a href="https://sassoftware.github.io/SASPy/configuration.html#" class="external-link"><code>SASPy</code>
+configuration documentation</a>.</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>Install the <code>sasquatch</code> R package from GitHub:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"ryanzomorrodi/sasquatch"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<p>Make sure Python is installed on your system. You can download from <a href="https://www.python.org/downloads'" class="external-link">Python Software Foundation</a>, or use <code>install_python()</code> from reticulate:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
+<p>Make sure Python is installed on your system. You can download from
+<a href="https://www.python.org/downloads'" class="external-link">Python Software
+Foundation</a>, or use <code>install_python()</code> from
+reticulate:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">reticulate</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/install_python.html" class="external-link">install_python</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-</div>
-<p>Use the <code><a href="../reference/install_saspy.html">install_saspy()</a></code> function to install <code>SASPy</code>. This will automatically create an isolated virtual environment called “r-saspy”.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
+<p>Use the <code><a href="../reference/install_saspy.html">install_saspy()</a></code> function to install
+<code>SASPy</code>. This will automatically create an isolated virtual
+environment called “r-saspy”.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sasquatch</span><span class="fu">::</span><span class="fu"><a href="../reference/install_saspy.html">install_saspy</a></span><span class="op">(</span>envname <span class="op">=</span> <span class="st">"r-saspy"</span><span class="op">)</span></span></code></pre></div>
+<p>Make sure Java is installed on your system. You can download Java
+from <a href="https://www.java.com/en/download/" class="external-link">their website</a>. Note
+the Java installation path.</p>
 </div>
-<p>Make sure Java is installed on your system. You can download Java from <a href="https://www.java.com/en/download/" class="external-link">their website</a>. Note the Java installation path.</p>
-</section><section class="level2"><h2 id="configuration">Configuration<a class="anchor" aria-label="anchor" href="#configuration"></a>
+<div class="section level2">
+<h2 id="configuration">Configuration<a class="anchor" aria-label="anchor" href="#configuration"></a>
 </h2>
-<p>Set up for SAS ODA is super easy. Run <code>config_saspy()</code> and follow the prompts.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
+<p>Set up for SAS ODA is super easy. Run <code>config_saspy()</code> and
+follow the prompts.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sasquatch</span><span class="fu">::</span><span class="fu"><a href="../reference/configure_saspy.html">configure_saspy</a></span><span class="op">(</span>template <span class="op">=</span> <span class="st">"oda"</span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="rstudio">RStudio<a class="anchor" aria-label="anchor" href="#rstudio"></a>
+</h3>
+<p>Within RStudio, you should be able to run SAS chunks as you would any
+other chunk. However, if you want to be able to view SAS output within
+the Viewer instead of beneath the chunk, you can utilize the
+<code><a href="../reference/sas_run_selected.html">sas_run_selected()</a></code> addin. To add a keyboard shortcut for
+this addin, open Tools -&gt; Modify Keyboard Shortcuts and search “Run
+selected in SAS”, type in the box under Shortcut to set the keyboard
+shortcut to your liking and click Apply.</p>
+<p><img src="images%2Frstudio_shrtcts.png"></p>
 </div>
-<section class="level3"><h3 id="rstudio">RStudio<a class="anchor" aria-label="anchor" href="#rstudio"></a>
+<div class="section level3">
+<h3 id="positron">Positron<a class="anchor" aria-label="anchor" href="#positron"></a>
 </h3>
-<p>Within RStudio, you should be able to run SAS chunks as you would any other chunk. However, if you want to be able to view SAS output within the Viewer instead of beneath the chunk, you can utilize the <code><a href="../reference/sas_run_selected.html">sas_run_selected()</a></code> addin. To add a keyboard shortcut for this addin, open Tools -&gt; Modify Keyboard Shortcuts and search “Run selected in SAS”, type in the box under Shortcut to set the keyboard shortcut to your liking and click Apply.</p>
-<p><img src="images/rstudio_shrtcts.png"></p>
-</section><section class="level3"><h3 id="positron">Positron<a class="anchor" aria-label="anchor" href="#positron"></a>
-</h3>
-<p>Within Positron, you will not be able to run SAS chunks as you would R or Python chunks. However, just as in RStudio, you can create a keyboard shortcut which will allow you to view SAS output within the Plots pane. Open up the command palette with <code>ctrl+shift+p</code> or <code>command+shift+p</code> and search “Preferences: Open Keyboard Shortcuts (JSON)”. Add the following to your shortcuts.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"key"</span><span class="fu">:</span> <span class="st">"ctrl+shift+enter"</span><span class="fu">,</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"workbench.action.executeCode.console"</span><span class="fu">,</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"when"</span><span class="fu">:</span> <span class="st">"editorTextFocus"</span><span class="fu">,</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"args"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"langId"</span><span class="fu">:</span> <span class="st">"r"</span><span class="fu">,</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"code"</span><span class="fu">:</span> <span class="st">"sasquatch::sas_run_selected()"</span><span class="fu">,</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"focus"</span><span class="fu">:</span> <span class="kw">true</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
-<p>Edit the <code>key</code> argument to set your preferred shortcut.</p>
-</section></section><script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'light-border',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config);
-  }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
-      });
-    }
-  }
-});
-</script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+<p>Within Positron, you will not be able to run SAS chunks as you would
+R or Python chunks. However, just as in RStudio, you can create a
+keyboard shortcut which will allow you to view SAS output within the
+Plots pane. Open up the command palette with <code>ctrl+shift+p</code>
+or <code>command+shift+p</code> and search “Preferences: Open Keyboard
+Shortcuts (JSON)”. Add the following to your shortcuts.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>    <span class="dt">"key"</span><span class="fu">:</span> <span class="st">"ctrl+shift+enter"</span><span class="fu">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>    <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"workbench.action.executeCode.console"</span><span class="fu">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>    <span class="dt">"when"</span><span class="fu">:</span> <span class="st">"editorTextFocus"</span><span class="fu">,</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>    <span class="dt">"args"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>        <span class="dt">"langId"</span><span class="fu">:</span> <span class="st">"r"</span><span class="fu">,</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>        <span class="dt">"code"</span><span class="fu">:</span> <span class="st">"sasquatch::sas_run_selected()"</span><span class="fu">,</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>        <span class="dt">"focus"</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Edit the <code>key</code> argument to set your preferred
+shortcut.</p>
+</div>
+</div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
+
 
 
     <footer><div class="pkgdown-footer-left">
