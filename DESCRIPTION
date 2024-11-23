@@ -25,6 +25,7 @@ Imports:
 URL: https://ryanzomorrodi.github.io/sasquatch/, https://github.com/ryanzomorrodi/sasr
 Suggests: 
     rmarkdown,
+    quarto,
     testthat (>= 3.0.0),
     curl
 VignetteBuilder: knitr
