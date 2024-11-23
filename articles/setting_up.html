@@ -75,14 +75,23 @@ or <a href="https://github.com/baselr/configSAS" class="external-link">configSAS
 means everything we do to connect R and SAS, needs to go through
 <code>SASPy</code>.</p>
 <p>Setting up <code>SASPy</code> can be difficult, but this guide is
-here to help you! Keep in mind there are many different ways to connect
-to SAS and different operating systems will have different steps. The
-following vignette will go through setting up <code>SASPy</code> with
-SAS On Demand for Academics (ODA), but the process should be
-generalizable to other SAS clients.</p>
-<p>For more information about setting up <code>SASPy</code>, check out
-the <a href="https://sassoftware.github.io/SASPy/configuration.html#" class="external-link"><code>SASPy</code>
+here to help you! Keep in mind there are several different SAS
+connection methods. The following vignette will go through setting up
+<code>SASPy</code> with SAS On Demand for Academics (ODA), but the
+process is roughly generalizable.</p>
+<p>For more information about setting up non-ODA <code>SASPy</code>
+connections, check out the <a href="https://sassoftware.github.io/SASPy/configuration.html#" class="external-link"><code>SASPy</code>
 configuration documentation</a>.</p>
+<div class="section level2">
+<h2 id="registration">Registration<a class="anchor" aria-label="anchor" href="#registration"></a>
+</h2>
+<p>SAS ODA is free SAS client for professors, students, and independent
+learners. Create an account at <a href="https://welcome.oda.sas.com/" class="external-link uri">https://welcome.oda.sas.com/</a>.</p>
+<p>Once you have set up your account, log in and note the ODA server (in
+the picture below United States 2) and your username (under the email in
+the profile dropdown). We will need these for later.</p>
+<p><img src="images%2Fsas_oda.png"></p>
+</div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -109,7 +118,8 @@ the Java installation path.</p>
 <h2 id="configuration">Configuration<a class="anchor" aria-label="anchor" href="#configuration"></a>
 </h2>
 <p>Set up for SAS ODA is super easy. Run <code>config_saspy()</code> and
-follow the prompts.</p>
+follow the prompts (you may need to recall your username, server, and
+java installation path from earlier).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sasquatch</span><span class="fu">::</span><span class="fu"><a href="../reference/configure_saspy.html">configure_saspy</a></span><span class="op">(</span>template <span class="op">=</span> <span class="st">"oda"</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
