@@ -34,6 +34,7 @@ license (you don’t need to be an academic!).
 You can install the development version of sasquatch like so:
 
 ``` r
+# install.packages("pak")
 pak::pkg_install("ryanzomorrodi/sasquatch")
 ```
 
