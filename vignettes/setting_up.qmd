@@ -1,0 +1,80 @@
+---
+title: "Setting Up"
+format: 
+  html:
+    toc: true
+    html-math-method: mathjax
+vignette: >
+  %\VignetteIndexEntry{Setting Up}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+`sasquatch` works by utilizing the [`SASPy`](https://sassoftware.github.io/SASPy/) python package, similar to packages like [`sasr`](https://github.com/insightsengineering/sasr) or [configSAS](https://github.com/baselr/configSAS). This means everything we do to connect R and SAS, needs to go through `SASPy`.
+
+Setting up `SASPy` can be difficult, but this guide is here to help you! Keep in mind there are many different ways to connect to SAS and different operating systems will have different steps. The following vignette will go through setting up `SASPy` with SAS On Demand for Academics (ODA), but the process should be generalizable to other SAS clients.
+
+For more information about setting up `SASPy`, check out the [`SASPy` configuration documentation](https://sassoftware.github.io/SASPy/configuration.html#).
+
+## Installation
+
+Install the `sasquatch` R package from GitHub:
+
+```{r, eval = FALSE}
+# install.packages("pak")
+pak::pkg_install("ryanzomorrodi/sasquatch")
+```
+
+Make sure Python is installed on your system. You can download from [Python Software Foundation](https://www.python.org/downloads'), or use `install_python()` from reticulate:
+
+```{r, eval = FALSE}
+reticulate::install_python()
+```
+
+Use the `install_saspy()` function to install `SASPy`. This will automatically create an isolated virtual environment called "r-saspy".
+
+```{r, eval = FALSE}
+sasquatch::install_saspy(envname = "r-saspy")
+```
+
+Make sure Java is installed on your system. You can download Java from [their website](https://www.java.com/en/download/). Note the Java installation path.
+
+## Configuration
+
+Set up for SAS ODA is super easy. Run `config_saspy()` and follow the prompts.
+
+```{r, eval = FALSE}
+sasquatch::configure_saspy(template = "oda")
+```
+
+### RStudio
+
+Within RStudio, you should be able to run SAS chunks as you would any other chunk. However, if you want to be able to view SAS output within the Viewer instead of beneath the chunk, you can utilize the `sas_run_selected()` addin. To add a keyboard shortcut for this addin, open Tools -\> Modify Keyboard Shortcuts and search "Run selected in SAS", type in the box under Shortcut to set the keyboard shortcut to your liking and click Apply.
+
+![](images/rstudio_shrtcts.png)
+
+### Positron
+
+Within Positron, you will not be able to run SAS chunks as you would R or Python chunks. However, just as in RStudio, you can create a keyboard shortcut which will allow you to view SAS output within the Plots pane. Open up the command palette with `ctrl+shift+p` or `command+shift+p` and search "Preferences: Open Keyboard Shortcuts (JSON)". Add the following to your shortcuts.
+
+``` json
+{
+    "key": "ctrl+shift+enter",
+    "command": "workbench.action.executeCode.console",
+    "when": "editorTextFocus",
+    "args": {
+        "langId": "r",
+        "code": "sasquatch::sas_run_selected()",
+        "focus": true
+    }
+}
+```
+
+Edit the `key` argument to set your preferred shortcut.
