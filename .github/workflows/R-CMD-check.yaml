@@ -52,4 +52,31 @@ jobs:
 
       - name: install saspy
         shell: Rscript {0}
-        run: sasquatch::install_saspy()
+        run: |
+          sasquatch::install_saspy()
+
+      - name: setup saspy
+        shell: Rscript {0}
+        env:
+          SAS_ODA_USERNAME: ${{ secrets.SAS_ODA_USERNAME }}
+          SAS_ODA_PASSWORD: ${{ secrets.SAS_ODA_PASSWORD }}
+        run: |
+          oda_username = Sys.getenv("SAS_ODA_USERNAME")
+          oda_password = Sys.getenv("SAS_ODA_PASSWORD")
+          cat(paste("oda user", oda_username,  "password", oda_password), file = "~/.authinfo")
+          saspy_path <- reticulate::py_discover_config("saspy", "r-saspy")$required_module_path
+          cat("SAS_config_names = ['oda']
+          
+          oda = {
+              'java' : '/usr/bin/java',
+              'iomhost' : ['odaws01-usw2-2.oda.sas.com','odaws02-usw2-2.oda.sas.com'],
+              'iomport' : 8591,
+              'encoding' : 'utf-8',
+              'authkey' : 'oda'
+          }", file = paste0(saspy_path, "/sascfg_personal.py"))
+
+      - uses: r-lib/actions/check-r-package@v2
+        with:
+          upload-snapshots: true
+          build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
+        
