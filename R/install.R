@@ -116,7 +116,7 @@ configure_saspy <- function(
 
     config <- list(
       java = java_path,
-      iom_host = iom_host,
+      iomhost = iom_host,
       iomport = 8591,
       encoding = "utf-8",
       authkey = "oda"
@@ -171,4 +171,25 @@ get_home_dir <- function() {
     home_dir <- regmatches(home_dir, regexpr("(.*?[/|\\\\]){3}", home_dir))
   }
   sub("[/|\\\\]$", "", home_dir)
+}
+
+menu <- function(choices, title) {
+  nums <- seq_along(choices)
+  cat(title, "\n\n", sep = "")
+
+  mapply(
+    FUN = function(choice, num) {
+      cat(num, ": ", choice, "\n", sep = "")
+    }, 
+    choices, 
+    nums
+  )
+  cat("\n")
+  repeat {
+    selection <- readline("Selection: ")
+    if (selection %in% as.character(c(0, nums))) {
+      return(as.integer(selection))
+    }
+    cat("Enter an item from the menu, or 0 to exit\n")
+  }
 }

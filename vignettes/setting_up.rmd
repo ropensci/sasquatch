@@ -1,12 +1,9 @@
 ---
 title: "Setting Up"
-format: 
-  html:
-    toc: true
-    html-math-method: mathjax
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Setting Up}
-  %\VignetteEngine{quarto::html}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
