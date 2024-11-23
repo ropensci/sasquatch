@@ -16,7 +16,10 @@
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Setting Up">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="setting_up_files/libs/quarto-html/popper.min.js"></script><script src="setting_up_files/libs/quarto-html/tippy.umd.min.js"></script><link href="setting_up_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="setting_up_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Setting Up">
+<meta property="og:image" content="https://ryanzomorrodi.github.io/sasquatch/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -26,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">sasquatch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9010</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9014</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,212 +56,174 @@
 
 
   </div>
-</nav><div class="container template-article">
-
-
-
-
+</nav><div class="container template-quarto">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Setting Up</h1>
-            
-      
-      <small class="dont-index">Source: <a href="https://github.com/ryanzomorrodi/sasr/blob/main/vignettes/setting_up.Rmd" class="external-link"><code>vignettes/setting_up.Rmd</code></a></small>
-      <div class="d-none name"><code>setting_up.Rmd</code></div>
+
+
+
+
+      <small class="dont-index">Source: <a href="https://github.com/ryanzomorrodi/sasr/blob/main/vignettes/setting_up.qmd" class="external-link"><code>vignettes/setting_up.qmd</code></a></small>
+      <div class="d-none name"><code></code></div>
     </div>
 
-    
-    
-<p><code>sasquatch</code> works by utilizing the <a href="https://sassoftware.github.io/SASPy/" class="external-link"><code>SASPy</code></a>
-python package, similar to packages like <a href="https://github.com/insightsengineering/sasr" class="external-link"><code>sasr</code></a>
-or <a href="https://github.com/baselr/configSAS" class="external-link">configSAS</a>. This
-means everything we do to connect R and SAS, needs to go through the
-translation layer which is <code>SASPy</code>.</p>
-<p>Setting up can be difficult, but this guide is here to help you! Keep
-in mind there are many different ways to connect to SAS and different
-operating systems will have different steps. The following vignette will
-only address connecting to SAS On Demand for Academics (ODA) servers. If
-you are looking to utilize other SAS clients, check out the <a href="https://sassoftware.github.io/SASPy/configuration.html#" class="external-link"><code>SASPy</code>
-configuration documentation</a>. Although it is quite lengthy, it will
-provide you with all the necessary steps to connect to any SAS client
-from any machine.</p>
-<div class="section level2">
-<h2 id="signing-up-for-sas-oda">Signing up for SAS ODA<a class="anchor" aria-label="anchor" href="#signing-up-for-sas-oda"></a>
+
+
+
+
+
+    <p><code>sasquatch</code> works by utilizing the <a href="https://sassoftware.github.io/SASPy/" class="external-link"><code>SASPy</code></a> python package, similar to packages like <a href="https://github.com/insightsengineering/sasr" class="external-link"><code>sasr</code></a> or <a href="https://github.com/baselr/configSAS" class="external-link">configSAS</a>. This means everything we do to connect R and SAS, needs to go through <code>SASPy</code>.</p>
+<p>Setting up <code>SASPy</code> can be difficult, but this guide is here to help you! Keep in mind there are many different ways to connect to SAS and different operating systems will have different steps. The following vignette will go through setting up <code>SASPy</code> with SAS On Demand for Academics (ODA), but the process should be generalizable to other SAS clients.</p>
+<p>For more information about setting up <code>SASPy</code>, check out the <a href="https://sassoftware.github.io/SASPy/configuration.html#" class="external-link"><code>SASPy</code> configuration documentation</a>.</p>
+<section class="level2"><h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>SAS ODA is free SAS client for professors, students, and independent
-learners. Create an account at <a href="https://welcome.oda.sas.com/" class="external-link uri">https://welcome.oda.sas.com/</a>.</p>
-<p>Once you have set up your account, log in and note the ODA server (in
-the picture below United States 2) and your username (under the email in
-the profile dropdown). We will need these for later.</p>
-<p><img src="images%2Fsas_oda.png"></p>
+<p>Install the <code>sasquatch</code> R package from GitHub:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"ryanzomorrodi/sasquatch"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="installing-python">Installing Python<a class="anchor" aria-label="anchor" href="#installing-python"></a>
-</h2>
-<p>If you do not already have Python already installed, <a href="https://www.python.org/downloads/" class="external-link">install Python</a> from the
-Python Software Foundation website.</p>
+<p>Make sure Python is installed on your system. You can download from <a href="https://www.python.org/downloads'" class="external-link">Python Software Foundation</a>, or use <code>install_python()</code> from reticulate:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">reticulate</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/install_python.html" class="external-link">install_python</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="installing-java">Installing Java<a class="anchor" aria-label="anchor" href="#installing-java"></a>
-</h2>
-<p>If you do not already have Java installed, install <a href="https://www.java.com/en/download/" class="external-link">Java</a>. Note the path that
-you install java in.</p>
-<p>If you do have Java installed, but do not remember where you
-installed it, then…</p>
-<p>In windows, it is usually installed in
-<code>C:\Program Files\Java\jdk{version number}</code>, but you can
-double check by opening up a terminal and typing in:</p>
-<pre><code>where java</code></pre>
-<p>In mac or linux, it is usually installed in
-<code>/usr/bin/java</code>, but you can double check by opening up a
-terminal and typing in:</p>
-<pre><code>which java</code></pre>
-<p>Note the Java path for later.</p>
+<p>Use the <code><a href="../reference/install_saspy.html">install_saspy()</a></code> function to install <code>SASPy</code>. This will automatically create an isolated virtual environment called “r-saspy”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">sasquatch</span><span class="fu">::</span><span class="fu"><a href="../reference/install_saspy.html">install_saspy</a></span><span class="op">(</span>envname <span class="op">=</span> <span class="st">"r-saspy"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="setting-up-saspy">Setting up <code>SASPy</code><a class="anchor" aria-label="anchor" href="#setting-up-saspy"></a>
+<p>Make sure Java is installed on your system. You can download Java from <a href="https://www.java.com/en/download/" class="external-link">their website</a>. Note the Java installation path.</p>
+</section><section class="level2"><h2 id="configuration">Configuration<a class="anchor" aria-label="anchor" href="#configuration"></a>
 </h2>
-<p>Note we are going install the <code>SASPy</code> package in our
-global python install. It’s often a better practice to create a virtual
-environment, conda environment, or use one of the many other ways to
-isolate package installs. This isn’t necessarily a worry if you only
-plan to use SAS and R together.</p>
-<p>In windows, open up a command prompt type in:</p>
-<pre><code>py -m pip install wheel
-py -m pip install SASPy
-py -m pip install pandas
-py -m site --user-site</code></pre>
-<p>In linux or max, open up a terminal and type in:</p>
-<pre><code>python3 -m pip install wheel
-python3 -m pip install SASPy
-python3 -m pip install pandas
-python3 -m site --user-site</code></pre>
-<p>This will install the required packages for <code>SASPy</code> and
-then print out the path where they were installed. Navigate to this path
-and find the <code>SASPy</code> folder. This is where the
-<code>SASPy</code> package is stored. Create a new file within the SASPy
-package called <code>sascfg_personal.py</code>.</p>
-<p>Inside that file paste the the following:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>SAS_config_names <span class="op">=</span> [<span class="st">'oda'</span>]</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>oda <span class="op">=</span> {</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>    <span class="st">'java'</span> : <span class="st">'{java path}'</span>,</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>    <span class="co">#US Home Region 1</span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>    <span class="co">#'iomhost' : ['odaws01-usw2.oda.sas.com','odaws02-usw2.oda.sas.com','odaws03-usw2.oda.sas.com','odaws04-usw2.oda.sas.com'],</span></span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>    <span class="co">#US Home Region 2</span></span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>    <span class="co">#'iomhost' : ['odaws01-usw2-2.oda.sas.com','odaws02-usw2-2.oda.sas.com'],</span></span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>    <span class="co">#European Home Region 1</span></span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>    <span class="co">#'iomhost' : ['odaws01-euw1.oda.sas.com','odaws02-euw1.oda.sas.com'],</span></span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>    <span class="co">#Asia Pacific Home Region 1</span></span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>    <span class="co">#'iomhost' : ['odaws01-apse1.oda.sas.com','odaws02-apse1.oda.sas.com'],</span></span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>    <span class="co">#Asia Pacific Home Region 2</span></span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>    <span class="co">#'iomhost' : ['odaws01-apse1-2.oda.sas.com','odaws02-apse1-2.oda.sas.com'],</span></span>
-<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>    <span class="st">'iomport'</span> : <span class="dv">8591</span>,</span>
-<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>    <span class="st">'encoding'</span> : <span class="st">'utf-8'</span>,</span>
-<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>    <span class="st">'authkey'</span> : <span class="st">'oda'</span></span>
-<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>}</span></code></pre></div>
-<p>Remember back to where java was installed on your computer and
-replace <code>{java path}</code> with the path to your java install.</p>
-<p><strong>Note:</strong> If your path contains <code>\</code> replace
-them with <code>/</code> or <code>\\</code>.</p>
-<p>Next, remember which SAS ODA server your account resides in. Remove
-the <code>#</code> for the line after your SAS ODA server.</p>
-<p>As an example:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>SAS_config_names <span class="op">=</span> [<span class="st">'oda'</span>]</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>oda <span class="op">=</span> {</span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>    <span class="st">'java'</span> : <span class="st">'/usr/bin/java'</span>,</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>    <span class="co">#US Home Region 1</span></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>    <span class="co">#'iomhost' : ['odaws01-usw2.oda.sas.com','odaws02-usw2.oda.sas.com','odaws03-usw2.oda.sas.com','odaws04-usw2.oda.sas.com'],</span></span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>    <span class="co">#US Home Region 2</span></span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>    <span class="st">'iomhost'</span> : [<span class="st">'odaws01-usw2-2.oda.sas.com'</span>,<span class="st">'odaws02-usw2-2.oda.sas.com'</span>],</span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>    <span class="co">#European Home Region 1</span></span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>    <span class="co">#'iomhost' : ['odaws01-euw1.oda.sas.com','odaws02-euw1.oda.sas.com'],</span></span>
-<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>    <span class="co">#Asia Pacific Home Region 1</span></span>
-<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a>    <span class="co">#'iomhost' : ['odaws01-apse1.oda.sas.com','odaws02-apse1.oda.sas.com'],</span></span>
-<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>    <span class="co">#Asia Pacific Home Region 2</span></span>
-<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a>    <span class="co">#'iomhost' : ['odaws01-apse1-2.oda.sas.com','odaws02-apse1-2.oda.sas.com'],</span></span>
-<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a>    <span class="st">'iomport'</span> : <span class="dv">8591</span>,</span>
-<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a>    <span class="st">'encoding'</span> : <span class="st">'utf-8'</span>,</span>
-<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a>    <span class="st">'authkey'</span> : <span class="st">'oda'</span></span>
-<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a>}</span></code></pre></div>
-<p>We’re almost done! One last thing.</p>
-<p>On Windows, create a file named <code>_authinfo</code> in
-<code>C:\Users\{your username}\</code>.</p>
-<p>On Mac or Linux, create a file named <code>.authinfo</code> in
-<code>/home/{your username}/</code> a.k.a. <code>~</code>.</p>
-<p>Within this file write the following:</p>
-<pre><code>oda user {your SAS ODA username} password {your SAS ODA password}</code></pre>
-<p>Substitute the <code>{your SAS ODA username}</code> with the username
-you noted earlier, and <code>{your SAS ODA password}</code> with your
-ODA password. You’re done setting up <code>SASPy</code>!</p>
+<p>Set up for SAS ODA is super easy. Run <code>config_saspy()</code> and follow the prompts.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">sasquatch</span><span class="fu">::</span><span class="fu"><a href="../reference/configure_saspy.html">configure_saspy</a></span><span class="op">(</span>template <span class="op">=</span> <span class="st">"oda"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="using-sasquatch">Using <code>sasquatch</code><a class="anchor" aria-label="anchor" href="#using-sasquatch"></a>
-</h2>
-<p>Now that you have everything set up, you can start using
-<code>sasquatch</code>.</p>
-<p>Open up your favorite R IDE and install <code>sasquatch</code></p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"ryanzomorrodi/sasquatch"</span><span class="op">)</span></span></code></pre></div>
-<p>Now you can create SAS quarto code blocks just like any other!</p>
-<p>Example:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>---</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>format: html</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>engine: knitr</span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>---</span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>```{r}</span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>library(sasquatch)</span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>sas_connect()</span>
-<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>```</span>
-<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>```{sas}</span>
-<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a>```</span></code></pre></div>
-<div class="section level3">
-<h3 id="interactive-use">Interactive use<a class="anchor" aria-label="anchor" href="#interactive-use"></a>
+<section class="level3"><h3 id="rstudio">RStudio<a class="anchor" aria-label="anchor" href="#rstudio"></a>
 </h3>
-<div class="section level4">
-<h4 id="rstudio">RStudio<a class="anchor" aria-label="anchor" href="#rstudio"></a>
-</h4>
-<p>Within RStudio, you should be able to run SAS chunks as you would any
-other chunk. However, if you want to be able to view SAS output within
-the Viewer instead of beneath the chunk, you can utilize the
-<code><a href="../reference/sas_run_selected.html">sas_run_selected()</a></code> addin. To add a keyboard shortcut for
-this addin, open Tools -&gt; Modify Keyboard Shortcuts and search “Run
-selected in SAS”, type in the box under Shortcut to set the keyboard
-shortcut to your liking and click Apply.</p>
-<p><img src="images%2Frstudio_shrtcts.png"></p>
-</div>
-<div class="section level4">
-<h4 id="positron">Positron<a class="anchor" aria-label="anchor" href="#positron"></a>
-</h4>
-<p>Within Positron, you will not be able to run SAS chunks as you would
-R or Python chunks. However, just as in RStudio, you can create a
-keyboard shortcut which will allow you to view SAS output within the
-Plots pane. Open up the command palette with <code>ctrl+shift+p</code>
-or <code>command+shift+p</code> and search “Preferences: Open Keyboard
-Shortcuts (JSON)”. Add the following to your shortcuts.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>    <span class="dt">"key"</span><span class="fu">:</span> <span class="st">"ctrl+shift+enter"</span><span class="fu">,</span></span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>    <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"workbench.action.executeCode.console"</span><span class="fu">,</span></span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>    <span class="dt">"when"</span><span class="fu">:</span> <span class="st">"editorTextFocus"</span><span class="fu">,</span></span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>    <span class="dt">"args"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>        <span class="dt">"langId"</span><span class="fu">:</span> <span class="st">"r"</span><span class="fu">,</span></span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>        <span class="dt">"code"</span><span class="fu">:</span> <span class="st">"sasquatch::sas_run_selected()"</span><span class="fu">,</span></span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>        <span class="dt">"focus"</span><span class="fu">:</span> <span class="kw">true</span></span>
-<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
-<p>Edit the <code>key</code> argument to set your preferred
-shortcut.</p>
-</div>
-</div>
-</div>
-  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+<p>Within RStudio, you should be able to run SAS chunks as you would any other chunk. However, if you want to be able to view SAS output within the Viewer instead of beneath the chunk, you can utilize the <code><a href="../reference/sas_run_selected.html">sas_run_selected()</a></code> addin. To add a keyboard shortcut for this addin, open Tools -&gt; Modify Keyboard Shortcuts and search “Run selected in SAS”, type in the box under Shortcut to set the keyboard shortcut to your liking and click Apply.</p>
+<p><img src="images/rstudio_shrtcts.png"></p>
+</section><section class="level3"><h3 id="positron">Positron<a class="anchor" aria-label="anchor" href="#positron"></a>
+</h3>
+<p>Within Positron, you will not be able to run SAS chunks as you would R or Python chunks. However, just as in RStudio, you can create a keyboard shortcut which will allow you to view SAS output within the Plots pane. Open up the command palette with <code>ctrl+shift+p</code> or <code>command+shift+p</code> and search “Preferences: Open Keyboard Shortcuts (JSON)”. Add the following to your shortcuts.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"key"</span><span class="fu">:</span> <span class="st">"ctrl+shift+enter"</span><span class="fu">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"workbench.action.executeCode.console"</span><span class="fu">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"when"</span><span class="fu">:</span> <span class="st">"editorTextFocus"</span><span class="fu">,</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"args"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"langId"</span><span class="fu">:</span> <span class="st">"r"</span><span class="fu">,</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"code"</span><span class="fu">:</span> <span class="st">"sasquatch::sas_run_selected()"</span><span class="fu">,</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"focus"</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Edit the <code>key</code> argument to set your preferred shortcut.</p>
+</section></section><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'light-border',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config);
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
-
 
 
     <footer><div class="pkgdown-footer-left">
