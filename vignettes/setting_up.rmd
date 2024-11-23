@@ -16,9 +16,17 @@ knitr::opts_chunk$set(
 
 `sasquatch` works by utilizing the [`SASPy`](https://sassoftware.github.io/SASPy/) python package, similar to packages like [`sasr`](https://github.com/insightsengineering/sasr) or [configSAS](https://github.com/baselr/configSAS). This means everything we do to connect R and SAS, needs to go through `SASPy`.
 
-Setting up `SASPy` can be difficult, but this guide is here to help you! Keep in mind there are many different ways to connect to SAS and different operating systems will have different steps. The following vignette will go through setting up `SASPy` with SAS On Demand for Academics (ODA), but the process should be generalizable to other SAS clients.
+Setting up `SASPy` can be difficult, but this guide is here to help you! Keep in mind there are several different SAS connection methods. The following vignette will go through setting up `SASPy` with SAS On Demand for Academics (ODA), but the process is roughly generalizable.
 
-For more information about setting up `SASPy`, check out the [`SASPy` configuration documentation](https://sassoftware.github.io/SASPy/configuration.html#).
+For more information about setting up non-ODA `SASPy` connections, check out the [`SASPy` configuration documentation](https://sassoftware.github.io/SASPy/configuration.html#).
+
+## Registration
+
+SAS ODA is free SAS client for professors, students, and independent learners. Create an account at <https://welcome.oda.sas.com/>.
+
+Once you have set up your account, log in and note the ODA server (in the picture below United States 2) and your username (under the email in the profile dropdown). We will need these for later.
+
+![](images/sas_oda.png)
 
 ## Installation
 
@@ -45,7 +53,7 @@ Make sure Java is installed on your system. You can download Java from [their we
 
 ## Configuration
 
-Set up for SAS ODA is super easy. Run `config_saspy()` and follow the prompts.
+Set up for SAS ODA is super easy. Run `config_saspy()` and follow the prompts (you may need to recall your username, server, and java installation path from earlier).
 
 ```{r, eval = FALSE}
 sasquatch::configure_saspy(template = "oda")

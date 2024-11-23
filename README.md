@@ -10,7 +10,7 @@
 coverage](https://codecov.io/gh/ryanzomorrodi/sasquatch/branch/main/graph/badge.svg)](https://app.codecov.io/gh/ryanzomorrodi/sasquatch?branch=main)
 <!-- badges: end -->
 
-Use SAS, R, and Quarto together
+Use SAS, R, and Quarto Together
 
 `sasquatch` allows you to combine the power of R, SAS, and quarto
 together to create reproducible multilingual reports. `sasquatch` can
@@ -19,7 +19,7 @@ and R, and render SAS HTML output within quarto documents.
 
 `sasquatch` relies on the
 [`SASPy`](https://sassoftware.github.io/saspy/) Python package. But if
-you
+you…
 
 - Don’t have `SASPy` already installed, or  
 - Don’t have a SAS License
