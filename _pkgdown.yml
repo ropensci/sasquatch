@@ -1,12 +1,18 @@
 url: https://ryanzomorrodi.github.io/sasquatch/
+project:
+  render: ['*.qmd']
 template:
   bootstrap: 5
   bslib:
     bg: "#edf2f9"
     fg: "#112277"
 
-
 reference:
+- title: Setup
+  contents:
+  - install_saspy
+  - configure_saspy
+
 - title: Session Management
   contents:
   - sas_connect
