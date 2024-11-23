@@ -100,7 +100,7 @@ configure_saspy <- function(
       c("1: United States 1", "2: United States 2", "3: Europe 2", "4: Asia Pacific 1", "Asia Pacific 2"),
       "Which server is your account on?"
     )
-    if (overwrite_auth == 0) {
+    if (server_num == 0) {
       stop("No server selected.")
     }
     iom_host = servers[server_num]
