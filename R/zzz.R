@@ -1,6 +1,7 @@
 .pkgenv <- new.env(parent = emptyenv())
 
-.onAttach <- function(libname, pkgname) {
+.onLoad <- function(libname, pkgname) {
+  reticulate::py_discover_config("saspy", "r-saspy")
   .pkgenv$SASPy <- reticulate::import("saspy", delay_load = TRUE)
   knitr::knit_engines$set(sas = sas_engine)
 
