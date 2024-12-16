@@ -18,6 +18,7 @@ SystemRequirements:
     SASPy,
     java (>= 7) required for IOM access method
 Imports: 
+    chk,
     htmlwidgets,
     knitr,
     reticulate,

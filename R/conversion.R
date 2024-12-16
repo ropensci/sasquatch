@@ -18,10 +18,15 @@
 #' r_to_sas(mtcars, "mtcars")
 #' }
 r_to_sas <- function(x, table_name, libref = "WORK") {
-  check_connection()
-
+  chk::chk_data(x)
+  chk_has_rownames(x)
+  chk::chk_string(table_name)
+  chk::chk_string(libref)
+  
   x <- reticulate::r_to_py(x)
-  .pkgenv$session$dataframe2sasdata(x, table_name, libref)
+  execute_safely(
+    .pkgenv$session$dataframe2sasdata(x, table_name, libref)
+  )
 
   invisible()
 }
@@ -45,8 +50,13 @@ r_to_sas <- function(x, table_name, libref = "WORK") {
 #' cars <- sas_to_r("cars", "sashelp")
 #' }
 sas_to_r <- function(table_name, libref = "WORK")  {
-  check_connection()
+  chk_connection()
+  chk::chk_string(table_name)
+  chk::chk_string(libref)
   
-  x <- .pkgenv$session$sasdata2dataframe(table_name, libref)
+
+  execute_safely(
+    x <- .pkgenv$session$sasdata2dataframe(table_name, libref)
+  )
   reticulate::py_to_r(x)
 }

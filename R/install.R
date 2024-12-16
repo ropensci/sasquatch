@@ -17,9 +17,15 @@
 #' }
 install_saspy <- function(
   envname = "r-saspy",
-  extra_packages = NULL,
+  extra_packages,
   restart_session = TRUE
 ) {
+  chk::chk_string(envname)
+  if (!missing(extra_packages)) {
+    chk::chk_character(extra_packages)
+  }
+  chk::chk_logical(restart_session)
+
   packages <- unique(c("wheel", "saspy", "pandas"), extra_packages)
   
   if (reticulate::virtualenv_exists(envname)) {

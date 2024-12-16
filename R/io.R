@@ -17,9 +17,14 @@
 #' sas_upload(quarto_file, "sasquatch.qmd")
 #' }
 sas_upload <- function(local_path, sas_path) {
-  check_connection()
+  chk_connection()
+  chk::chk_string(local_path)
+  chk::chk_file(local_path)
+  chk::chk_string(sas_path)
 
-  result <- .pkgenv$session$upload(local_path, sas_path)
+  execute_safely(
+    result <- .pkgenv$session$upload(local_path, sas_path)
+  )
 
   if (!result$Success) {
     stop(result$LOG)
@@ -51,9 +56,13 @@ sas_upload <- function(local_path, sas_path) {
 #' sas_download("sasquatch.qmd", "sasquatch.qmd")
 #' }
 sas_download <- function(sas_path, local_path) {
-  check_connection()
+  chk_connection()
+  chk::chk_string(sas_path)
+  chk::chk_string(local_path)
 
-  result <- .pkgenv$session$download(local_path, sas_path)
+  execute_safely(
+    result <- .pkgenv$session$download(local_path, sas_path)
+  )
 
   if (!result$Success) {
     stop(result$LOG)
@@ -84,9 +93,12 @@ sas_download <- function(sas_path, local_path) {
 #' sas_remove("sasquatch.qmd")
 #' }
 sas_remove <- function(path) {
-  check_connection()
+  chk_connection()
+  chk::chk_string(path)
 
-  result <- .pkgenv$session$file_delete(path)
+  execute_safely(
+    result <- .pkgenv$session$file_delete(path)
+  )
 
   if (!result$Success) {
     stop(result$LOG)
@@ -111,7 +123,10 @@ sas_remove <- function(path) {
 #' sas_list(".")
 #' }
 sas_list <- function(path) {
-  check_connection()
+  chk_connection()
+  chk::chk_string(path)
 
-  .pkgenv$session$dirlist(path)
+  execute_safely(
+    .pkgenv$session$dirlist(path)
+  )
 }

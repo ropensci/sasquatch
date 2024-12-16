@@ -26,11 +26,12 @@
 #' @examples
 #' knitr::knit_engines$set(sas = sas_engine)
 sas_engine <- function (options) {
+  chk_connection(quick = TRUE)
   options$engine <- "txt"
-  check_connection()
 
   code <- paste(options$code, collapse = "\n")
 
+  # allows html widgets to be returned within the rstudio rmd/quarto interface
   if (!isTRUE(getOption('knitr.in.progress'))) {
     return(sas_run_string(code))
   }
@@ -43,7 +44,9 @@ sas_engine <- function (options) {
   if (identical(options$eval, FALSE)) {
     out <- list()
   } else {
-    results <- .pkgenv$session$submit(code)
+    execute_safely(
+      results <- .pkgenv$session$submit(code)
+    )
 
     if (identical(options$output, FALSE)) {
       out <- list()

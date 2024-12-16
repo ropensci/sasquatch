@@ -15,8 +15,14 @@
 #' sas_connect(config = "oda")
 #' }
 sas_connect <- function(config) {
+  if (!missing(config)) {
+    chk::chk_string(config)
+  }
+  
   if (missing(config)) {
-    reticulate::py_capture_output(.pkgenv$session <- .pkgenv$SASPy$SASsession())
+    reticulate::py_capture_output(
+      .pkgenv$session <- .pkgenv$SASPy$SASsession()
+    )
   } else {
     reticulate::py_capture_output(
       .pkgenv$session <- .pkgenv$SASPy$SASsession(config = config)
@@ -41,8 +47,11 @@ sas_connect <- function(config) {
 #' sas_disconnect()
 #' }
 sas_disconnect <- function() {
-  check_connection()
-  reticulate::py_capture_output(.pkgenv$session$endsas())
+  chk_connection()
+  
+  reticulate::py_capture_output(
+    .pkgenv$session$endsas()
+  )
   .pkgenv$session <- NULL
   cat("SAS Connection terminated.\n")
 
@@ -64,7 +73,5 @@ sas_disconnect <- function() {
 #' sas_get_session()
 #' }
 sas_get_session <- function() {
-  check_connection()
-
   .pkgenv$session
 }

@@ -15,9 +15,11 @@
 #' sas_run_string("PROC MEANS DATA = sashelp.cars;\n RUN;")
 #' }
 sas_run_string <- function(input) {
-  check_connection()
+  chk_connection()
 
-  results <- .pkgenv$session$submit(input)
+  execute_safely(
+    results <- .pkgenv$session$submit(input)
+  )
 
   sas_widget(
     paste(gsub("'", "\"", results$LST), collapse = "\n"), 
@@ -47,7 +49,7 @@ sas_run_string <- function(input) {
 #' sas_run_file("test.sas", "test.html")
 #' }
 sas_run_file <- function(input_path, output_path, overwrite = FALSE) {
-  check_connection()
+  chk_connection()
 
   input <- read_file(input_path)
 
@@ -73,4 +75,6 @@ sas_run_file <- function(input_path, output_path, overwrite = FALSE) {
     path = paste0(output_path[1], ".log"),
     overwrite
   )
+
+  invisible()
 }

@@ -30,12 +30,6 @@ wrap_in_panel_tabset <- function(lst, log) {
   )
 }
 
-check_connection <- function() {
-  if (!exists("session", envir = .pkgenv) || is.null(.pkgenv$session)) {
-    stop("No current SAS session. Use sas_connect() to start one.")
-  }
-}
-
 read_file <- function(path) {
   if (!file.exists(path)) {
     stop("Input file does not exist.")
@@ -50,4 +44,18 @@ write_file <- function(output, path, overwrite) {
   }
 
   cat(output, file = path)
+}
+
+#' Execute saspy function with a connection check if the function fails
+execute_safely <- function(code) {
+  calling_env <- parent.frame()
+  tryCatch({
+    code
+  }, error = function(e) {
+    if (is.null(.pkgenv$session$SASpid)) {
+      chk::abort_chk("No active SAS session. Use sas_connect() to start one.", call = calling_env)
+    } else {
+      e
+    }
+  })
 }
