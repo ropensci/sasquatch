@@ -26,7 +26,7 @@
 #' @examples
 #' knitr::knit_engines$set(sas = sas_engine)
 sas_engine <- function (options) {
-  chk_connection(quick = TRUE)
+  chk_connection()
   options$engine <- "txt"
 
   code <- paste(options$code, collapse = "\n")
@@ -42,30 +42,37 @@ sas_engine <- function (options) {
   }
 
   if (identical(options$eval, FALSE)) {
-    out <- list()
-  } else {
+    options$output <- FALSE
+  } else if (knitr::is_html_output()) {
     execute_safely(
       results <- .pkgenv$session$submit(code)
     )
 
-    if (identical(options$output, FALSE)) {
-      out <- list()
+    if (identical(options$capture, "lst")) {
+      out <- wrap_in_iframe(results$LST)
+    } else if (identical(options$capture, "log")) {
+      out <- wrap_in_pre(results$LOG)
     } else {
-      if (identical(options$capture, "lst")) {
-        out <- wrap_in_iframe(results$LST)
-      } else if (identical(options$capture, "log")) {
-        out <- wrap_in_pre(results$LOG)
-      } else {
-        lst <- wrap_in_iframe(results$LST)
-        log <- wrap_in_pre(results$LOG)
-        out <- wrap_in_panel_tabset(lst, log)
-      }
-      options$results <- "asis"
+      lst <- wrap_in_iframe(results$LST)
+      log <- wrap_in_pre(results$LOG)
+      out <- wrap_in_panel_tabset(lst, log)
     }
+    options$results <- "asis"
+  } else {
+    execute_safely(
+      results <- .pkgenv$session$submit(
+        paste("OPTIONS LINESIZE=79;OPTIONS NODATE NONuMBER;", code, sep = "\n"), 
+        results = "TEXT"
+      )
+    )
+    out <- results$LST
   }
 
   if (identical(options$echo, FALSE)) {
     code <- list()
+  }
+  if (identical(options$output, FALSE)) {
+    results <- list()
   }
   
   knitr::engine_output(options, code, out)
