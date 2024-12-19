@@ -61,11 +61,21 @@ sas_engine <- function (options) {
   } else {
     execute_safely(
       results <- .pkgenv$session$submit(
-        paste("OPTIONS LINESIZE=79;OPTIONS NODATE NONuMBER;", code, sep = "\n"), 
+        paste("OPTIONS NODATE NONuMBER LINESIZE=79;", code, sep = "\n"), 
         results = "TEXT"
       )
     )
-    out <- results$LST
+
+    if (identical(options$capture, "lst")) {
+      out <- results$LST
+    } else if (identical(options$capture, "log")) {
+      out <- results$LOG
+    } else {
+      lst <- paste("```", results$LST, "```", sep = "\n")
+      log <- paste("```", results$LOG, "```", sep = "\n")
+      out <- wrap_in_panel_tabset(lst, log)
+      options$results <- "asis"
+    }
   }
 
   if (identical(options$echo, FALSE)) {

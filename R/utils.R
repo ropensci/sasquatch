@@ -20,9 +20,9 @@ wrap_in_pre <- function(html) {
 wrap_in_panel_tabset <- function(lst, log) {
   paste(
     '::: panel-tabset',
-    '## lst',
+    '## Output',
     lst,
-    '## log',
+    '## Log',
     log,
     ':::
     ',
