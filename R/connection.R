@@ -28,7 +28,7 @@ sas_connect <- function(config) {
       .pkgenv$session <- .pkgenv$SASPy$SASsession(config = config)
     )
   }
-  cat("SAS Connection established.\n")
+  chk::msg("SAS Connection established.")
 
   invisible()
 }
@@ -53,7 +53,7 @@ sas_disconnect <- function() {
     .pkgenv$session$endsas()
   )
   .pkgenv$session <- NULL
-  cat("SAS Connection terminated.\n")
+  chk::msg("SAS Connection terminated.")
 
   invisible()
 }
