@@ -1,11 +1,3 @@
-chk_connection <- function() {
-  if (vld_connection()) {
-    return(invisible())
-  }
-  chk::abort_chk("No active SAS session. Use sas_connect() to start one.")
-}
-vld_connection <- function() exists("session", envir = .pkgenv) && !is.null(.pkgenv$session)
-
 chk_has_rownames <- function(x, x_name = NULL) {
   if (vld_has_rownames(x)) {
     return(invisible(x))

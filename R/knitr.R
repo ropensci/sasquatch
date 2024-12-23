@@ -44,7 +44,7 @@ sas_engine <- function (options) {
   if (identical(options$eval, FALSE)) {
     options$output <- FALSE
   } else if (knitr::is_html_output()) {
-    execute_safely(
+    execute_if_connection_active(
       results <- .pkgenv$session$submit(code)
     )
 
@@ -59,7 +59,7 @@ sas_engine <- function (options) {
     }
     options$results <- "asis"
   } else {
-    execute_safely(
+    execute_if_connection_active(
       results <- .pkgenv$session$submit(
         paste("OPTIONS NODATE NONuMBER LINESIZE=79;", code, sep = "\n"), 
         results = "TEXT"

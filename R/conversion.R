@@ -24,7 +24,7 @@ r_to_sas <- function(x, table_name, libref = "WORK") {
   chk::chk_string(libref)
   
   x <- reticulate::r_to_py(x)
-  execute_safely(
+  execute_if_connection_active(
     reticulate::py_capture_output(
       .pkgenv$session$dataframe2sasdata(x, table_name, libref)
     )
@@ -57,7 +57,7 @@ sas_to_r <- function(table_name, libref = "WORK")  {
   chk::chk_string(libref)
   
 
-  execute_safely(
+  execute_if_connection_active(
     x <- .pkgenv$session$sasdata2dataframe(table_name, libref)
   )
   reticulate::py_to_r(x)

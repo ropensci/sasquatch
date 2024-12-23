@@ -22,7 +22,7 @@ sas_upload <- function(local_path, sas_path) {
   chk::chk_file(local_path)
   chk::chk_string(sas_path)
 
-  execute_safely(
+  execute_if_connection_active(
     result <- .pkgenv$session$upload(local_path, sas_path)
   )
 
@@ -60,7 +60,7 @@ sas_download <- function(sas_path, local_path) {
   chk::chk_string(sas_path)
   chk::chk_string(local_path)
 
-  execute_safely(
+  execute_if_connection_active(
     result <- .pkgenv$session$download(local_path, sas_path)
   )
 
@@ -96,7 +96,7 @@ sas_remove <- function(path) {
   chk_connection()
   chk::chk_string(path)
 
-  execute_safely(
+  execute_if_connection_active(
     result <- .pkgenv$session$file_delete(path)
   )
 
@@ -126,7 +126,7 @@ sas_list <- function(path) {
   chk_connection()
   chk::chk_string(path)
 
-  execute_safely(
+  execute_if_connection_active(
     .pkgenv$session$dirlist(path)
   )
 }
