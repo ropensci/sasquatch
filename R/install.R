@@ -21,12 +21,12 @@ install_saspy <- function(
   restart_session = TRUE
 ) {
   chk::chk_string(envname)
+  packages <- c("wheel", "saspy", "pandas")
   if (!missing(extra_packages)) {
     chk::chk_character(extra_packages)
+    packages <- c(packages, extra_packages)
   }
   chk::chk_logical(restart_session)
-
-  packages <- unique(c("wheel", "saspy", "pandas"), extra_packages)
   
   if (reticulate::virtualenv_exists(envname)) {
     reticulate::virtualenv_remove(envname = envname, confirm = FALSE)
@@ -40,7 +40,7 @@ install_saspy <- function(
     rstudioapi::restartSession()
   }
 
-  invisible(NULL)
+  invisible()
 }
 
 #' Configure SASPy package
