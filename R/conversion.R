@@ -25,7 +25,9 @@ r_to_sas <- function(x, table_name, libref = "WORK") {
   
   x <- reticulate::r_to_py(x)
   execute_safely(
-    .pkgenv$session$dataframe2sasdata(x, table_name, libref)
+    reticulate::py_capture_output(
+      .pkgenv$session$dataframe2sasdata(x, table_name, libref)
+    )
   )
 
   invisible()
