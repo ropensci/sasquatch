@@ -10,8 +10,23 @@ sas_get_session()
 Current SAS session.
 }
 \description{
-Gets current SAS session so that you can use functions not yet implemented.
-Can also be useful for testing or using Python.
+Returns the current SAS session, which can be used to extend \code{sasquatch}
+functionality or access the current session within Python.
+}
+\details{
+\subsection{Extending \code{sasquatch} functionality}{
+
+\code{SASPy} has a wealth of functionality that has not been implemented within
+\code{sasquatch}. \code{sas_get_session()} offers a gateway to unimplemented
+functionality within the \href{https://sassoftware.github.io/saspy/api.html#sas-session-object}{SASsession class}.
+}
+
+\subsection{Using Python}{
+
+When utilizing Python, R, and SAS, start the session within R using
+\code{sas_connect()} and utilize \code{reticulate} to pass the current SAS session
+to Python.
+}
 }
 \examples{
 \dontrun{

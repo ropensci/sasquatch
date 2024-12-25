@@ -7,16 +7,29 @@
 sas_to_r(table_name, libref = "WORK")
 }
 \arguments{
-\item{table_name}{Name of table in SAS.}
+\item{table_name}{string; Name of table in SAS.}
 
-\item{libref}{Name of libref SAS table is stored within.}
+\item{libref}{string; Name of libref SAS table is stored within.}
 }
 \value{
-R \code{data.frame}.
+\code{data.frame} of the specified SAS table.
 }
 \description{
-Converts table from current SAS session into a R \code{data.frame}. Translation
-errors may occur.
+Converts table from current SAS session into a R \code{data.frame}.
+}
+\details{
+SAS only has two data types (numeric and character). Data types are converted
+as follows:
+\itemize{
+\item numeric -> double
+\item character -> character
+\item numeric (datetime) -> POSIXct
+\item numeric (date) -> POSIXct
+}
+
+In the conversion process dates and datetimes are converted to local
+time. If utilizing another timezone, use \code{as.POSIXct()} or
+\code{lubridate::with_tz()} to convert back to the desired time zone.
 }
 \examples{
 \dontrun{

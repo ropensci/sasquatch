@@ -4,11 +4,7 @@
 \alias{install_saspy}
 \title{Install SASPy package}
 \usage{
-install_saspy(
-  envname = "r-saspy",
-  extra_packages = NULL,
-  restart_session = TRUE
-)
+install_saspy(envname = "r-saspy", extra_packages, restart_session = TRUE)
 }
 \arguments{
 \item{envname}{Name of virtual environment to install SASPy within.}

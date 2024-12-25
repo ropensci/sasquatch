@@ -4,11 +4,11 @@
 \alias{sas_connect}
 \title{Establish SAS session}
 \usage{
-sas_connect(config)
+sas_connect(cfgname)
 }
 \arguments{
-\item{config}{Configuration to use from the SAS_config_names list in
-\code{sascfg_personal.py}.}
+\item{cfgname}{string; Name of configuration to use from the SAS_config_names
+list in \code{sascfg_personal.py}.}
 }
 \value{
 No return value.
@@ -16,8 +16,14 @@ No return value.
 \description{
 Starts a SAS session. This is required before doing anything!
 }
+\details{
+All configurations are specified within the \code{sascfg_personal.py} file inside
+the \code{SASPy} package. For more information about \code{SASPy} configuration, check
+out the \href{https://sassoftware.github.io/saspy/configuration.html}{configuration documentation}
+or \code{vignette("setting_up")}.
+}
 \examples{
 \dontrun{
-sas_connect(config = "oda")
+sas_connect(cfgname = "oda")
 }
 }

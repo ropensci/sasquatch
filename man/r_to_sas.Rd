@@ -7,18 +7,32 @@
 r_to_sas(x, table_name, libref = "WORK")
 }
 \arguments{
-\item{x}{R table}
+\item{x}{data.frame, tibble, data.table; R table.}
 
-\item{table_name}{Name of table to be created in SAS.}
+\item{table_name}{string; Name of table to be created in SAS.}
 
-\item{libref}{Name of libref to store SAS table within.}
+\item{libref}{string; Name of libref to store SAS table within.}
 }
 \value{
 No return value.
 }
 \description{
-Converts R table into a table in the current SAS session. Translation errors
-may occur.
+Converts R table into a table in the current SAS session. R tables must only
+have logical, integer, double, factor, character, POSIXct, or Date class
+columns.
+}
+\details{
+SAS only has two data types (numeric and character). Data types are converted
+as follows:
+\itemize{
+\item logical -> numeric
+\item integer -> numeric
+\item double -> numeric
+\item factor -> character
+\item character -> character
+\item POSIXct -> numeric (datetime)
+\item Date -> numeric (date)
+}
 }
 \examples{
 \dontrun{
