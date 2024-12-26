@@ -1,6 +1,6 @@
 Package: sasquatch
 Title: Use 'SAS', R, and 'quarto' Together
-Version: 0.0.0.9021
+Version: 0.0.0.9022
 Authors@R: 
     person("Ryan", "Zomorrodi", , "rzomor2@uic.edu", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0009-0003-6417-5985"))
@@ -23,11 +23,11 @@ Imports:
     knitr,
     reticulate,
     rstudioapi
-URL: https://ryanzomorrodi.github.io/sasquatch/, https://github.com/ryanzomorrodi/sasr
+URL: https://ryanzomorrodi.github.io/sasquatch/, https://github.com/ryanzomorrodi/sasquatch
 Suggests: 
     rmarkdown,
     testthat (>= 3.0.0),
     curl
 VignetteBuilder: knitr
 Config/testthat/edition: 3
-BugReports: https://github.com/ryanzomorrodi/sasr/issues
+BugReports: https://github.com/ryanzomorrodi/sasquatch/issues
