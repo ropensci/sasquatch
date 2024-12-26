@@ -1,0 +1,106 @@
+---
+title: "Configuration"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{configuration}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## General configuration
+
+`sasquatch` works by utilizing the [`SASPy`](https://sassoftware.github.io/SASPy/) python package, similar to packages like [`sasr`](https://github.com/insightsengineering/sasr) or [configSAS](https://github.com/baselr/configSAS). This means everything we do to connect R and SAS, needs to go through `SASPy`.
+
+Configuration steps for `SASPy` can vary greatly depending on the SAS client, but all configuration is specified within the `sascfg_personal.py` file inside of the `SASPy` package.
+
+### Setting up
+
+Use the following function to create a `sascfg_personal.py` templated file.
+
+```{r, eval = FALSE}
+sasquatch::configure_saspy()
+```
+
+This will create a file like the following:
+
+```{python, eval = FALSE}
+SAS_config_names = ['config_name']
+
+config_name = {
+	
+}
+```
+
+where `config_name` is an arbirtary name of a configuration and the list 
+`SAS_config_names` contains the name(s) of your configuration(s).
+
+### Access methods
+
+From here, you will need to fill out the `config_name` dictionary with your
+configuration definition. The required definition fields will depend on the 
+access method required to connect to your SAS client.
+
+The following is a breakdown of the access method by SAS deployment:
+
+* Stand-alone SAS 9 install  
+  * On Linux  
+    * Client Linux  
+      * STDIO - if on same machine  
+      * SSH (STDIO over SSH) if not the same machine. This works from Mac OS too.  
+    * Client Windows  
+      * SSH (STDIO over SSH)!  
+  * On Windows  
+    * Client Linux  
+      * Can't get there from here  
+    * Client Windows  
+      * IOM or COM - on same machine. Can't get there if different machines  
+* Workspace server (this is SAS 9, and deployment on any platform is fine)  
+  * Client Linux or Mac OS  
+    * IOM - local or remote  
+  * Client Windows  
+    * IOM or COM - local or remote  
+  * SAS Viya install  
+    * On Linux  
+      * Client Linux  
+        * HTTP - must have compute service configured and running (Viya V3.5 and V4)  
+        * STDIO - over SSH if not the same machine (this was for Viya V3 before Compute Service existed, not for V4)  
+      * Client Windows  
+        * HTTP - must have compute service configured and running (Viya V3.5 and V4)  
+    * On Windows  
+      * HTTP - must have compute service configured and running (Viya V3.5 and V4)  
+
+### More information
+
+Further documentation and examples for each access type can be found within the 
+[`SASPy` configuration documentation](https://sassoftware.github.io/saspy/configuration.html)
+
+## SAS On Demand for Academics configuration
+
+### Registration
+
+SAS On Demand for Academics (ODA) is free SAS client for professors, students, and independent learners. Create an account at <https://welcome.oda.sas.com/>.
+
+Once you have set up your account, log in and note the ODA server (in the picture below United States 2) and your username (under the email in the profile dropdown). We will need these for later.
+
+![](files/sas_oda.png)
+
+### Java installation
+
+ODA relies on the IOM access method, which requires Java. Make sure Java is installed on your system. You can download Java from [their website](https://www.java.com/en/download/). Note the Java installation path.
+
+### Configuration
+
+Set up for ODA is super easy. Run `config_saspy()` and follow the prompts (you may need to recall your username, server, and java installation path from earlier).
+
+```{r, eval = FALSE}
+sasquatch::configure_saspy(template = "oda")
+```
+
+`config_saspy(template = "oda")` will create a `sascfg_personal.py` file with all the relevant configuration information and create an `authinfo` file, which will store your ODA credentials. More information about ODA configuration can be found in the [ODA section of `SASPy` configuration documentation](https://sassoftware.github.io/saspy/configuration.html#iom).
