@@ -164,6 +164,13 @@ df <- data.frame(
   date = as.Date("2015-12-09") + c(1:2, NA),
   datetime = as.POSIXct("2015-12-09 10:51:34.5678", tz = "UTC") + c(1:2, NA)
 )
+tibble::tibble(df)
+#> # A tibble: 3 × 7
+#>   double integer logical character factor date       datetime           
+#>    <dbl>   <int> <lgl>   <chr>     <fct>  <date>     <dttm>             
+#> 1    1         1 TRUE    a         a      2015-12-10 2015-12-09 10:51:35
+#> 2    2.5       2 FALSE   b         b      2015-12-11 2015-12-09 10:51:36
+#> 3   NA        NA NA      NA        NA     NA         NA                 
 
 r_to_sas(df, "df", libref = "WORK")
 ```
@@ -183,7 +190,15 @@ as follows:
 And back to SAS tables with `sas_to_r()`.
 
 ```{r, eval = FALSE}
-sas_to_r("df", libref = "WORK")
+df <- sas_to_r("df", libref = "WORK")
+
+tibble::tibble(df)
+#> # A tibble: 3 × 7
+#>   double integer logical character factor date                datetime           
+#>    <dbl>   <dbl>   <dbl> <chr>     <chr>  <dttm>              <dttm>             
+#> 1    1         1       1 a         a      2015-12-09 18:00:00 2015-12-09 04:51:35
+#> 2    2.5       2       0 b         b      2015-12-10 18:00:00 2015-12-09 04:51:36
+#> 3   NA        NA      NA NA        NA     NA                  NA                 
 ```
 
 SAS data types are converted as follows:
@@ -192,6 +207,10 @@ SAS data types are converted as follows:
 * character -> character
 * numeric (datetime) -> POSIXct
 * numeric (date) -> POSIXct
+
+In the conversion process dates and datetimes are converted to local time. If 
+utilizing another timezone, use `as.POSIXct()` or `lubridate::with_tz()` to 
+convert back to the desired time zone.
 
 ## File management
 

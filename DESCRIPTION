@@ -25,9 +25,10 @@ Imports:
     rstudioapi
 URL: https://ryanzomorrodi.github.io/sasquatch/, https://github.com/ryanzomorrodi/sasquatch
 Suggests: 
+    curl,
     rmarkdown,
     testthat (>= 3.0.0),
-    curl
+    tibble
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 BugReports: https://github.com/ryanzomorrodi/sasquatch/issues

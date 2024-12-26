@@ -41,7 +41,7 @@ r_to_sas <- function(x, table_name, libref = "WORK") {
 
   numeric_cols <- sapply(x, is.integer) | sapply(x, is.logical)
   x[numeric_cols] <- lapply(x[numeric_cols], as.double)
-  date_cols <- sapply(df_all, \(col) identical(class(col), "Date"))
+  date_cols <- sapply(x, \(col) identical(class(col), "Date"))
   x[date_cols] <- lapply(x[date_cols], \(col) as.POSIXct(col))
 
   # Specify Date columns as date
