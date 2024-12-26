@@ -1,0 +1,230 @@
+---
+title: "Getting Started"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{sasquatch}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r, eval = FALSE}
+library(sasquatch)
+```
+
+## Session management
+
+Every `sasquatch` script starts with `sas_connect()`. By default, you will be
+connected to your first SAS configuration (for more about configurations see
+`vignette("configuration")`).
+
+```{r, eval = FALSE}
+sas_connect()
+#> SAS Connection established.
+```
+
+You can also specify your configuration by name:
+
+```{r, eval = FALSE}
+sas_connect(cfgname = "my_config")
+#> SAS Connection established.
+```
+
+If you ever need to end a connection, you can do so by using:
+
+```{r, eval = FALSE}
+sas_disconnect()
+#> SAS Connection terminated.
+```
+
+All connection information is stored within a `saspy.sasbase.SASsession` object.
+For most individuals, you will never need to interact with this object, but if
+you would like to implement functionality not currently within `sasquatch` or 
+would like to access the current session from Python, you can via:
+
+```{r, eval = FALSE}
+sas_get_session()
+#> Access Method         = IOM
+#> SAS Config name       = my_config
+#> SAS Config file       = /home/user/.virtualenvs/r-saspy/lib/python3.12/site-packages/saspy/sascfg_personal.py
+#> WORK Path             = /saswork/SAS_work0D3600010B4E_odaws01-usw2-2.oda.sas.com/SAS_work920700010B4E_odaws01-usw2-2.oda.sas.com/
+#> SAS Version           = 9.04.01M7P08062020
+#> SASPy Version         = 5.101.1
+#> Teach me SAS          = False
+#> Batch                 = False
+#> Results               = Pandas
+#> SAS Session Encoding  = utf-8
+#> Python Encoding value = utf-8
+#> SAS process Pid value = 68430
+#> SASsession started    = Wed Dec 25 13:58:22 2024
+```
+
+## Executing SAS code
+
+You can execute SAS code in a variety of different ways. All `sas_run_*()` 
+functions generate htmlwidgets, which display both the output and log.
+
+To execute a string of SAS code use `sas_run_string()`
+
+```{r, eval = FALSE}
+sas_run_string("PROC MEANS DATA = sashelp.cars;RUN;")
+```
+
+```{r, echo = FALSE}
+readRDS("files/proc_means_widget.rds")
+```
+
+To execute a SAS script use `sas_run_file()`
+
+```{r, eval = FALSE}
+cat("PROC MEANS DATA = sashelp.cars;RUN;", file = "script.sas")
+sas_widget <- sas_run_file("script.sas")
+```
+
+### Within quarto
+
+Quarto documents are a great way to use SAS and R together because they couple
+R and SAS within a single reproducable document.
+
+You can create a `sasquatch` quarto document by:
+
+* Specifying the format as html (currenly, only html is well supported)
+* Specifying the engine as knitr
+* Creating an R code block with `library(sasquatch); sas_connect()`
+
+Now, SAS code can be contained within "sas" code blocks.
+
+`````{verbatim}
+---
+format: html
+engine: knitr
+---
+
+```{r}
+library(sasquatch)
+sas_connect()
+```
+
+```{sas}
+PROC MEANS DATA = sashelp.cars;
+RUN;
+```
+`````
+
+#### RStudio
+
+In RStudio, you will be able to run SAS chunks as you would any other chunk. 
+
+![](../man/figures/run_sas_chunk.gif)
+
+If you want to be able to view SAS output within the Viewer instead of beneath the chunk, you can utilize the `sas_run_selected()` addin. To add a keyboard shortcut for this addin, open Tools -\> Modify Keyboard Shortcuts and search "Run selected in SAS", type in the box under Shortcut to set the keyboard shortcut to your liking and click Apply.
+
+![](files/rstudio_shrtcts.png)
+
+#### Positron
+
+In Positron, you will not be able to run SAS chunks as you would R or Python chunks. However, just as in RStudio, you can create a keyboard shortcut which will allow you to view SAS output within the Plots pane. Open up the command palette with `ctrl+shift+p` or `command+shift+p` and search "Preferences: Open Keyboard Shortcuts (JSON)". Add the following to your shortcuts.
+
+``` json
+{
+    "key": "ctrl+shift+enter",
+    "command": "workbench.action.executeCode.console",
+    "when": "editorTextFocus",
+    "args": {
+        "langId": "r",
+        "code": "sasquatch::sas_run_selected()",
+        "focus": true
+    }
+}
+```
+
+Edit the `key` argument to set your preferred shortcut.
+
+## Data conversion
+
+R `data.frame`s can be automatically converted to and from SAS tables. However,
+`data.frame`s must only contain logical, integer, double, factor, character, 
+POSIXct, or Date class columns.
+
+Convert R `data.frame`s to SAS tables with `r_to_sas()`.
+
+```{r, eval = FALSE}
+df <- data.frame(
+  double = c(1, 2.5, NA),
+  integer = c(1:2, NA),
+  logical = c(T, F, NA),
+  character = c("a", "b", NA),
+  factor = factor(c("a", "b", NA)),
+  date = as.Date("2015-12-09") + c(1:2, NA),
+  datetime = as.POSIXct("2015-12-09 10:51:34.5678", tz = "UTC") + c(1:2, NA)
+)
+
+r_to_sas(df, "df", libref = "WORK")
+```
+
+SAS only has two data types (numeric and character). R data types are converted
+as follows:
+
+* logical -> numeric
+* integer -> numeric
+* double -> numeric
+* factor -> character
+* character -> character
+* POSIXct -> numeric (datetime)
+* Date -> numeric (date)
+
+
+And back to SAS tables with `sas_to_r()`.
+
+```{r, eval = FALSE}
+sas_to_r("df", libref = "WORK")
+```
+
+SAS data types are converted as follows:
+
+* numeric -> double
+* character -> character
+* numeric (datetime) -> POSIXct
+* numeric (date) -> POSIXct
+
+## File management
+
+`sasquatch` offers a few different functions to manage remote SAS files.
+
+Upload files to a remote SAS server with `sas_file_upload()`.
+
+```{r, eval = FALSE}
+cat("PROC MEANS DATA = sashelp.cars;RUN;", file = "script.sas")
+sas_file_upload(local_path = "script.sas", sas_path = "~/script.sas")
+```
+
+Download files from a remote SAS server with `sas_file_download()`.
+
+```{r, eval = FALSE}
+sas_file_download(sas_path = "~/script.sas", local_path = "script.sas")
+```
+
+Copy files on the remote SAS server with `sas_file_copy()`.
+
+```{r, eval = FALSE}
+sas_file_copy("~/script.sas", "~/script_copy.sas")
+```
+
+Remove files from a remote SAS server with `sas_file_remove()`.
+
+```{r, eval = FALSE}
+sas_file_remove("~/script_copy.sas")
+```
+
+List all files and directories within a remote SAS server with `sas_list()`.
+
+```{r, eval = FALSE}
+sas_list("~")
+#> [1] "directory1" "file1.csv" "file2.sas"
+```
