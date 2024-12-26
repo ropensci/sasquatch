@@ -31,10 +31,11 @@ reference:
   - r_to_sas
   - sas_to_r
 
-- title: Input Output
+- title: File Management
   contents:
   - sas_list
-  - sas_upload
-  - sas_download
-  - sas_remove
+  - sas_file_upload
+  - sas_file_download
+  - sas_file_copy
+  - sas_file_remove
 
