@@ -1,6 +1,6 @@
 Package: sasquatch
 Title: Use 'SAS', R, and 'quarto' Together
-Version: 0.0.0.9022
+Version: 0.0.0.9023
 Authors@R: 
     person("Ryan", "Zomorrodi", , "rzomor2@uic.edu", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0009-0003-6417-5985"))
