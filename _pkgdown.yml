@@ -35,6 +35,7 @@ reference:
 - title: File Management
   contents:
   - sas_list
+  - sas_file_exists
   - sas_file_upload
   - sas_file_download
   - sas_file_copy
