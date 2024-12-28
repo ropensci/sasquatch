@@ -2,8 +2,9 @@ pandoc: 3.1.11
 pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
-  setting_up: setting_up.html
-last_built: 2024-12-19T07:37Z
+  configuration: configuration.html
+  sasquatch: sasquatch.html
+last_built: 2024-12-28T01:16Z
 urls:
   reference: https://ryanzomorrodi.github.io/sasquatch/reference
   article: https://ryanzomorrodi.github.io/sasquatch/articles

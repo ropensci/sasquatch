@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="index.html">sasquatch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9017</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9028</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,11 +38,12 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="articles/sasquatch.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/setting_up.html">Setting Up</a></li>
+<li><a class="dropdown-item" href="articles/configuration.html">Configuration</a></li>
   </ul>
 </li>
       </ul>
@@ -50,7 +51,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/ryanzomorrodi/sasr/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/ryanzomorrodi/sasquatch/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -66,39 +67,60 @@
 <!-- badges: start -->
 
 <p>Use SAS, R, and Quarto Together</p>
-<p><code>sasquatch</code> allows you to combine the power of R, SAS, and quarto together to create reproducible multilingual reports. <code>sasquatch</code> can run SAS code blocks interactively, send data back and forth between SAS and R, and render SAS HTML output within quarto documents.</p>
-<p><code>sasquatch</code> relies on the <a href="https://sassoftware.github.io/saspy/" class="external-link"><code>SASPy</code></a> Python package. But if you…</p>
+<p><code>sasquatch</code> allows you to combine the power of R, SAS, and quarto together to create reproducible multilingual reports. <code>sasquatch</code> can:</p>
 <ul>
-<li>Don’t have <code>SASPy</code> already installed, or<br>
-</li>
-<li>Don’t have a SAS License</li>
+<li>Run SAS code blocks interactively</li>
+<li>Send data back and forth between SAS and R</li>
+<li>Conduct basic file management on a SAS client</li>
+<li>Render SAS output within quarto documents.</li>
 </ul>
-<p>Check out <code><a href="articles/setting_up.html">vignette("setting_up")</a></code> for guidance on how to get started with a free <a href="https://www.sas.com/en_us/software/on-demand-for-academics" class="external-link">SAS On Demand for Academics</a> license (you don’t need to be an academic!).</p>
+<p><code>sasquatch</code> relies on the <a href="https://sassoftware.github.io/saspy/" class="external-link"><code>SASPy</code></a> Python package and the <code>reticulate</code> R package to interoperate with Python. Check out <code><a href="articles/configuration.html">vignette("configuration")</a></code> for guidance on <code>SASPy</code> configuration.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
+<div class="section level4">
+<h4 id="package-installation">Package installation<a class="anchor" aria-label="anchor" href="#package-installation"></a>
+</h4>
 <p>You can install the development version of sasquatch like so:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"ryanzomorrodi/sasquatch"</span><span class="op">)</span></span></code></pre></div>
 </div>
+<div class="section level4">
+<h4 id="python-installation">Python installation<a class="anchor" aria-label="anchor" href="#python-installation"></a>
+</h4>
+<p>Make sure Python is installed on your system. If Python has not been installed, you can install Python like so:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">reticulate</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/install_python.html" class="external-link">install_python</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>or download the installer from the <a href="https://www.python.org/downloads'" class="external-link">Python Software Foundation</a>.</p>
+</div>
+<div class="section level4">
+<h4 id="saspy-installation">
+<code>SASPy</code> installation<a class="anchor" aria-label="anchor" href="#saspy-installation"></a>
+</h4>
+<p>To install the <code>SASPy</code> package and its dependencies within a Python virutal environment:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">sasquatch</span><span class="fu">::</span><span class="fu"><a href="reference/install_saspy.html">install_saspy</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>See <code><a href="articles/configuration.html">vignette("configuration")</a></code> for guidance on <code>SASPy</code> configuration.</p>
+</div>
+</div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <p>Once you have setup <code>SASPy</code> and connected to the right python environment using <code>reticulate</code> (if necessary), you can create a quarto document like any other, call <code><a href="reference/sas_connect.html">sas_connect()</a></code>, and just get going!</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>---</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>format: html</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>engine: knitr</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>---</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>```{r}</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>library(sasquatch)</span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>sas_connect()</span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>```</span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>```{sas}</span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>```</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>---</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>format: html</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>engine: knitr</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>---</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>```{r}</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>library(sasquatch)</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>sas_connect()</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>```</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>```{sas}</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>```</span></code></pre></div>
 <div class="section level4">
 <h4 id="code-blocks">Code blocks<a class="anchor" aria-label="anchor" href="#code-blocks"></a>
 </h4>
@@ -115,7 +137,7 @@
 <h4 id="converting-tables">Converting tables<a class="anchor" aria-label="anchor" href="#converting-tables"></a>
 </h4>
 <p>Pass tables between R and SAS with <code><a href="reference/r_to_sas.html">r_to_sas()</a></code> and <code><a href="reference/sas_to_r.html">sas_to_r()</a></code>.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/r_to_sas.html">r_to_sas</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="st">"mtcars"</span><span class="op">)</span></span>
 <span><span class="va">cars</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sas_to_r.html">sas_to_r</a></span><span class="op">(</span><span class="st">"cars"</span>, libref <span class="op">=</span> <span class="st">"sashelp"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -127,16 +149,45 @@
 </div>
 </div>
 <div class="section level2">
-<h2 id="similar-packages">Similar packages<a class="anchor" aria-label="anchor" href="#similar-packages"></a>
+<h2 id="comparison-with-similar-packages">Comparison with similar packages<a class="anchor" aria-label="anchor" href="#comparison-with-similar-packages"></a>
 </h2>
-<p><code>saquatch</code> works similarly to packages like <a href="https://sassoftware.github.io/saspy/" class="external-link"><code>sasr</code></a> or <a href="https://github.com/baselr/configSAS" class="external-link"><code>configSAS</code></a>. In fact, <code>configSAS</code> author <a href="https://www.youtube.com/watch?v=4c9T6-__vI8" class="external-link">Johann Laurent’s talk</a> at a useR! event inspired <code>sasquatch</code>’s creation. <code>sasr</code>, while similar to <code>sasquatch</code>, does not include interactive SAS functionality or a <code>knitr</code> engine. On the other hand, <code>configSAS</code> includes a <code>knitr</code> engine, but no interactive SAS functionality. <code>configSAS</code> <code>knitr</code> output also does not include syntax highlighting and nested SAS output interferes with the styles of the rest of the document.</p>
+<p><a href="https://github.com/insightsengineering/sasr" class="external-link"><code>sasr</code></a></p>
+<ul>
+<li>
+<code>sasr</code> works identically to <code>sasquatch</code> relying on the <code>SASPy</code> Python package to interface with SAS, but does not include any interactive, file management, or quarto functionality.</li>
+</ul>
+<p><a href="https://github.com/baselr/configSAS" class="external-link"><code>configSAS</code></a></p>
+<ul>
+<li>Like <code>sasr</code> and <code>sasquatch</code>, <code>configSAS</code> relies on the <code>SASPy</code> Python package, but it primarily focuses on solely on <code>knitr</code> engine support.</li>
+<li>The <code>configSAS</code> engine HTML output CSS styles interfere with the rest of the document and SAS code output is not contained within a code block.</li>
+</ul>
+<p><a href="https://cran.r-project.org/web/packages/SASmarkdown/index.html" class="external-link"><code>SASmarkdown</code></a></p>
+<ul>
+<li>
+<code>SASmarkdown</code> does not rely on the <code>SASPy</code> Python package and thus is fairly simple to set up; however, it does require a SAS executable to be installed on the same machine as R.</li>
+<li>In contrast, <code>SASPy</code>-reliant packages can interface with both local and remote SAS installations and can easily pass data between R and SAS without the need for intermediate files.</li>
+<li>
+<code>SASmarkdown</code> features several different engines for various formats not currently implemented within <code>sasquatch</code> like latex pdfs or non-HTML5 HTML.</li>
+</ul>
+<p><code>sasquatch</code> may be beneficial to you if you…</p>
+<ul>
+<li>Rely on remote SAS client<br>
+</li>
+<li>Desire interactive SAS functionality while developing<br>
+</li>
+<li>Require remote SAS file management<br>
+</li>
+<li>Would like to be able to easily send data back and forth between SAS and R<br>
+without the use of intermediate files</li>
+</ul>
+<p>If you require pdf <code>knitr</code> support and have a local installation of SAS, I would recommend using <code>SASmarkdown</code>at this time.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/ryanzomorrodi/sasr/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/ryanzomorrodi/sasr/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://github.com/ryanzomorrodi/sasquatch/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/ryanzomorrodi/sasquatch/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
