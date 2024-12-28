@@ -34,6 +34,9 @@
 #' `markdownify` for you) AND set a temporary directory to write to within the 
 #' SAS client, which can be set by `sas_set_tempdir()`.
 #' 
+#' Credit for this idea goes to [fsmunoz](https://github.com/fsmunoz) within
+#' this `SASPy` [discussion post](https://github.com/sassoftware/saspy/discussions/412).
+#' 
 #' @return `knitr` engine output.
 #' 
 #' @export

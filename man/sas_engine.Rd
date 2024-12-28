@@ -49,6 +49,9 @@ This process is by no means perfect, but in order to use it ensure that
 \code{markdownify} has been installed (\code{install_saspy()} will install
 \code{markdownify} for you) AND set a temporary directory to write to within the
 SAS client, which can be set by \code{sas_set_tempdir()}.
+
+Credit for this idea goes to \href{https://github.com/fsmunoz}{fsmunoz} within
+this \code{SASPy} \href{https://github.com/sassoftware/saspy/discussions/412}{discussion post}.
 }
 }
 \examples{
