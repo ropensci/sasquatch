@@ -2,7 +2,7 @@
 % Please edit documentation in R/knitr.R
 \name{sas_engine}
 \alias{sas_engine}
-\title{A SAS HTML5 engine for \code{knitr}}
+\title{A SAS engine for \code{knitr}}
 \usage{
 sas_engine(options)
 }
@@ -13,7 +13,7 @@ sas_engine(options)
 \code{knitr} engine output.
 }
 \description{
-A SAS HTML5 engine for \code{knitr}
+A SAS engine for \code{knitr}
 }
 \details{
 Will be activated by running \code{library(sasquatch)}
@@ -33,7 +33,28 @@ included.
 If \code{"lst"}, only output is included. If \code{"log"} only log is included.
 }
 }
+
+\subsection{HTML formats vs all others}{
+
+SAS has native support for HTML output, which means embeding HTML SAS output
+within HTML quarto formats is quite easy. You can expect that HTML formats
+will look nearly identically to how you would expect within a SAS
+environment.
+
+Within non-HTML formats (pdf, typst, docx), embeding HTML SAS output is not
+an option. Thus, the engine first renders output to HTML3 and transforms
+it with the Python package \code{markdownify}.
+
+This process is by no means perfect, but in order to use it ensure that
+\code{markdownify} has been installed (\code{install_saspy()} will install
+\code{markdownify} for you) AND set a temporary directory to write to within the
+SAS client, which can be set by \code{sas_set_tempdir()}.
+}
 }
 \examples{
+# The below function is run internally within `sasquatch` on startup
 knitr::knit_engines$set(sas = sas_engine)
+
+# If rendering to non-HTML formats, set the SAS temporary directory
+sas_set_tempdir("~/tempdir")
 }

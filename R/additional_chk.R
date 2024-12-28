@@ -17,3 +17,11 @@ chk_has_sas_vld_datatypes <- function(x, x_name = NULL) {
 vld_has_sas_vld_datatypes <- function(x) {
   all(sapply(x, \(col) inherits(col, c("logical", "integer", "numeric", "factor", "character", "POSIXct", "Date"))))
 }
+
+chk_set_tempdir <- function() {
+  if (vld_connection()) {
+    return(invisible())
+  }
+  chk::abort_chk("No SAS temporary directory has been set. Use `sas_set_tempdir()`")
+}
+vld_connection <- function() exists("tempdir", envir = .pkgenv) && !is.null(.pkgenv$tempdir)

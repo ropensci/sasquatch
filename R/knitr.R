@@ -1,4 +1,4 @@
-#' A SAS HTML5 engine for `knitr`
+#' A SAS engine for `knitr`
 #' 
 #' @param options Options from `knitr`.
 #' 
@@ -19,15 +19,35 @@
 #' included. 
 #' If `"lst"`, only output is included. If `"log"` only log is included.
 #' 
+#' ### HTML formats vs all others
+#' SAS has native support for HTML output, which means embeding HTML SAS output
+#' within HTML quarto formats is quite easy. You can expect that HTML formats
+#' will look nearly identically to how you would expect within a SAS 
+#' environment.
+#' 
+#' Within non-HTML formats (pdf, typst, docx), embeding HTML SAS output is not 
+#' an option. Thus, the engine first renders output to HTML3 and transforms
+#' it with the Python package `markdownify`. 
+#' 
+#' This process is by no means perfect, but in order to use it ensure that 
+#' `markdownify` has been installed (`install_saspy()` will install 
+#' `markdownify` for you) AND set a temporary directory to write to within the 
+#' SAS client, which can be set by `sas_set_tempdir()`.
+#' 
 #' @return `knitr` engine output.
 #' 
 #' @export
 #' 
 #' @examples
+#' # The below function is run internally within `sasquatch` on startup
 #' knitr::knit_engines$set(sas = sas_engine)
+#' 
+#' # If rendering to non-HTML formats, set the SAS temporary directory
+#' sas_set_tempdir("~/tempdir")
 sas_engine <- function (options) {
   chk_connection()
   options$engine <- "txt"
+  options$results <- "asis"
 
   code <- paste(options$code, collapse = "\n")
 
@@ -57,24 +77,62 @@ sas_engine <- function (options) {
       log <- wrap_in_pre(results$LOG)
       out <- wrap_in_panel_tabset(lst, log)
     }
-    options$results <- "asis"
   } else {
-    execute_if_connection_active(
-      results <- .pkgenv$session$submit(
-        paste("OPTIONS NODATE NONuMBER LINESIZE=79;", code, sep = "\n"), 
-        results = "TEXT"
-      )
+    sas_temp_dir <- .pkgenv$tempdir
+    sas_temp_html <- basename(tempfile(pattern="temp", fileext=".html"))
+    sas_temp_html_path <- paste0(sas_temp_dir, "/", sas_temp_html)
+    local_temp_dir <- tempdir()
+    local_temp_html_path <- paste0(local_temp_dir, "/", sas_temp_html)
+
+    sas_header <- paste(
+      "ods noproctitle;",
+      "title;",
+      "ods listing close;",
+      "ods graphics;",
+      "OPTIONS NONUMBER NODATE PAGESIZE = MAX FORMCHAR = '|----|+|---+=|-/<>*' FORMDLIM=' ';",
+      paste0(
+        "ods html3 file='", sas_temp_html_path,
+        "' gpath = '", sas_temp_dir, 
+        "' (no_top_matter no_bottom_matter) style=journal;\n"
+      ),
+      sep = "\n"
     )
 
+    execute_if_connection_active(
+      results <- .pkgenv$session$submit(
+        paste0(sas_header, code),
+        "TEXT"
+      )
+    )
+    log <- gsub("\024", "", results$LOG)
+
+    sas_file_download(sas_temp_html_path, local_temp_html_path)
+    lst <- read_file(local_temp_html_path)
+    markdownify <- reticulate::import("markdownify")
+    lst <- markdownify$markdownify(lst)
+
+    md_image_regex <- "\\[.*?\\]\\((.*?)\\)"
+    images <- regmatches(lst, gregexec(md_image_regex, lst))[[1]]
+    if (length(images) != 0) {
+      sas_image_paths <- images[2, ]
+  
+      for (sas_image_path in sas_image_paths) {
+        local_image_path <- gsub(sas_temp_dir, local_temp_dir, sas_image_path, fixed = TRUE)
+        sas_file_download(sas_image_path, local_image_path)
+        sas_file_remove(sas_image_path)
+        lst <- gsub(sas_image_path, knitr::image_uri(local_image_path), lst, fixed = TRUE)
+      }
+    }
+    lst <- sub("SAS Output", "", lst, fixed = TRUE)
+    sas_file_remove(sas_temp_html_path)
+
     if (identical(options$capture, "lst")) {
-      out <- results$LST
+      out <- lst
     } else if (identical(options$capture, "log")) {
-      out <- results$LOG
+      out <- paste("```", log, "```", sep = "\n")
     } else {
-      lst <- paste("```", results$LST, "```", sep = "\n")
-      log <- paste("```", results$LOG, "```", sep = "\n")
+      log <- paste("```", log, "```", sep = "\n")
       out <- wrap_in_panel_tabset(lst, log)
-      options$results <- "asis"
     }
   }
 
@@ -86,4 +144,24 @@ sas_engine <- function (options) {
   }
   
   knitr::engine_output(options, code, out)
+}
+
+#' Set SAS temporary directory
+#' 
+#' In order to create markdown output for non-HTML formats, SAS must render
+#' intermediate files to a directory on the SAS. This function allows you
+#' to set what directory intermediate files are writen to.
+#' 
+#' @param path Path for SAS to write intermediate files to for the `knitr` 
+#' `sas_engine()`
+#' 
+#' @return No return value.
+#' 
+#' @export
+sas_set_tempdir <- function(path) {
+  chk::chk_string(path)
+
+  .pkgenv$tempdir <- path
+
+  invisible()
 }

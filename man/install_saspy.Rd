@@ -17,7 +17,8 @@ install_saspy(envname = "r-saspy", extra_packages, restart_session = TRUE)
 No return value.
 }
 \description{
-Installs the SASPy package within a virtual environment.
+Installs the \code{SASPy} package, its dependencies, and \code{markdownify}  within a
+virtual Python environment.
 }
 \examples{
 \dontrun{
