@@ -1,42 +1,36 @@
-test_that("SAS to R data.frame", {
+test_that("Back and forth", {
+  skip_on_cran()
   skip_if_offline()
 
-  sas_connect()
+  df_all <- data.frame(
+    a = c(1, 2.5, NA),
+    b = c(1:2, NA),
+    c = c(T, F, NA),
+    d = c("a", "b", NA),
+    e = factor(c("a", "b", NA)),
+    f = as.Date("2015-12-09") + c(1:2, NA),
+    g = as.POSIXct("2015-12-09 10:51:34.5678", tz = "UTC") + c(1:2, NA),
+    h = I(as.list(c(1:2, NA))),
+    i = I(list(list(1, 2:3), list(4:6), list(NA)))
+  )
 
-  iris_sas <- sas_to_r("iris", "sashelp")
-  
-  # processing to get SAS and R data frames the same
-  data(iris)
-  names(iris_sas) <- c("Species", "Sepal.Length", "Sepal.Width",  "Petal.Length", "Petal.Width")
-  iris_sas <- iris_sas[c(2:5, 1)]
-  iris <- iris[order(iris$Species, iris$Sepal.Length, iris$Sepal.Width, iris$Petal.Length, iris$Petal.Width), ]
-  iris_sas <- iris_sas[order(iris_sas$Species, iris_sas$Sepal.Length, iris_sas$Sepal.Width, iris_sas$Petal.Length, iris_sas$Petal.Width), ]
-  iris_sas[1:4] <- iris_sas[1:4] / 10
-  iris$Species <- as.character(iris$Species)
-  iris_sas$Species <- tolower(iris_sas$Species)
-  rownames(iris) <- NULL
-  rownames(iris_sas) <- NULL
+  "list columns: R to SAS"
+  expect_error(r_to_sas(df_all, "df"), "must only have logical, integer, double, factor, character, POSIXct, or Date class columns")
 
-  expect_equal(iris, iris_sas)
+  "valid columns: R to SAS"
+  df <- df_all[!sapply(df_all, is.list)]
+  expect_equal(r_to_sas(df, "df"), df)
 
-  sas_disconnect()
-})
+  "rownames: R to SAS"
+  rownames(df) <- paste("row", 1:3)
+  expect_warning(r_to_sas(df, "df"), "rownames will not be transferred as a column")
+  rownames(df) <- NULL
 
-test_that("R to SAS data.frame", {
-  skip_if_offline()
-
-  sas_connect()
-
-  data(iris)
-  r_to_sas(iris, "iris")
-  iris_sas <- sas_to_r("iris")
-  
-  # processing to get SAS and R data frames the same
-  attr(iris_sas, "pandas.index") <- NULL
-  iris$Species <- as.character(iris$Species)
-
-  expect_equal(iris, iris_sas)
-
-  sas_disconnect()
-
+  "back to R check"
+  df_from_sas <- sas_to_r("df")
+  df_from_sas$f <- as.Date(as.POSIXct(df_from_sas$f, tz = "UTC"))
+  df_from_sas$g <- as.POSIXct(df_from_sas$g, tz = "UTC")
+  df$c <- as.double(df$c)
+  df$e <- as.character(df$e)
+  expect_equal(df_from_sas, df)
 })

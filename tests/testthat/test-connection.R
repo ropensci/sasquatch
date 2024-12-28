@@ -1,15 +1,21 @@
 test_that("test connection", {
+  skip_on_cran()
   skip_if_offline()
 
-  expect_no_error(sas_connect())
+  "connected connection"
+  expect_no_error(chk_connection())
 
-  expect_no_error(sas_connect("oda"))
+  "disconnection"
+  expect_message(sas_disconnect(), "SAS Connection terminated.")
+  expect_null(sas_get_session())
 
-  expect_no_error(sas_get_session())
+  "disconnected connection"
+  expect_error(chk_connection(), "No active SAS session.")
 
-  expect_no_error(sas_disconnect())
+  "connection"
+  expect_message(sas_connect(), "SAS Connection established.")
+  expect_s3_class(sas_get_session(), c("saspy.sasbase.SASsession", "python.builtin.object"))
 
-  expect_error(sas_disconnect())
-
-  expect_error(sas_get_session())
+  "specifying connection config"
+  expect_message(sas_connect("oda"), "SAS Connection established.")
 })
