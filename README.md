@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/ryanzomorrodi/sasr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ryanzomorrodi/sasr/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/ryanzomorrodi/sasquatch/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ryanzomorrodi/sasquatch/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/ryanzomorrodi/sasquatch/branch/main/graph/badge.svg)](https://app.codecov.io/gh/ryanzomorrodi/sasquatch?branch=main)
 <!-- badges: end -->
@@ -46,7 +46,7 @@ reticulate::install_python()
 ```
 
 or download the installer from the [Python Software
-Foundation](https://www.python.org/downloads').
+Foundation](https://www.python.org/downloads/').
 
 #### `SASPy` installation
 
@@ -113,7 +113,7 @@ would expect from SAS with the `sas_engine()`.
 
 ## Comparison with similar packages
 
-[`sasr`](https://github.com/insightsengineering/sasr)
+[`sasr`](https://CRAN.R-project.org/package=sasr)
 
 - `sasr` works identically to `sasquatch` relying on the `SASPy` Python
   package to interface with SAS, but does not include any interactive,
@@ -127,7 +127,7 @@ would expect from SAS with the `sas_engine()`.
   of the document and SAS code output is not contained within a code
   block.
 
-[`SASmarkdown`](https://cran.r-project.org/web/packages/SASmarkdown/index.html)
+[`SASmarkdown`](https://CRAN.R-project.org/package=SASmarkdown)
 
 - `SASmarkdown` does not rely on the `SASPy` Python package and thus is
   fairly simple to set up; however, it does require a SAS executable to

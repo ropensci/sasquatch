@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ## General configuration
 
-`sasquatch` works by utilizing the [`SASPy`](https://sassoftware.github.io/SASPy/) python package, similar to packages like [`sasr`](https://github.com/insightsengineering/sasr) or [configSAS](https://github.com/baselr/configSAS). This means everything we do to connect R and SAS, needs to go through `SASPy`.
+`sasquatch` works by utilizing the [`SASPy`](https://sassoftware.github.io/saspy/) python package, similar to packages like [`sasr`](https://github.com/insightsengineering/sasr) or [configSAS](https://github.com/baselr/configSAS). This means everything we do to connect R and SAS, needs to go through `SASPy`.
 
 Configuration steps for `SASPy` can vary greatly depending on the SAS client, but all configuration is specified within the `sascfg_personal.py` file inside of the `SASPy` package.
 
