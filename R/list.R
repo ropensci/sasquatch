@@ -2,9 +2,9 @@
 #' 
 #' Lists the files or directories of a directory within the remote SAS server.
 #' 
-#' @param path Path of directory on remote SAS server to list the contents of.
+#' @param path string; Path of directory on remote SAS server to list the contents of.
 #' 
-#' @return Vector of file or directory names.
+#' @return `character` vector; File or directory names.
 #' 
 #' @export
 #' 
@@ -15,6 +15,7 @@
 #' }
 sas_list <- function(path) {
   chk_connection()
+  chk::chk_not_missing(path, "`path`")
   chk::chk_string(path)
 
   execute_if_connection_active(

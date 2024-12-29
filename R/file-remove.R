@@ -3,9 +3,9 @@
 #' Deletes a file or directory from the remote SAS server. Is analogous to 
 #' `file.remove()`, but for the remote SAS server.
 #' 
-#' @param path Path of file on remote SAS server to be deleted.
+#' @param path string; Path of file on remote SAS server to be deleted.
 #' 
-#' @return Logical value indicating if the operation succeeded.
+#' @return `logical`; value indicating if the operation succeeded.
 #' 
 #' @export
 #' 
@@ -23,6 +23,7 @@
 #' }
 sas_file_remove <- function(path) {
   chk_connection()
+  chk::chk_not_missing(path, "`path`")
   chk::chk_string(path)
 
   execute_if_connection_active(

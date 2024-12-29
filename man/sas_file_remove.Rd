@@ -7,10 +7,10 @@
 sas_file_remove(path)
 }
 \arguments{
-\item{path}{Path of file on remote SAS server to be deleted.}
+\item{path}{string; Path of file on remote SAS server to be deleted.}
 }
 \value{
-Logical value indicating if the operation succeeded.
+\code{logical}; value indicating if the operation succeeded.
 }
 \description{
 Deletes a file or directory from the remote SAS server. Is analogous to

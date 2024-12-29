@@ -7,11 +7,12 @@
 sas_run_selected()
 }
 \value{
-No return value.
+\code{htmlwidget}; HTML5 output.
 }
 \description{
 Execute selected SAS code in current session and render html output as SAS
-widget.
+widget. See \code{vignette("sasquatch")} for more information on how to utilize
+the addin within RStudio or Positron.
 }
 \examples{
 \dontrun{

@@ -3,10 +3,10 @@
 #' @description
 #' Execute a SAS file and render html output or save output as html and log.
 #' 
-#' @param input_path Path of SAS file to run.
-#' @param output_path Optional path to save html output to (log file will be
+#' @param input_path string; Path of SAS file to run.
+#' @param output_path optional string; Path to save html output to (log file will be
 #' named the same). 
-#' @param overwrite Can output overwrite prior output?
+#' @param overwrite logical; Can output overwrite prior output?
 #' 
 #' @return If `output_path` specified, `htmlwidget`. Else, no return value.
 #' 
@@ -21,6 +21,7 @@
 #' }
 sas_run_file <- function(input_path, output_path, overwrite = FALSE) {
   chk_connection()
+  chk::chk_not_missing(input_path)
   chk::chk_string(input_path)
   chk::chk_file(input_path)
   

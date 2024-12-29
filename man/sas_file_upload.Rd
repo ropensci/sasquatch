@@ -7,12 +7,12 @@
 sas_file_upload(local_path, sas_path)
 }
 \arguments{
-\item{local_path}{Path of file on local machine to be uploaded.}
+\item{local_path}{string; Path of file on local machine to be uploaded.}
 
-\item{sas_path}{Path to upload local file to on the remote SAS server.}
+\item{sas_path}{string; Path to upload local file to on the remote SAS server.}
 }
 \value{
-Logical value indicating if the operation succeeded.
+\code{logical}; value indicating if the operation succeeded.
 }
 \description{
 Uploads a file to the remote SAS server.

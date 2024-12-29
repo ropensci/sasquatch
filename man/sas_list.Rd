@@ -7,10 +7,10 @@
 sas_list(path)
 }
 \arguments{
-\item{path}{Path of directory on remote SAS server to list the contents of.}
+\item{path}{string; Path of directory on remote SAS server to list the contents of.}
 }
 \value{
-Vector of file or directory names.
+\code{character} vector; File or directory names.
 }
 \description{
 Lists the files or directories of a directory within the remote SAS server.

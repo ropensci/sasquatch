@@ -7,12 +7,12 @@
 sas_file_download(sas_path, local_path)
 }
 \arguments{
-\item{sas_path}{Path of file on remote SAS server to be download}
+\item{sas_path}{string; Path of file on remote SAS server to be download}
 
-\item{local_path}{Path to upload SAS file to on local machine.}
+\item{local_path}{string; Path to upload SAS file to on local machine.}
 }
 \value{
-Logical value indicating if the operation succeeded.
+\code{logical}; value indicating if the operation succeeded.
 }
 \description{
 Downloads a file to the remote SAS server.

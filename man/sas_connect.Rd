@@ -8,7 +8,7 @@ sas_connect(cfgname)
 }
 \arguments{
 \item{cfgname}{string; Name of configuration to use from the SAS_config_names
-list in \code{sascfg_personal.py}.}
+list within in \code{sascfg_personal.py}.}
 }
 \value{
 No return value.
@@ -20,7 +20,7 @@ Starts a SAS session. This is required before doing anything!
 All configurations are specified within the \code{sascfg_personal.py} file inside
 the \code{SASPy} package. For more information about \code{SASPy} configuration, check
 out the \href{https://sassoftware.github.io/saspy/configuration.html}{configuration documentation}
-or \code{vignette("setting_up")}.
+or \code{vignette("configuration")}.
 }
 \examples{
 \dontrun{

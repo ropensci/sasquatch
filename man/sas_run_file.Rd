@@ -7,12 +7,12 @@
 sas_run_file(input_path, output_path, overwrite = FALSE)
 }
 \arguments{
-\item{input_path}{Path of SAS file to run.}
+\item{input_path}{string; Path of SAS file to run.}
 
-\item{output_path}{Optional path to save html output to (log file will be
+\item{output_path}{optional string; Path to save html output to (log file will be
 named the same).}
 
-\item{overwrite}{Can output overwrite prior output?}
+\item{overwrite}{logical; Can output overwrite prior output?}
 }
 \value{
 If \code{output_path} specified, \code{htmlwidget}. Else, no return value.

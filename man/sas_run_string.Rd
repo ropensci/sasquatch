@@ -2,15 +2,15 @@
 % Please edit documentation in R/run-string.R
 \name{sas_run_string}
 \alias{sas_run_string}
-\title{Execute SAS code}
+\title{Execute SAS code string}
 \usage{
 sas_run_string(input)
 }
 \arguments{
-\item{input}{String of SAS code input to run.}
+\item{input}{string; SAS code to run.}
 }
 \value{
-No return value.
+\code{htmlwidget}; HTML5 output.
 }
 \description{
 Execute SAS code in current session and render html output.
@@ -18,6 +18,6 @@ Execute SAS code in current session and render html output.
 \examples{
 \dontrun{
 sas_connect()
-sas_run_string("PROC MEANS DATA = sashelp.cars;\n RUN;")
+sas_run_string("PROC MEANS DATA = sashelp.cars;RUN;")
 }
 }

@@ -33,9 +33,10 @@ rstudio_selection <- function(context = rstudio_context()) {
 #' 
 #' @description
 #' Execute selected SAS code in current session and render html output as SAS
-#' widget.
+#' widget. See `vignette("sasquatch")` for more information on how to utilize 
+#' the addin within RStudio or Positron.
 #' 
-#' @return No return value.
+#' @return `htmlwidget`; HTML5 output.
 #' 
 #' @export
 #' 

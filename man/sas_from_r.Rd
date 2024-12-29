@@ -7,14 +7,14 @@
 sas_from_r(x, table_name, libref = "WORK")
 }
 \arguments{
-\item{x}{data.frame, tibble, data.table; R table.}
+\item{x}{\code{data.frame}; R table.}
 
 \item{table_name}{string; Name of table to be created in SAS.}
 
 \item{libref}{string; Name of libref to store SAS table within.}
 }
 \value{
-No return value.
+\code{data.frame}; \code{x}.
 }
 \description{
 Converts R table into a table in the current SAS session. R tables must only

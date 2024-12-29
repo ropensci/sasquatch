@@ -2,10 +2,10 @@
 #' 
 #' Uploads a file to the remote SAS server.
 #' 
-#' @param local_path Path of file on local machine to be uploaded.
-#' @param sas_path Path to upload local file to on the remote SAS server.
+#' @param local_path string; Path of file on local machine to be uploaded.
+#' @param sas_path string; Path to upload local file to on the remote SAS server.
 #' 
-#' @return Logical value indicating if the operation succeeded.
+#' @return `logical`; value indicating if the operation succeeded.
 #' 
 #' @export
 #' 
@@ -22,8 +22,10 @@
 #' }
 sas_file_upload <- function(local_path, sas_path) {
   chk_connection()
+  chk::chk_not_missing(local_path, "`local_path`")
   chk::chk_string(local_path)
   chk::chk_file(local_path)
+  chk::chk_not_missing(sas_path, "`sas_path`")
   chk::chk_string(sas_path)
 
   execute_if_connection_active(

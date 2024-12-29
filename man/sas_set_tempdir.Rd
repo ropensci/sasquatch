@@ -7,8 +7,8 @@
 sas_set_tempdir(path)
 }
 \arguments{
-\item{path}{Path for SAS to write intermediate files to for the \code{knitr}
-\code{sas_engine()}}
+\item{path}{string; Path for SAS to write intermediate files to for the
+\code{knitr} \code{sas_engine()}.}
 }
 \value{
 No return value.
@@ -17,4 +17,7 @@ No return value.
 In order to create markdown output for non-HTML formats, SAS must render
 intermediate files to a directory on the SAS. This function allows you
 to set what directory intermediate files are writen to.
+}
+\seealso{
+\code{\link[=sas_engine]{sas_engine()}}
 }

@@ -1,21 +1,22 @@
-#' Execute SAS code
+#' Execute SAS code string
 #' 
 #' @description
 #' Execute SAS code in current session and render html output.
 #' 
-#' @param input String of SAS code input to run.
+#' @param input string; SAS code to run.
 #' 
-#' @return No return value.
+#' @return `htmlwidget`; HTML5 output.
 #' 
 #' @export
 #' 
 #' @examples
 #' \dontrun{
 #' sas_connect()
-#' sas_run_string("PROC MEANS DATA = sashelp.cars;\n RUN;")
+#' sas_run_string("PROC MEANS DATA = sashelp.cars;RUN;")
 #' }
 sas_run_string <- function(input) {
   chk_connection()
+  chk::chk_not_missing(input, "`input`")
   chk::chk_string(input)
 
   execute_if_connection_active(

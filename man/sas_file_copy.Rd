@@ -7,12 +7,12 @@
 sas_file_copy(from_path, to_path)
 }
 \arguments{
-\item{from_path}{Path of file on remote SAS server to be copied.}
+\item{from_path}{string; Path of file on remote SAS server to be copied.}
 
-\item{to_path}{Path of file on remote SAS server to copy to.}
+\item{to_path}{string; Path of file on remote SAS server to copy to.}
 }
 \value{
-Logical value indicating if the operation succeeded.
+\code{logical}; value indicating if the operation succeeded.
 }
 \description{
 Copies a file on the remote SAS server. Is analogous to

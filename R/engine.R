@@ -156,8 +156,10 @@ sas_engine <- function (options) {
 #' intermediate files to a directory on the SAS. This function allows you
 #' to set what directory intermediate files are writen to.
 #' 
-#' @param path Path for SAS to write intermediate files to for the `knitr` 
-#' `sas_engine()`
+#' @param path string; Path for SAS to write intermediate files to for the 
+#' `knitr` `sas_engine()`.
+#' 
+#' @seealso [sas_engine()]
 #' 
 #' @return No return value.
 #' 

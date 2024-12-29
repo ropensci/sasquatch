@@ -5,7 +5,7 @@
 #' have logical, integer, double, factor, character, POSIXct, or Date class 
 #' columns.
 #' 
-#' @param x data.frame, tibble, data.table; R table.
+#' @param x `data.frame`; R table.
 #' @param table_name string; Name of table to be created in SAS.
 #' @param libref string; Name of libref to store SAS table within.
 #' 
@@ -21,7 +21,7 @@
 #' * POSIXct -> numeric (datetime)
 #' * Date -> numeric (date)
 #' 
-#' @return No return value.
+#' @return `data.frame`; `x`.
 #' 
 #' @export
 #' 
@@ -31,9 +31,11 @@
 #' sas_from_r(mtcars, "mtcars")
 #' }
 sas_from_r <- function(x, table_name, libref = "WORK") {
+  chk::chk_not_missing(x)
   chk::chk_data(x)
   chk_has_sas_vld_datatypes(x)
   chk_has_rownames(x)
+  chk::chk_not_missing(table_name, "`table_name`")
   chk::chk_string(table_name)
   chk::chk_string(libref)
   
