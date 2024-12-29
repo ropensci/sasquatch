@@ -28,7 +28,7 @@ Suggests:
     curl,
     rmarkdown,
     testthat (>= 3.0.0),
-    tibble
+    withr
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 BugReports: https://github.com/ryanzomorrodi/sasquatch/issues

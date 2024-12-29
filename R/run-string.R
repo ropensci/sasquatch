@@ -16,6 +16,7 @@
 #' }
 sas_run_string <- function(input) {
   chk_connection()
+  chk::chk_string(input)
 
   execute_if_connection_active(
     results <- .pkgenv$session$submit(input)

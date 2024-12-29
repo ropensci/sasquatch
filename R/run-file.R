@@ -21,10 +21,16 @@
 #' }
 sas_run_file <- function(input_path, output_path, overwrite = FALSE) {
   chk_connection()
+  chk::chk_string(input_path)
+  chk::chk_file(input_path)
+  
+  input <- read_file(input_path)
   if (missing(output_path)) {
     return(sas_run_string(input))
+  } else {
+    chk::chk_string(output_path)
+    chk::chk_logical(overwrite)
   }
-  input <- read_file(input_path)
 
   output_dir <- dirname(output_path)
   output_file <- basename(output_path)
@@ -51,16 +57,12 @@ sas_run_file <- function(input_path, output_path, overwrite = FALSE) {
 }
 
 read_file <- function(path) {
-  if (!file.exists(path)) {
-    stop("Input file does not exist.")
-  }
-
   readChar(path, file.info(path)$size)
 }
 
 write_file <- function(output, path, overwrite) {
   if (file.exists(path) && !overwrite) {
-    stop("Output file already exists. If you would like to overwrite the file, use overwrite = TRUE.")
+    chk::err("Output file already exists. If you would like to overwrite the file, use overwrite = TRUE.")
   }
 
   cat(output, file = path)

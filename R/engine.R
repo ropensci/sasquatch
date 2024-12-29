@@ -66,7 +66,7 @@ sas_engine <- function (options) {
 
   if (identical(options$eval, FALSE)) {
     options$output <- FALSE
-  } else if (knitr::is_html_output()) {
+  } else if (is_html_output()) {
     execute_if_connection_active(
       results <- .pkgenv$session$submit(code)
     )
@@ -81,6 +81,7 @@ sas_engine <- function (options) {
       out <- wrap_in_panel_tabset(lst, log)
     }
   } else {
+    chk_set_tempdir()
     sas_temp_dir <- .pkgenv$tempdir
     sas_temp_html <- basename(tempfile(pattern="temp", fileext=".html"))
     sas_temp_html_path <- paste0(sas_temp_dir, "/", sas_temp_html)
@@ -143,7 +144,7 @@ sas_engine <- function (options) {
     code <- list()
   }
   if (identical(options$output, FALSE)) {
-    results <- list()
+    out <- list()
   }
   
   knitr::engine_output(options, code, out)
@@ -170,12 +171,12 @@ sas_set_tempdir <- function(path) {
 }
 
 chk_set_tempdir <- function() {
-  if (vld_connection()) {
+  if (vld_set_tempdir()) {
     return(invisible())
   }
   chk::abort_chk("No SAS temporary directory has been set. Use `sas_set_tempdir()`")
 }
-vld_connection <- function() exists("tempdir", envir = .pkgenv) && !is.null(.pkgenv$tempdir)
+vld_set_tempdir <- function() exists("tempdir", envir = .pkgenv) && !is.null(.pkgenv$tempdir)
 
 wrap_in_iframe <- function(html) {
   html <- paste(html, collapse = "\n")

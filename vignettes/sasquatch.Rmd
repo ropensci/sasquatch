@@ -121,6 +121,10 @@ RUN;
 ```
 `````
 
+**Note**: For non-html output, use `sas_set_tempdir()` to set an temporary
+directory which SAS can write intermediate files to. This is required to 
+perform HTML to Markdown translation.
+
 #### RStudio
 
 In RStudio, you will be able to run SAS chunks as you would any other chunk. 
@@ -236,7 +240,6 @@ sas_file_download(sas_path = "~/script.sas", local_path = "script.sas")
 Check if a file exists on the remote SAS server with `sas_file_exists()`.
 ```{r, eval = FALSE}
 sas_file_exists("~/script.sas")
-#> TRUE
 ```
 
 Copy files on the remote SAS server with `sas_file_copy()`.
