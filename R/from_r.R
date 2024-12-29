@@ -28,9 +28,9 @@
 #' @examples
 #' \dontrun{
 #' sas_connect()
-#' r_to_sas(mtcars, "mtcars")
+#' sas_from_r(mtcars, "mtcars")
 #' }
-r_to_sas <- function(x, table_name, libref = "WORK") {
+sas_from_r <- function(x, table_name, libref = "WORK") {
   chk::chk_data(x)
   chk_has_sas_vld_datatypes(x)
   chk_has_rownames(x)
@@ -60,50 +60,22 @@ r_to_sas <- function(x, table_name, libref = "WORK") {
   invisible(x_copy)
 }
 
-#' Convert SAS table to R
-#' 
-#' @description
-#' Converts table from current SAS session into a R `data.frame`.
-#' 
-#' @param table_name string; Name of table in SAS.
-#' @param libref string; Name of libref SAS table is stored within. 
-#' 
-#' @details
-#' SAS only has two data types (numeric and character). Data types are converted
-#' as follows:
-#' 
-#' * numeric -> double
-#' * character -> character
-#' * numeric (datetime) -> POSIXct
-#' * numeric (date) -> POSIXct
-#' 
-#' In the conversion process dates and datetimes are converted to local
-#' time. If utilizing another timezone, use `as.POSIXct()` or 
-#' `lubridate::with_tz()` to convert back to the desired time zone.
-#' 
-#' @return `data.frame` of the specified SAS table.
-#' 
-#' @export
-#' 
-#' @examples
-#' \dontrun{
-#' sas_connect()
-#' cars <- sas_to_r("cars", "sashelp")
-#' }
-sas_to_r <- function(table_name, libref = "WORK")  {
-  chk_connection()
-  chk::chk_string(table_name)
-  chk::chk_string(libref)
-  
-
-  execute_if_connection_active(
-    x <- .pkgenv$session$sasdata2dataframe(table_name, libref)
-  )
-  x <- reticulate::py_to_r(x)
-  x <- as.data.frame(lapply(x, function(col) { 
-    col[is.nan(col)] <- NA
-    col
-  }))
-
-  x
+chk_has_sas_vld_datatypes <- function(x, x_name = NULL) {
+  if (vld_has_sas_vld_datatypes(x)) {
+    return(invisible(x))
+  }
+  if (is.null(x_name)) x_name <- chk::deparse_backtick_chk(substitute(x))
+  chk::abort_chk(x_name, " must only have logical, integer, double, factor, character, POSIXct, or Date class columns")
 }
+vld_has_sas_vld_datatypes <- function(x) {
+  all(sapply(x, \(col) inherits(col, c("logical", "integer", "numeric", "factor", "character", "POSIXct", "Date"))))
+}
+
+chk_has_rownames <- function(x, x_name = NULL) {
+  if (vld_has_rownames(x)) {
+    return(invisible(x))
+  }
+  if (is.null(x_name)) x_name <- chk::deparse_backtick_chk(substitute(x))
+  chk::wrn(x_name, " rownames will not be transferred as a column")
+}
+vld_has_rownames <- function(x) is.na(.row_names_info(x, type = 0)[1])

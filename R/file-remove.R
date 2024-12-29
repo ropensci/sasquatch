@@ -1,0 +1,37 @@
+#' Delete a file or directory from SAS
+#' 
+#' Deletes a file or directory from the remote SAS server. Is analogous to 
+#' `file.remove()`, but for the remote SAS server.
+#' 
+#' @param path Path of file on remote SAS server to be deleted.
+#' 
+#' @return Logical value indicating if the operation succeeded.
+#' 
+#' @export
+#' 
+#' @examples
+#' \dontrun{
+#' # connect to SAS
+#' sas_connect()
+#' 
+#' # create a file and upload it to SAS
+#' cat("PROC MEANS DATA = sashelp.cars;RUN;", file = "script.sas")
+#' sas_file_upload(local_path = "script.sas", sas_path = "~/script.sas")
+#' 
+#' # remove file from SAS
+#' sas_file_remove(sas_path = "~/script.sas")
+#' }
+sas_file_remove <- function(path) {
+  chk_connection()
+  chk::chk_string(path)
+
+  execute_if_connection_active(
+    result <- .pkgenv$session$file_delete(path)
+  )
+
+  if (!result$Success) {
+    chk::wrn(result$LOG)
+  }
+
+  result$Success
+}

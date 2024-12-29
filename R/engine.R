@@ -168,3 +168,43 @@ sas_set_tempdir <- function(path) {
 
   invisible()
 }
+
+chk_set_tempdir <- function() {
+  if (vld_connection()) {
+    return(invisible())
+  }
+  chk::abort_chk("No SAS temporary directory has been set. Use `sas_set_tempdir()`")
+}
+vld_connection <- function() exists("tempdir", envir = .pkgenv) && !is.null(.pkgenv$tempdir)
+
+wrap_in_iframe <- function(html) {
+  html <- paste(html, collapse = "\n")
+  html <- gsub("'", "\"", html)
+  html <- gsub("background-color:\\s*?#fafbfe", "background-color: transparent", html)
+
+  paste(
+    "<iframe width = '100%' class='resizable-iframe' srcdoc = '", 
+    html,
+    "<style>table {margin-left: auto; margin-right: auto;}</style>",
+    "'></iframe>",
+    sep = "\n"
+  )
+}
+
+wrap_in_pre <- function(html) {
+  html <- paste(html, collapse = "\n")
+  paste("<pre>", html, "</pre>")
+}
+
+wrap_in_panel_tabset <- function(lst, log) {
+  paste(
+    '::: panel-tabset',
+    '## Output',
+    lst,
+    '## Log',
+    log,
+    ':::
+    ',
+    sep="\n"
+  )
+}
