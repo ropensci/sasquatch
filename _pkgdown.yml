@@ -29,7 +29,7 @@ reference:
 
 - title: R <-> SAS
   contents:
-  - r_to_sas
+  - sas_from_r
   - sas_to_r
 
 - title: File Management

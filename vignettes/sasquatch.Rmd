@@ -70,7 +70,7 @@ sas_get_session()
 You can execute SAS code in a variety of different ways. All `sas_run_*()` 
 functions generate htmlwidgets, which display both the output and log.
 
-To execute a string of SAS code use `sas_run_string()`
+To execute a string of SAS code use `sas_run_string()`.
 
 ```{r, eval = FALSE}
 sas_run_string("PROC MEANS DATA = sashelp.cars;RUN;")
@@ -80,11 +80,15 @@ sas_run_string("PROC MEANS DATA = sashelp.cars;RUN;")
 readRDS("files/proc_means_widget.rds")
 ```
 
-To execute a SAS script use `sas_run_file()`
+To execute a SAS script use `sas_run_file()`. You can even save the raw SAS HTML 
+output and log by specifing an output path for the HTML. 
 
 ```{r, eval = FALSE}
 cat("PROC MEANS DATA = sashelp.cars;RUN;", file = "script.sas")
 sas_widget <- sas_run_file("script.sas")
+
+# will save output.html and output.log files
+sas_run_file("script.sas", "output.html")
 ```
 
 ### Within quarto
@@ -152,7 +156,7 @@ R `data.frame`s can be automatically converted to and from SAS tables. However,
 `data.frame`s must only contain logical, integer, double, factor, character, 
 POSIXct, or Date class columns.
 
-Convert R `data.frame`s to SAS tables with `r_to_sas()`.
+Convert R `data.frame`s to SAS tables with `sas_from_r()`.
 
 ```{r, eval = FALSE}
 df <- data.frame(
@@ -172,7 +176,7 @@ tibble::tibble(df)
 #> 2    2.5       2 FALSE   b         b      2015-12-11 2015-12-09 10:51:36
 #> 3   NA        NA NA      NA        NA     NA         NA                 
 
-r_to_sas(df, "df", libref = "WORK")
+sas_from_r(df, "df", libref = "WORK")
 ```
 
 SAS only has two data types (numeric and character). R data types are converted
@@ -227,6 +231,12 @@ Download files from a remote SAS server with `sas_file_download()`.
 
 ```{r, eval = FALSE}
 sas_file_download(sas_path = "~/script.sas", local_path = "script.sas")
+```
+
+Check if a file exists on the remote SAS server with `sas_file_exists()`.
+```{r, eval = FALSE}
+sas_file_exists("~/script.sas")
+#> TRUE
 ```
 
 Copy files on the remote SAS server with `sas_file_copy()`.

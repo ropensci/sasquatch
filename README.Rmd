@@ -105,10 +105,10 @@ If you want to send the SAS output to the viewer, you can utilize the
 
 #### Converting tables
 
-Pass tables between R and SAS with `r_to_sas()` and `sas_to_r()`.
+Pass tables between R and SAS with `sas_from_r()` and `sas_to_r()`.
 
 ```{r, eval = FALSE}
-r_to_sas(mtcars, "mtcars")
+sas_from_r(mtcars, "mtcars")
 cars <- sas_to_r("cars", libref = "sashelp")
 ```
 
