@@ -13,7 +13,6 @@
 <url><loc>https://ryanzomorrodi.github.io/sasquatch/reference/execute_if_connection_active.html</loc></url>
 <url><loc>https://ryanzomorrodi.github.io/sasquatch/reference/index.html</loc></url>
 <url><loc>https://ryanzomorrodi.github.io/sasquatch/reference/install_saspy.html</loc></url>
-<url><loc>https://ryanzomorrodi.github.io/sasquatch/reference/r_to_sas.html</loc></url>
 <url><loc>https://ryanzomorrodi.github.io/sasquatch/reference/sas_connect.html</loc></url>
 <url><loc>https://ryanzomorrodi.github.io/sasquatch/reference/sas_disconnect.html</loc></url>
 <url><loc>https://ryanzomorrodi.github.io/sasquatch/reference/sas_engine.html</loc></url>
@@ -22,6 +21,7 @@
 <url><loc>https://ryanzomorrodi.github.io/sasquatch/reference/sas_file_exists.html</loc></url>
 <url><loc>https://ryanzomorrodi.github.io/sasquatch/reference/sas_file_remove.html</loc></url>
 <url><loc>https://ryanzomorrodi.github.io/sasquatch/reference/sas_file_upload.html</loc></url>
+<url><loc>https://ryanzomorrodi.github.io/sasquatch/reference/sas_from_r.html</loc></url>
 <url><loc>https://ryanzomorrodi.github.io/sasquatch/reference/sas_get_session.html</loc></url>
 <url><loc>https://ryanzomorrodi.github.io/sasquatch/reference/sas_list.html</loc></url>
 <url><loc>https://ryanzomorrodi.github.io/sasquatch/reference/sas_run_file.html</loc></url>
@@ -29,5 +29,6 @@
 <url><loc>https://ryanzomorrodi.github.io/sasquatch/reference/sas_run_string.html</loc></url>
 <url><loc>https://ryanzomorrodi.github.io/sasquatch/reference/sas_set_tempdir.html</loc></url>
 <url><loc>https://ryanzomorrodi.github.io/sasquatch/reference/sas_to_r.html</loc></url>
+<url><loc>https://ryanzomorrodi.github.io/sasquatch/reference/sasquatch-package.html</loc></url>
 </urlset>
 
