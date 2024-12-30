@@ -24,47 +24,43 @@ sas_run_file <- function(input_path, output_path, overwrite = FALSE) {
   chk::chk_not_missing(input_path)
   chk::chk_string(input_path)
   chk::chk_file(input_path)
-  
+
   input <- read_file(input_path)
   if (missing(output_path)) {
     return(sas_run_string(input))
   } else {
     chk::chk_string(output_path)
+    chk::chk_ext(output_path, "html")
     chk::chk_logical(overwrite)
   }
 
   output_dir <- dirname(output_path)
   output_file <- basename(output_path)
   output_file_name <- substr(output_file, 0, nchar(output_file) - 5)
-  output_file_ext <- substr(output_file, nchar(output_file) - 4, nchar(output_file))
+  output_log_path <- file.path(output_dir, paste0(output_file_name, ".log"))
 
-  if (output_file_ext != ".html") {
-    chk::err("Output file extension must end in .html")
+  if (!overwrite) {
+    chk_no_file(output_path)
+    chk_no_file(output_log_path)
   }
+
   results <- .pkgenv$session$submit(input)
 
-  write_file(
-    output = paste(results$LST, collapse = "\n"), 
-    path = output_path,
-    overwrite
-  )
-  write_file(
-    output = paste(results$LOG, collapse = "\n"), 
-    path = file.path(output_dir, paste0(output_file_name, ".log")),
-    overwrite
-  )
+  cat(paste(results$LST, collapse = "\n"), file = output_path)
+  cat(paste(results$LOG, collapse = "\n"), file = output_log_path)
 
   invisible()
 }
 
+chk_no_file <- function(x, x_name = NULL) {
+  if (vld_no_file(x)) {
+    return(invisible(x))
+  }
+  if (is.null(x_name)) x_name <- chk::deparse_backtick_chk(substitute(x))
+  chk::abort_chk(x_name, " already exists. If you would like to overwrite the file, use overwrite = TRUE.")
+}
+vld_no_file <- function(x) !file.exists(x)
+
 read_file <- function(path) {
   readChar(path, file.info(path)$size)
-}
-
-write_file <- function(output, path, overwrite) {
-  if (file.exists(path) && !overwrite) {
-    chk::err("Output file already exists. If you would like to overwrite the file, use overwrite = TRUE.")
-  }
-
-  cat(output, file = path)
 }

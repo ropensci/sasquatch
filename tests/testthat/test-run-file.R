@@ -41,7 +41,7 @@ test_that("overwrite output html and log from file", {
   "don't overwrite"
   cat("PROC MEANS DATA = sashelp.cars; RUN;", file = local_path)
   cat("test", file = local_html)
-  expect_error(sas_run_file(local_path, local_html), "Output file already exists. If you would like to overwrite the file, use overwrite = TRUE.", fixed = TRUE)
+  expect_error(sas_run_file(local_path, local_html), "already exists. If you would like to overwrite the file, use overwrite = TRUE.", fixed = TRUE)
 
   "overwrite output"
   sas_run_file(local_path, local_html, overwrite = TRUE)

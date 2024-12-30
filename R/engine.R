@@ -97,7 +97,7 @@ sas_engine <- function (options) {
       paste0(
         "ods html3 file='", sas_temp_html_path,
         "' gpath = '", sas_temp_dir, 
-        "' (no_top_matter no_bottom_matter) style=journal;\n"
+        "' (no_top_matter no_bottom_matter);\n"
       ),
       sep = "\n"
     )
