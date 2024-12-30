@@ -9,7 +9,7 @@ functionality or access the current session within Python."><meta property="og:i
 
     <a class="navbar-brand me-2" href="../index.html">sasquatch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9031</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9032</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,7 +50,7 @@ functionality or access the current session within Python.</p>
 
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Current SAS session.</p>
+    <p><code>saspy.sasbase.SASsession</code>; Current SAS session.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -59,9 +59,10 @@ functionality or access the current session within Python.</p>
 <h3 id="extending-sasquatch-functionality">Extending <code>sasquatch</code> functionality<a class="anchor" aria-label="anchor" href="#extending-sasquatch-functionality"></a></h3>
 
 
-<p><code>SASPy</code> has a wealth of functionality that has not been implemented within
-<code>sasquatch</code>. <code>sas_get_session()</code> offers a gateway to unimplemented
-functionality within the <a href="https://sassoftware.github.io/saspy/api.html#sas-session-object" class="external-link">SASsession class</a>.</p>
+<p><code>SASPy</code> has a wealth of functionality, some of which have not all been
+implemented within <code>sasquatch</code>. <code>sas_get_session()</code> offers a gateway to
+unimplemented functionality within the
+<a href="https://sassoftware.github.io/saspy/api.html#sas-session-object" class="external-link">SASsession class</a>.</p>
 </div>
 
 <div class="section">
@@ -69,8 +70,8 @@ functionality within the <a href="https://sassoftware.github.io/saspy/api.html#s
 
 
 <p>When utilizing Python, R, and SAS, start the session within R using
-<code><a href="sas_connect.html">sas_connect()</a></code> and utilize <code>reticulate</code> to pass the current SAS session
-to Python.</p>
+<code><a href="sas_connect.html">sas_connect()</a></code> and utilize <code>reticulate</code> to pass the
+<code>saspy.sasbase.SASsession</code> object to Python.</p>
 </div>
 
     </div>
