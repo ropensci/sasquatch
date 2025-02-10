@@ -25,93 +25,7 @@ together to create reproducible multilingual reports. `sasquatch` can:
 `reticulate` R package to interoperate with Python. Check out
 `vignette("configuration")` for guidance on `SASPy` configuration.
 
-## Installation
-
-#### Package installation
-
-You can install the development version of sasquatch like so:
-
-``` r
-# install.packages("pak")
-pak::pkg_install("ryanzomorrodi/sasquatch")
-```
-
-#### Python installation
-
-Make sure Python is installed on your system. If Python has not been
-installed, you can install Python like so:
-
-``` r
-reticulate::install_python()
-```
-
-or download the installer from the [Python Software
-Foundation](https://www.python.org/downloads/').
-
-#### `SASPy` installation
-
-To install the `SASPy` package and its dependencies within a Python
-virutal environment:
-
-``` r
-sasquatch::install_saspy()
-```
-
-See `vignette("configuration")` for guidance on `SASPy` configuration.
-
-## Usage
-
-Once you have setup `SASPy` and connected to the right python
-environment using `reticulate` (if necessary), you can create a quarto
-document like any other, call `sas_connect()`, and just get going!
-
-```` default
----
-format: html
-engine: knitr
----
-
-```{r}
-library(sasquatch)
-sas_connect()
-```
-
-```{sas}
-
-```
-````
-
-#### Code blocks
-
-Now, you should be able to run SAS code blocks in RStudio like any
-other.
-
-![](man/figures/run_sas_chunk.gif)
-
-#### Sending output to viewer
-
-If you want to send the SAS output to the viewer, you can utilize the
-`sas_run_selected()` addin with a custom shortcut.
-
-![](man/figures/run_sas_selected.gif)
-
-#### Converting tables
-
-Pass tables between R and SAS with `sas_from_r()` and `sas_to_r()`.
-
-``` r
-sas_from_r(mtcars, "mtcars")
-cars <- sas_to_r("cars", libref = "sashelp")
-```
-
-#### Rendering quarto documents
-
-And of course, render beautiful quarto documents in the same style you
-would expect from SAS with the `sas_engine()`.
-
-![](man/figures/rendered_quarto.png)
-
-## Comparison with similar packages
+### Comparison with similar packages
 
 [`sasr`](https://CRAN.R-project.org/package=sasr)
 
@@ -150,3 +64,132 @@ would expect from SAS with the `sas_engine()`.
 
 If you require pdf `knitr` support and have a local installation of SAS,
 I would recommend using `SASmarkdown`at this time.
+
+## Installation
+
+### Package installation
+
+You can install the development version of sasquatch like so:
+
+``` r
+# install.packages("pak")
+pak::pkg_install("ryanzomorrodi/sasquatch")
+```
+
+### Python installation
+
+Make sure Python is installed on your system. If Python has not been
+installed, you can install Python like so:
+
+``` r
+reticulate::install_python()
+```
+
+or download the installer from the [Python Software
+Foundation](https://www.python.org/downloads/').
+
+### `SASPy` installation
+
+To install the `SASPy` package and its dependencies within a Python
+virutal environment:
+
+``` r
+sasquatch::install_saspy()
+```
+
+### Configuration
+
+Configuration for SAS can vary greatly based on your computer’s
+operating system and the SAS platform you wish to connect to. For more
+information check out `vignette("configuration")`.
+
+**Don’t have a SAS license currently or just want to get set up
+quickly?** Configure `sasquatch` for SAS On Demand for Academics using
+the steps below:
+
+#### Registration
+
+SAS On Demand for Academics (ODA) is free SAS client for professors,
+students, and independent learners. Create an account at
+<https://welcome.oda.sas.com/>.
+
+Once you have set up your account, log in and note the ODA server (in
+the picture below United States 2) and your username (under the email in
+the profile dropdown). We will need these for later.
+
+![](man/figures/sas_oda.png)
+
+#### Java installation
+
+ODA relies on the IOM access method, which requires Java. Make sure Java
+is installed on your system. You can download Java from [their
+website](https://www.java.com/en/download/). Note the Java installation
+path.
+
+#### ODA Configuration
+
+Set up for ODA is super easy. Run `config_saspy()` and follow the
+prompts (you may need to recall your username, server, and java
+installation path from earlier).
+
+``` r
+sasquatch::configure_saspy(template = "oda")
+```
+
+`config_saspy(template = "oda")` will create a `sascfg_personal.py` file
+with all the relevant configuration information and create an `authinfo`
+file, which will store your ODA credentials. More information about ODA
+configuration can be found in the [ODA section of `SASPy` configuration
+documentation](https://sassoftware.github.io/saspy/configuration.html#iom).
+
+## Usage
+
+Once you have setup `SASPy` and connected to the right python
+environment using `reticulate` (if necessary), you can create a quarto
+document like any other, call `sas_connect()`, and just get going!
+
+```` default
+---
+format: html
+engine: knitr
+---
+
+```{r}
+library(sasquatch)
+sas_connect()
+```
+
+```{sas}
+
+```
+````
+
+### Code blocks
+
+Now, you should be able to run SAS code blocks in RStudio like any
+other.
+
+![](man/figures/run_sas_chunk.gif)
+
+### Sending output to viewer
+
+If you want to send the SAS output to the viewer, you can utilize the
+`sas_run_selected()` addin with a custom shortcut.
+
+![](man/figures/run_sas_selected.gif)
+
+### Converting tables
+
+Pass tables between R and SAS with `sas_from_r()` and `sas_to_r()`.
+
+``` r
+sas_from_r(mtcars, "mtcars")
+cars <- sas_to_r("cars", libref = "sashelp")
+```
+
+### Rendering quarto documents
+
+And of course, render beautiful quarto documents in the same style you
+would expect from SAS with the `sas_engine()`.
+
+![](man/figures/rendered_quarto.png)

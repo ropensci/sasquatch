@@ -89,7 +89,7 @@ SAS On Demand for Academics (ODA) is free SAS client for professors, students, a
 
 Once you have set up your account, log in and note the ODA server (in the picture below United States 2) and your username (under the email in the profile dropdown). We will need these for later.
 
-![](files/sas_oda.png)
+![](../man/figures/sas_oda.png)
 
 ### Java installation
 
