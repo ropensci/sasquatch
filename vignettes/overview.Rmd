@@ -1,8 +1,8 @@
 ---
-title: "Getting Started"
+title: "Overview"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{sasquatch}
+  %\VignetteIndexEntry{overview}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

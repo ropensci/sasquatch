@@ -6,6 +6,17 @@ template:
   bslib:
     bg: "#edf2f9"
     fg: "#112277"
+navbar:
+  components:
+    configuration:
+      text: Configuration
+      href: articles/configuration.html
+    overview:
+      text: Overview
+      href: articles/overview.html
+  structure:
+    left:  [intro, configuration, overview, news]
+    right: [search, github]
 
 reference:
 - title: Setup

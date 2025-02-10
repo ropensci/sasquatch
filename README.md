@@ -55,7 +55,7 @@ together to create reproducible multilingual reports. `sasquatch` can:
 
 `sasquatch` may be beneficial to you if you…
 
-- Rely on remote SAS client  
+- Rely on a remote SAS client  
 - Desire interactive SAS functionality while developing  
 - Require remote SAS file management  
 - Would like to be able to easily send data back and forth between SAS
