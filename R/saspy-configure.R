@@ -120,7 +120,7 @@ write_authinfo <- function(config_name, username, password, overwrite) {
 
   authinfo <- paste(config_name, "user", username, "password", password, "\n")
   
-  cat(authinfo, file = authinfo_path)
+  write_file(authinfo, file = authinfo_path)
 
   authinfo_path
 }
@@ -135,11 +135,16 @@ write_sascfg_personal <- function(configs, overwrite) {
   config_dicts <- sapply(names(configs), function(config_name) {
     paste(config_name, "=", as.character(reticulate::dict(configs[[config_name]])))
   })
-  contents <- paste(config_list, paste(config_dicts, collapse = "\n\n"), sep = "\n\n")
+  contents <- paste(config_list, paste(config_dicts, collapse = "\n\n"), "", sep = "\n")
 
-  cat(contents, file = sascfg_personal_path)
+  write_file(contents, file = sascfg_personal_path)
 
   sascfg_personal_path
+}
+
+# created to facilitate mocking within testing
+write_file <- function(..., file) {
+  cat(..., file = file)
 }
 
 menu <- function(choices, title) {
