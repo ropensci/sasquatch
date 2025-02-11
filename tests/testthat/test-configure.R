@@ -1,6 +1,4 @@
 test_that("oda configuration - sascfg_personal", {
-  skip_on_cran()
-  skip_if_offline()
   tempfile <- withr::local_tempfile()
   local_mocked_bindings(write_file = function(file, ...) {
     cat(file = tempfile, ...)
@@ -32,8 +30,6 @@ test_that("oda configuration - sascfg_personal", {
 })
 
 test_that("oda configuration - authinfo", {
-  skip_on_cran()
-  skip_if_offline()
   tempfile <- withr::local_tempfile()
   local_mocked_bindings(write_file = function(file, ...) {
     cat(file = tempfile, ...)
