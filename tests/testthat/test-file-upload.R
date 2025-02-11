@@ -4,7 +4,7 @@ test_that("uploading file to SAS", {
   withr::defer(file.remove(local_path))
   withr::defer(sas_file_remove(sas_path))
   
-  local_path <- tempfile(pattern="temp", fileext=".sas")
+  local_path <- tempfile(pattern = "temp", fileext = ".sas")
   local_name <- basename(local_path)
   sas_path <- paste0("~/", local_name)
 
