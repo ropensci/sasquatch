@@ -9,6 +9,7 @@
 #' 
 #' @export
 #' 
+#' @family code execution functions
 #' @examples
 #' \dontrun{
 #' sas_connect()

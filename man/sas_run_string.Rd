@@ -21,3 +21,9 @@ sas_connect()
 sas_run_string("PROC MEANS DATA = sashelp.cars;RUN;")
 }
 }
+\seealso{
+Other code execution functions: 
+\code{\link{sas_run_file}()},
+\code{\link{sas_run_selected}()}
+}
+\concept{code execution functions}

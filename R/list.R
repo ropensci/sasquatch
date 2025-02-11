@@ -8,6 +8,7 @@
 #' 
 #' @export
 #' 
+#' @family file management functions
 #' @examples
 #' \dontrun{
 #' sas_connect()

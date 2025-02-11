@@ -40,6 +40,7 @@ rstudio_selection <- function(context = rstudio_context()) {
 #' 
 #' @export
 #' 
+#' @family code execution functions
 #' @examples
 #' \dontrun{
 #' sas_connect()

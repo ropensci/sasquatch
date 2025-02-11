@@ -30,3 +30,12 @@ sas_file_upload(local_path = "script.sas", sas_path = "~/script.sas")
 sas_file_download(sas_path = "~/script.sas", local_path = "script.sas")
 }
 }
+\seealso{
+Other file management functions: 
+\code{\link{sas_file_copy}()},
+\code{\link{sas_file_exists}()},
+\code{\link{sas_file_remove}()},
+\code{\link{sas_file_upload}()},
+\code{\link{sas_list}()}
+}
+\concept{file management functions}

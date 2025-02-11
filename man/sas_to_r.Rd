@@ -37,3 +37,6 @@ sas_connect()
 cars <- sas_to_r("cars", "sashelp")
 }
 }
+\seealso{
+\code{\link[=sas_from_r]{sas_from_r()}}
+}

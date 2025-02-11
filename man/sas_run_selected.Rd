@@ -23,3 +23,9 @@ sas_connect()
 sas_run_selected()
 }
 }
+\seealso{
+Other code execution functions: 
+\code{\link{sas_run_file}()},
+\code{\link{sas_run_string}()}
+}
+\concept{code execution functions}

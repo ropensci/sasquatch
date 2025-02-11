@@ -25,3 +25,6 @@ virtual Python environment.
 install_saspy()
 }
 }
+\seealso{
+\code{\link[=configure_saspy]{configure_saspy()}}
+}

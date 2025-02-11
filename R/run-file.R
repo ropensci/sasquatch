@@ -12,6 +12,7 @@
 #' 
 #' @export
 #' 
+#' @family code execution functions
 #' @examples
 #' \dontrun{
 #' cat("PROC MEANS DATA = sashelp.cars;\n RUN;", file = "test.sas")

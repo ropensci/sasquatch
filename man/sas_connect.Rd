@@ -27,3 +27,9 @@ or \code{vignette("configuration")}.
 sas_connect(cfgname = "oda")
 }
 }
+\seealso{
+Other session management functions: 
+\code{\link{sas_disconnect}()},
+\code{\link{sas_get_session}()}
+}
+\concept{session management functions}

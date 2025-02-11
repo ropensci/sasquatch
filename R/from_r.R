@@ -25,6 +25,7 @@
 #' 
 #' @export
 #' 
+#' @seealso [sas_to_r()]
 #' @examples
 #' \dontrun{
 #' sas_connect()

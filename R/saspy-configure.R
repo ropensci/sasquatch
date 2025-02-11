@@ -10,6 +10,7 @@
 #' 
 #' @export
 #' 
+#' @seealso [install_saspy()]
 #' @examples
 #' \dontrun{
 #' config_saspy()

@@ -10,6 +10,7 @@
 #' 
 #' @export
 #' 
+#' @family file management functions
 #' @examples
 #' \dontrun{
 #' # connect to SAS

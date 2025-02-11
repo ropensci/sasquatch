@@ -17,3 +17,9 @@ Disconnects from the current SAS session.
 sas_disconnect()
 }
 }
+\seealso{
+Other session management functions: 
+\code{\link{sas_connect}()},
+\code{\link{sas_get_session}()}
+}
+\concept{session management functions}

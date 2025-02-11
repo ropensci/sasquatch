@@ -19,6 +19,7 @@
 #' 
 #' @export
 #' 
+#' @family session management functions
 #' @examples
 #' \dontrun{
 #' sas_connect()

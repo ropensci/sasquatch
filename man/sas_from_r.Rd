@@ -40,3 +40,6 @@ sas_connect()
 sas_from_r(mtcars, "mtcars")
 }
 }
+\seealso{
+\code{\link[=sas_to_r]{sas_to_r()}}
+}

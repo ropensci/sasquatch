@@ -21,3 +21,6 @@ according to a specified template.
 config_saspy()
 }
 }
+\seealso{
+\code{\link[=install_saspy]{install_saspy()}}
+}

@@ -15,7 +15,7 @@ navbar:
       text: Overview
       href: articles/overview.html
   structure:
-    left:  [intro, configuration, overview, news]
+    left:  [intro, configuration, overview, reference, news]
     right: [search, github]
 
 reference:

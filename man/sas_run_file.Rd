@@ -28,3 +28,9 @@ sas_connect()
 sas_run_file("test.sas", "test.html")
 }
 }
+\seealso{
+Other code execution functions: 
+\code{\link{sas_run_selected}()},
+\code{\link{sas_run_string}()}
+}
+\concept{code execution functions}

@@ -35,3 +35,9 @@ sas_connect()
 sas_get_session()
 }
 }
+\seealso{
+Other session management functions: 
+\code{\link{sas_connect}()},
+\code{\link{sas_disconnect}()}
+}
+\concept{session management functions}
