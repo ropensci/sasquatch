@@ -4,10 +4,12 @@
 \alias{configure_saspy}
 \title{Configure SASPy package}
 \usage{
-configure_saspy(template = c("none", "oda"))
+configure_saspy(template = c("none", "oda"), overwrite = FALSE)
 }
 \arguments{
 \item{template}{Default template to base configuration files off of.}
+
+\item{overwite}{Can new configuration files overwrite existing config files (if they exist)?}
 }
 \value{
 No return value.
@@ -15,6 +17,43 @@ No return value.
 \description{
 Adds \code{sascfg_personal.py} and \code{authinfo} files and prefills relevant info
 according to a specified template.
+}
+\details{
+Configuration for SAS can vary greatly based on your computer's operating
+system and the SAS platform you wish to connect to (see
+\code{vignette("configuration")} for more information).
+
+Regardless of your desired configuration, configuration always starts with
+the creation of a \code{sascfg_personal.py} file within the \code{SASPy} package
+installation. This will look like:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{SAS_config_names = ['config_name']
+
+config_name = \{
+
+\}
+}\if{html}{\out{</div>}}
+
+\code{SAS_config_names} should contain a string list of the variable names
+of all configurations. Configurations are specified as dictionaries,
+and configuration parameters depend on the access method.
+
+Additionally, some access methods will require an additional
+authentication file (\code{.authinfo} for Linux and Mac, \verb{_authinfo}
+for Windows) stored in the user's home directory, which are
+constructed as follows:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{config_name user \{your username\} password \{your password\}
+}\if{html}{\out{</div>}}
+\subsection{Templates}{
+
+The \code{"none"} template simply creates a \code{sascfg_personal.py} file within
+the \code{SASPy} package installation.
+
+The \code{"oda"} template will set up a configuration for SAS On Demand for
+Academics. The \code{sascfg_personal.py} and \code{authinfo} files will be
+automatically configured using the information you provide through prompts.
+}
 }
 \examples{
 \dontrun{

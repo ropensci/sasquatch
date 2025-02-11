@@ -38,8 +38,13 @@ config_name = {
 }
 ```
 
-where `config_name` is an arbirtary name of a configuration and the list 
-`SAS_config_names` contains the name(s) of your configuration(s).
+`SAS_config_names` should contain a string list of the variable names of all configurations. Configurations are specified as dictionaries, and configuration parameters depend on the access method.
+
+Additionally, some access methods will require an additional authentication file (`.authinfo` for Linux and Mac, `_authinfo` for Windows) stored in the user's home directory, which are constructed as follows:
+
+```
+config_name user {your username} password {your password}
+```
 
 ### Access methods
 

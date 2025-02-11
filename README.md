@@ -20,12 +20,12 @@ together to create reproducible multilingual reports. `sasquatch` can:
 - Conduct basic file management on a SAS client
 - Render SAS output within quarto documents.
 
+### Comparison with similar packages
+
 `sasquatch` relies on the
 [`SASPy`](https://sassoftware.github.io/saspy/) Python package and the
-`reticulate` R package to interoperate with Python. Check out
-`vignette("configuration")` for guidance on `SASPy` configuration.
-
-### Comparison with similar packages
+`reticulate` R package to interoperate with Python. There exist similar
+packages, which work similarly to achieve related goals.
 
 [`sasr`](https://CRAN.R-project.org/package=sasr)
 
@@ -40,6 +40,7 @@ together to create reproducible multilingual reports. `sasquatch` can:
 - The `configSAS` engine HTML output CSS styles interfere with the rest
   of the document and SAS code output is not contained within a code
   block.
+- `configSAS` is not actively maintained.
 
 [`SASmarkdown`](https://CRAN.R-project.org/package=SASmarkdown)
 
@@ -62,8 +63,8 @@ together to create reproducible multilingual reports. `sasquatch` can:
   and R  
   without the use of intermediate files
 
-If you require pdf `knitr` support and have a local installation of SAS,
-I would recommend using `SASmarkdown`at this time.
+If you require pdf `knitr` engine support and have a local installation
+of SAS, I would recommend using `SASmarkdown`at this time.
 
 ## Installation
 
