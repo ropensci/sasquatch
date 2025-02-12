@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">sasquatch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9032</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9035</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,14 +35,9 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="../articles/sasquatch.html">Get started</a></li>
+<li class="active nav-item"><a class="nav-link" href="../articles/configuration.html">Configuration</a></li>
+<li class="nav-item"><a class="nav-link" href="../articles/overview.html">Overview</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/configuration.html">Configuration</a></li>
-  </ul>
-</li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -95,9 +90,15 @@ package.</p>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>config_name <span class="op">=</span> {</span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>    </span>
 <span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>}</span></code></pre></div>
-<p>where <code>config_name</code> is an arbirtary name of a
-configuration and the list <code>SAS_config_names</code> contains the
-name(s) of your configuration(s).</p>
+<p><code>SAS_config_names</code> should contain a string list of the
+variable names of all configurations. Configurations are specified as
+dictionaries, and configuration parameters depend on the access
+method.</p>
+<p>Additionally, some access methods will require an additional
+authentication file (<code>.authinfo</code> for Linux and Mac,
+<code>_authinfo</code> for Windows) stored in the user’s home directory,
+which are constructed as follows:</p>
+<pre><code>config_name user {your username} password {your password}</code></pre>
 </div>
 <div class="section level3">
 <h3 id="access-methods">Access methods<a class="anchor" aria-label="anchor" href="#access-methods"></a>
@@ -218,7 +219,7 @@ students, and independent learners. Create an account at <a href="https://welcom
 <p>Once you have set up your account, log in and note the ODA server (in
 the picture below United States 2) and your username (under the email in
 the profile dropdown). We will need these for later.</p>
-<p><img src="files%2Fsas_oda.png"></p>
+<p><img src="../reference/figures/sas_oda.png"></p>
 </div>
 <div class="section level3">
 <h3 id="java-installation">Java installation<a class="anchor" aria-label="anchor" href="#java-installation"></a>
@@ -233,7 +234,7 @@ Java installation path.</p>
 <p>Set up for ODA is super easy. Run <code>config_saspy()</code> and
 follow the prompts (you may need to recall your username, server, and
 java installation path from earlier).</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sasquatch</span><span class="fu">::</span><span class="fu"><a href="../reference/configure_saspy.html">configure_saspy</a></span><span class="op">(</span>template <span class="op">=</span> <span class="st">"oda"</span><span class="op">)</span></span></code></pre></div>
 <p><code>config_saspy(template = "oda")</code> will create a
 <code>sascfg_personal.py</code> file with all the relevant configuration

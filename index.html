@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="index.html">sasquatch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9032</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9035</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,14 +38,9 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="articles/sasquatch.html">Get started</a></li>
+<li class="nav-item"><a class="nav-link" href="articles/configuration.html">Configuration</a></li>
+<li class="nav-item"><a class="nav-link" href="articles/overview.html">Overview</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/configuration.html">Configuration</a></li>
-  </ul>
-</li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -74,83 +69,10 @@
 <li>Conduct basic file management on a SAS client</li>
 <li>Render SAS output within quarto documents.</li>
 </ul>
-<p><code>sasquatch</code> relies on the <a href="https://sassoftware.github.io/saspy/" class="external-link"><code>SASPy</code></a> Python package and the <code>reticulate</code> R package to interoperate with Python. Check out <code><a href="articles/configuration.html">vignette("configuration")</a></code> for guidance on <code>SASPy</code> configuration.</p>
-<div class="section level2">
-<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
-</h2>
-<div class="section level4">
-<h4 id="package-installation">Package installation<a class="anchor" aria-label="anchor" href="#package-installation"></a>
-</h4>
-<p>You can install the development version of sasquatch like so:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
-<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"ryanzomorrodi/sasquatch"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level4">
-<h4 id="python-installation">Python installation<a class="anchor" aria-label="anchor" href="#python-installation"></a>
-</h4>
-<p>Make sure Python is installed on your system. If Python has not been installed, you can install Python like so:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">reticulate</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/install_python.html" class="external-link">install_python</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>or download the installer from the <a href="https://www.python.org/downloads/'" class="external-link">Python Software Foundation</a>.</p>
-</div>
-<div class="section level4">
-<h4 id="saspy-installation">
-<code>SASPy</code> installation<a class="anchor" aria-label="anchor" href="#saspy-installation"></a>
-</h4>
-<p>To install the <code>SASPy</code> package and its dependencies within a Python virutal environment:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">sasquatch</span><span class="fu">::</span><span class="fu"><a href="reference/install_saspy.html">install_saspy</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>See <code><a href="articles/configuration.html">vignette("configuration")</a></code> for guidance on <code>SASPy</code> configuration.</p>
-</div>
-</div>
-<div class="section level2">
-<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
-</h2>
-<p>Once you have setup <code>SASPy</code> and connected to the right python environment using <code>reticulate</code> (if necessary), you can create a quarto document like any other, call <code><a href="reference/sas_connect.html">sas_connect()</a></code>, and just get going!</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>---</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>format: html</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>engine: knitr</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>---</span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>```{r}</span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>library(sasquatch)</span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>sas_connect()</span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>```</span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>```{sas}</span>
-<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a></span>
-<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>```</span></code></pre></div>
-<div class="section level4">
-<h4 id="code-blocks">Code blocks<a class="anchor" aria-label="anchor" href="#code-blocks"></a>
-</h4>
-<p>Now, you should be able to run SAS code blocks in RStudio like any other.</p>
-<p><img src="reference/figures/run_sas_chunk.gif"></p>
-</div>
-<div class="section level4">
-<h4 id="sending-output-to-viewer">Sending output to viewer<a class="anchor" aria-label="anchor" href="#sending-output-to-viewer"></a>
-</h4>
-<p>If you want to send the SAS output to the viewer, you can utilize the <code><a href="reference/sas_run_selected.html">sas_run_selected()</a></code> addin with a custom shortcut.</p>
-<p><img src="reference/figures/run_sas_selected.gif"></p>
-</div>
-<div class="section level4">
-<h4 id="converting-tables">Converting tables<a class="anchor" aria-label="anchor" href="#converting-tables"></a>
-</h4>
-<p>Pass tables between R and SAS with <code><a href="reference/sas_from_r.html">sas_from_r()</a></code> and <code><a href="reference/sas_to_r.html">sas_to_r()</a></code>.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/sas_from_r.html">sas_from_r</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="st">"mtcars"</span><span class="op">)</span></span>
-<span><span class="va">cars</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sas_to_r.html">sas_to_r</a></span><span class="op">(</span><span class="st">"cars"</span>, libref <span class="op">=</span> <span class="st">"sashelp"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level4">
-<h4 id="rendering-quarto-documents">Rendering quarto documents<a class="anchor" aria-label="anchor" href="#rendering-quarto-documents"></a>
-</h4>
-<p>And of course, render beautiful quarto documents in the same style you would expect from SAS with the <code><a href="reference/sas_engine.html">sas_engine()</a></code>.</p>
-<p><img src="reference/figures/rendered_quarto.png"></p>
-</div>
-</div>
-<div class="section level2">
-<h2 id="comparison-with-similar-packages">Comparison with similar packages<a class="anchor" aria-label="anchor" href="#comparison-with-similar-packages"></a>
-</h2>
+<div class="section level3">
+<h3 id="comparison-with-similar-packages">Comparison with similar packages<a class="anchor" aria-label="anchor" href="#comparison-with-similar-packages"></a>
+</h3>
+<p><code>sasquatch</code> relies on the <a href="https://sassoftware.github.io/saspy/" class="external-link"><code>SASPy</code></a> Python package and the <code>reticulate</code> R package to interoperate with Python. There exist similar packages, which work similarly to achieve related goals.</p>
 <p><a href="https://CRAN.R-project.org/package=sasr" class="external-link"><code>sasr</code></a></p>
 <ul>
 <li>
@@ -160,6 +82,8 @@
 <ul>
 <li>Like <code>sasr</code> and <code>sasquatch</code>, <code>configSAS</code> relies on the <code>SASPy</code> Python package, but it primarily focuses on solely on <code>knitr</code> engine support.</li>
 <li>The <code>configSAS</code> engine HTML output CSS styles interfere with the rest of the document and SAS code output is not contained within a code block.</li>
+<li>
+<code>configSAS</code> is not actively maintained.</li>
 </ul>
 <p><a href="https://CRAN.R-project.org/package=SASmarkdown" class="external-link"><code>SASmarkdown</code></a></p>
 <ul>
@@ -171,7 +95,7 @@
 </ul>
 <p><code>sasquatch</code> may be beneficial to you if you…</p>
 <ul>
-<li>Rely on remote SAS client<br>
+<li>Rely on a remote SAS client<br>
 </li>
 <li>Desire interactive SAS functionality while developing<br>
 </li>
@@ -180,7 +104,105 @@
 <li>Would like to be able to easily send data back and forth between SAS and R<br>
 without the use of intermediate files</li>
 </ul>
-<p>If you require pdf <code>knitr</code> support and have a local installation of SAS, I would recommend using <code>SASmarkdown</code>at this time.</p>
+<p>If you require pdf <code>knitr</code> engine support and have a local installation of SAS, I would recommend using <code>SASmarkdown</code>at this time.</p>
+</div>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<div class="section level3">
+<h3 id="package-installation">Package installation<a class="anchor" aria-label="anchor" href="#package-installation"></a>
+</h3>
+<p>You can install the development version of sasquatch like so:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"ryanzomorrodi/sasquatch"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="python-installation">Python installation<a class="anchor" aria-label="anchor" href="#python-installation"></a>
+</h3>
+<p>Make sure Python is installed on your system. If Python has not been installed, you can install Python like so:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">reticulate</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/install_python.html" class="external-link">install_python</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>or download the installer from the <a href="https://www.python.org/downloads/'" class="external-link">Python Software Foundation</a>.</p>
+</div>
+<div class="section level3">
+<h3 id="saspy-installation">
+<code>SASPy</code> installation<a class="anchor" aria-label="anchor" href="#saspy-installation"></a>
+</h3>
+<p>To install the <code>SASPy</code> package and its dependencies within a Python virutal environment:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">sasquatch</span><span class="fu">::</span><span class="fu"><a href="reference/install_saspy.html">install_saspy</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="configuration">Configuration<a class="anchor" aria-label="anchor" href="#configuration"></a>
+</h3>
+<p>Configuration for SAS can vary greatly based on your computer’s operating system and the SAS platform you wish to connect to. For more information check out <code><a href="articles/configuration.html">vignette("configuration")</a></code>.</p>
+<p><strong>Don’t have a SAS license currently or just want to get set up quickly?</strong> Configure <code>sasquatch</code> for SAS On Demand for Academics using the steps below:</p>
+<div class="section level4">
+<h4 id="registration">Registration<a class="anchor" aria-label="anchor" href="#registration"></a>
+</h4>
+<p>SAS On Demand for Academics (ODA) is free SAS client for professors, students, and independent learners. Create an account at <a href="https://welcome.oda.sas.com/" class="external-link uri">https://welcome.oda.sas.com/</a>.</p>
+<p>Once you have set up your account, log in and note the ODA server (in the picture below United States 2) and your username (under the email in the profile dropdown). We will need these for later.</p>
+<p><img src="reference/figures/sas_oda.png"></p>
+</div>
+<div class="section level4">
+<h4 id="java-installation">Java installation<a class="anchor" aria-label="anchor" href="#java-installation"></a>
+</h4>
+<p>ODA relies on the IOM access method, which requires Java. Make sure Java is installed on your system. You can download Java from <a href="https://www.java.com/en/download/" class="external-link">their website</a>. Note the Java installation path.</p>
+</div>
+<div class="section level4">
+<h4 id="oda-configuration">ODA Configuration<a class="anchor" aria-label="anchor" href="#oda-configuration"></a>
+</h4>
+<p>Set up for ODA is super easy. Run <code>config_saspy()</code> and follow the prompts (you may need to recall your username, server, and java installation path from earlier).</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">sasquatch</span><span class="fu">::</span><span class="fu"><a href="reference/configure_saspy.html">configure_saspy</a></span><span class="op">(</span>template <span class="op">=</span> <span class="st">"oda"</span><span class="op">)</span></span></code></pre></div>
+<p><code>config_saspy(template = "oda")</code> will create a <code>sascfg_personal.py</code> file with all the relevant configuration information and create an <code>authinfo</code> file, which will store your ODA credentials. More information about ODA configuration can be found in the <a href="https://sassoftware.github.io/saspy/configuration.html#iom" class="external-link">ODA section of <code>SASPy</code> configuration documentation</a>.</p>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
+<p>Once you have setup <code>SASPy</code> and connected to the right python environment using <code>reticulate</code> (if necessary), you can create a quarto document like any other, call <code><a href="reference/sas_connect.html">sas_connect()</a></code>, and just get going!</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>---</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>format: html</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>engine: knitr</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>---</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>```{r}</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>library(sasquatch)</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>sas_connect()</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>```</span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>```{sas}</span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>```</span></code></pre></div>
+<div class="section level3">
+<h3 id="code-blocks">Code blocks<a class="anchor" aria-label="anchor" href="#code-blocks"></a>
+</h3>
+<p>Now, you should be able to run SAS code blocks in RStudio like any other.</p>
+<p><img src="reference/figures/run_sas_chunk.gif"></p>
+</div>
+<div class="section level3">
+<h3 id="sending-output-to-viewer">Sending output to viewer<a class="anchor" aria-label="anchor" href="#sending-output-to-viewer"></a>
+</h3>
+<p>If you want to send the SAS output to the viewer, you can utilize the <code><a href="reference/sas_run_selected.html">sas_run_selected()</a></code> addin with a custom shortcut.</p>
+<p><img src="reference/figures/run_sas_selected.gif"></p>
+</div>
+<div class="section level3">
+<h3 id="converting-tables">Converting tables<a class="anchor" aria-label="anchor" href="#converting-tables"></a>
+</h3>
+<p>Pass tables between R and SAS with <code><a href="reference/sas_from_r.html">sas_from_r()</a></code> and <code><a href="reference/sas_to_r.html">sas_to_r()</a></code>.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/sas_from_r.html">sas_from_r</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="st">"mtcars"</span><span class="op">)</span></span>
+<span><span class="va">cars</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sas_to_r.html">sas_to_r</a></span><span class="op">(</span><span class="st">"cars"</span>, libref <span class="op">=</span> <span class="st">"sashelp"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="rendering-quarto-documents">Rendering quarto documents<a class="anchor" aria-label="anchor" href="#rendering-quarto-documents"></a>
+</h3>
+<p>And of course, render beautiful quarto documents in the same style you would expect from SAS with the <code><a href="reference/sas_engine.html">sas_engine()</a></code>.</p>
+<p><img src="reference/figures/rendered_quarto.png"></p>
+</div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
