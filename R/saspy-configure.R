@@ -5,7 +5,7 @@
 #' according to a specified template.
 #' 
 #' @param template Default template to base configuration files off of.
-#' @param overwite Can new configuration files overwrite existing config files (if they exist)?
+#' @param overwrite Can new configuration files overwrite existing config files (if they exist)?
 #' 
 #' @details
 #' Configuration for SAS can vary greatly based on your computer's operating 

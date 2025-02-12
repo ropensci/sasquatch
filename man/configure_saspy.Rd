@@ -9,7 +9,7 @@ configure_saspy(template = c("none", "oda"), overwrite = FALSE)
 \arguments{
 \item{template}{Default template to base configuration files off of.}
 
-\item{overwite}{Can new configuration files overwrite existing config files (if they exist)?}
+\item{overwrite}{Can new configuration files overwrite existing config files (if they exist)?}
 }
 \value{
 No return value.
