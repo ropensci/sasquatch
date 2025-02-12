@@ -35,7 +35,6 @@ reference:
   - sas_run_string
   - sas_run_selected
   - sas_run_file
-  - sas_set_tempdir
   - sas_engine
 
 - title: R <-> SAS

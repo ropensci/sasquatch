@@ -121,10 +121,6 @@ RUN;
 ```
 `````
 
-**Note**: For non-html output, use `sas_set_tempdir()` to set an temporary
-directory which SAS can write intermediate files to. This is required to 
-perform HTML to Markdown translation.
-
 #### RStudio
 
 In RStudio, you will be able to run SAS chunks as you would any other chunk. 

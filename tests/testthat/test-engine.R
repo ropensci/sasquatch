@@ -177,7 +177,6 @@ test_that("non-html; default", {
   skip_if_offline()
   withr::local_options(list(knitr.in.progress = TRUE))
   local_mocked_bindings(is_html_output = function() {FALSE})
-  withr::defer(sas_get_session()$submit("proc datasets library=WORK;delete cars;run;"))
 
   options <- list()
   options$eval <- TRUE
@@ -187,14 +186,5 @@ test_that("non-html; default", {
   options$capture <- "both"
   options$code <- "DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;"
 
-  expect_error(sas_engine(options), "No SAS temporary directory has been set. Use `sas_set_tempdir()", fixed = TRUE)
-
-  sas_set_tempdir("~")
-  output <- sas_engine(options)
-
-  expect_match(substr(output, 1, nchar(options$code)), options$code, fixed = TRUE)
-  expect_match(output, "## Output\n", fixed = TRUE)
-  expect_match(output, "## Log\n```", fixed = TRUE)
-  expect_match(output, "::: panel-tabset", fixed = TRUE)
-  expect_true(sas_get_session()$exist("cars", libref = "WORK"))
+  expect_error(sas_engine(options), "`sas_engine` cannot produce non-html output.", fixed = TRUE)
 })

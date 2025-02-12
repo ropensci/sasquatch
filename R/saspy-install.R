@@ -1,7 +1,7 @@
 #' Install SASPy package
 #' 
 #' @description
-#' Installs the `SASPy` package, its dependencies, and `markdownify`  within a 
+#' Installs the `SASPy` package and its dependencies within a 
 #' virtual Python environment.
 #' 
 #' @param envname Name of virtual environment to install SASPy within. 
@@ -23,7 +23,7 @@ install_saspy <- function(
   restart_session = TRUE
 ) {
   chk::chk_string(envname)
-  packages <- c("wheel", "saspy", "pandas", "markdownify")
+  packages <- c("wheel", "saspy", "pandas")
   if (!missing(extra_packages)) {
     chk::chk_character(extra_packages)
     packages <- c(packages, extra_packages)
