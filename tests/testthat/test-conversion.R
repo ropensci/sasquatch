@@ -1,6 +1,7 @@
 test_that("back and forth", {
   skip_on_cran()
   skip_if_offline()
+  sas_connect_if_no_session()
 
   df_all <- data.frame(
     a = c(1, 2.5, NA),

@@ -23,7 +23,7 @@
 #' sas_file_exists("~/script.sas")
 #' }
 sas_file_exists <- function(path) {
-  chk_connection()
+  chk_session()
   chk::chk_string(path)
 
   file <- basename(path)

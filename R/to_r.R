@@ -30,7 +30,7 @@
 #' cars <- sas_to_r("cars", "sashelp")
 #' }
 sas_to_r <- function(table_name, libref = "WORK")  {
-  chk_connection()
+  chk_session()
   chk::chk_not_missing(table_name, "`table_name`")
   chk::chk_string(table_name)
   chk::chk_string(libref)

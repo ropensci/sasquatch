@@ -23,7 +23,7 @@
 #' sas_file_download(sas_path = "~/script.sas", local_path = "script.sas")
 #' }
 sas_file_download <- function(sas_path, local_path) {
-  chk_connection()
+  chk_session()
   chk::chk_not_missing(sas_path, "`sas_path`")
   chk::chk_string(sas_path)
   chk::chk_not_missing(local_path, "`local_path`")

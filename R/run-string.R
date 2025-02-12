@@ -16,7 +16,7 @@
 #' sas_run_string("PROC MEANS DATA = sashelp.cars;RUN;")
 #' }
 sas_run_string <- function(input) {
-  chk_connection()
+  chk_session()
   chk::chk_not_missing(input, "`input`")
   chk::chk_string(input)
 

@@ -1,6 +1,7 @@
 test_that("R data.frame checks", {
   skip_on_cran()
   skip_if_offline()
+  sas_connect_if_no_session()
   withr::defer(sas_get_session()$submit("proc datasets library=WORK;delete df;run;"))
 
   df_all <- data.frame(
@@ -27,6 +28,7 @@ test_that("R data.frame checks", {
 test_that("Round trip", {
   skip_on_cran()
   skip_if_offline()
+  sas_connect_if_no_session()
   withr::defer(sas_get_session()$submit("proc datasets library=WORK;delete df;run;"))
 
   df <- data.frame(

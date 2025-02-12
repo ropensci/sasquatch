@@ -13,7 +13,7 @@
 #' sas_disconnect()
 #' }
 sas_disconnect <- function() {
-  chk_connection()
+  chk_session()
   
   reticulate::py_capture_output(
     .pkgenv$session$endsas()

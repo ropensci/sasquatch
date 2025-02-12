@@ -24,7 +24,7 @@
 #' sas_file_copy("~/script.sas", "~/script_copy.sas")
 #' }
 sas_file_copy <- function(from_path, to_path) {
-  chk_connection()
+  chk_session()
   chk::chk_not_missing(from_path, "`from_path`")
   chk::chk_string(from_path)
   chk::chk_not_missing(to_path, "`to_path`")

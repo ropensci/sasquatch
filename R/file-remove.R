@@ -23,7 +23,7 @@
 #' sas_file_remove(sas_path = "~/script.sas")
 #' }
 sas_file_remove <- function(path) {
-  chk_connection()
+  chk_session()
   chk::chk_not_missing(path, "`path`")
   chk::chk_string(path)
 

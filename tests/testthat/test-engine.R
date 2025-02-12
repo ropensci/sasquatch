@@ -1,11 +1,13 @@
 test_that("htmlwidget output if kniting is not in progress", {
   skip_on_cran()
   skip_if_offline()
+  sas_connect_if_no_session()
   withr::local_options(list(knitr.in.progress = FALSE))
   withr::defer(sas_get_session()$submit("proc datasets library=WORK;delete cars;run;"))
 
-  options <- list()
-  options$code <- "DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;"
+  options <- list(
+    code = "DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;"
+  )
 
   expect_s3_class(sas_engine(options), c("sas_widget", "htmlwidget"))
   expect_true(sas_get_session()$exist("cars", libref = "WORK"))
@@ -14,17 +16,19 @@ test_that("htmlwidget output if kniting is not in progress", {
 test_that("html; default", {
   skip_on_cran()
   skip_if_offline()
+  sas_connect_if_no_session()
   withr::local_options(list(knitr.in.progress = TRUE))
   local_mocked_bindings(is_html_output = function() {TRUE})
   withr::defer(sas_get_session()$submit("proc datasets library=WORK;delete cars;run;"))
 
-  options <- list()
-  options$eval <- TRUE
-  options$echo <- TRUE
-  options$output <- TRUE
-  options$include <- TRUE
-  options$capture <- "both"
-  options$code <- "DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;"
+  options <- list(
+    echo = TRUE,
+    eval = TRUE,
+    output = TRUE,
+    include = TRUE,
+    capture = "both",
+    code = "DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;"
+  )
 
   output <- sas_engine(options)
 
@@ -38,17 +42,19 @@ test_that("html; default", {
 test_that("html; capture log", {
   skip_on_cran()
   skip_if_offline()
+  sas_connect_if_no_session()
   withr::local_options(list(knitr.in.progress = TRUE))
   local_mocked_bindings(is_html_output = function() {TRUE})
   withr::defer(sas_get_session()$submit("proc datasets library=WORK;delete cars;run;"))
 
-  options <- list()
-  options$eval <- TRUE
-  options$echo <- TRUE
-  options$output <- TRUE
-  options$include <- TRUE
-  options$capture <- "log"
-  options$code <- "DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;"
+  options <- list(
+    echo = TRUE,
+    eval = TRUE,
+    output = TRUE,
+    include = TRUE,
+    capture = "log",
+    code = "DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;"
+  )
 
   output <- sas_engine(options)
   
@@ -62,17 +68,19 @@ test_that("html; capture log", {
 test_that("output; capture lst", {
   skip_on_cran()
   skip_if_offline()
+  sas_connect_if_no_session()
   withr::local_options(list(knitr.in.progress = TRUE))
   local_mocked_bindings(is_html_output = function() {TRUE})
   withr::defer(sas_get_session()$submit("proc datasets library=WORK;delete cars;run;"))
 
-  options <- list()
-  options$eval <- TRUE
-  options$echo <- TRUE
-  options$output <- TRUE
-  options$include <- TRUE
-  options$capture <- "lst"
-  options$code <- "DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;"
+  options <- list(
+    echo = TRUE,
+    eval = TRUE,
+    output = TRUE,
+    include = TRUE,
+    capture = "lst",
+    code = "DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;"
+  )
 
   output <- sas_engine(options)
 
@@ -86,16 +94,18 @@ test_that("output; capture lst", {
 test_that("html; eval false", {
   skip_on_cran()
   skip_if_offline()
+  sas_connect_if_no_session()
   withr::local_options(list(knitr.in.progress = TRUE))
   local_mocked_bindings(is_html_output = function() {TRUE})
 
-  options <- list()
-  options$eval <- FALSE
-  options$echo <- TRUE
-  options$output <- TRUE
-  options$include <- TRUE
-  options$capture <- "both"
-  options$code <- "DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;"
+  options <- list(
+    echo = TRUE,
+    eval = FALSE,
+    output = TRUE,
+    include = TRUE,
+    capture = "both",
+    code = "DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;"
+  )
 
   output <- sas_engine(options)
 
@@ -109,17 +119,19 @@ test_that("html; eval false", {
 test_that("html; echo false", {
   skip_on_cran()
   skip_if_offline()
+  sas_connect_if_no_session()
   withr::local_options(list(knitr.in.progress = TRUE))
   local_mocked_bindings(is_html_output = function() {TRUE})
   withr::defer(sas_get_session()$submit("proc datasets library=WORK;delete cars;run;"))
 
-  options <- list()
-  options$eval <- TRUE
-  options$echo <- FALSE
-  options$output <- TRUE
-  options$include <- TRUE
-  options$capture <- "both"
-  options$code <- "DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;"
+  options <- list(
+    echo = FALSE,
+    eval = TRUE,
+    output = TRUE,
+    include = TRUE,
+    capture = "both",
+    code = "DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;"
+  )
 
   output <- sas_engine(options)
 
@@ -133,17 +145,19 @@ test_that("html; echo false", {
 test_that("html; output false", {
   skip_on_cran()
   skip_if_offline()
+  sas_connect_if_no_session()
   withr::local_options(list(knitr.in.progress = TRUE))
   local_mocked_bindings(is_html_output = function() {TRUE})
   withr::defer(sas_get_session()$submit("proc datasets library=WORK;delete cars;run;"))
 
-  options <- list()
-  options$eval <- TRUE
-  options$echo <- TRUE
-  options$output <- FALSE
-  options$include <- TRUE
-  options$capture <- "both"
-  options$code <- "DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;"
+  options <- list(
+    echo = TRUE,
+    eval = TRUE,
+    output = FALSE,
+    include = TRUE,
+    capture = "both",
+    code = "DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;"
+  )
 
   output <- sas_engine(options)
 
@@ -154,17 +168,19 @@ test_that("html; output false", {
 test_that("html; include false", {
   skip_on_cran()
   skip_if_offline()
+  sas_connect_if_no_session()
   withr::local_options(list(knitr.in.progress = TRUE))
   local_mocked_bindings(is_html_output = function() {TRUE})
   withr::defer(sas_get_session()$submit("proc datasets library=WORK;delete cars;run;"))
 
-  options <- list()
-  options$eval <- TRUE
-  options$echo <- TRUE
-  options$output <- TRUE
-  options$include <- FALSE
-  options$capture <- "both"
-  options$code <- "DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;"
+  options <- list(
+    echo = TRUE,
+    eval = TRUE,
+    output = TRUE,
+    include = FALSE,
+    capture = "both",
+    code = "DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;"
+  )
 
   output <- sas_engine(options)
 
@@ -175,16 +191,18 @@ test_that("html; include false", {
 test_that("non-html; default", {
   skip_on_cran()
   skip_if_offline()
+  sas_connect_if_no_session()
   withr::local_options(list(knitr.in.progress = TRUE))
   local_mocked_bindings(is_html_output = function() {FALSE})
 
-  options <- list()
-  options$eval <- TRUE
-  options$echo <- TRUE
-  options$output <- TRUE
-  options$include <- TRUE
-  options$capture <- "both"
-  options$code <- "DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;"
+  options <- list(
+    echo = TRUE,
+    eval = TRUE,
+    output = TRUE,
+    include = TRUE,
+    capture = "both",
+    code = "DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;"
+  )
 
   expect_error(sas_engine(options), "`sas_engine` cannot produce non-html output.", fixed = TRUE)
 })

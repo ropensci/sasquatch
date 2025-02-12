@@ -1,7 +1,7 @@
 test_that("generate SAS widget from file", {
-  sas_connect()
   skip_on_cran()
   skip_if_offline()
+  sas_connect_if_no_session()
   local_path <- withr::local_tempfile(pattern = "temp", fileext = ".sas", lines = "PROC MEANS DATA = sashelp.cars; RUN;")
 
   "widget if no output path specified"
@@ -26,6 +26,7 @@ test_that("generate output html and log from file", {
 test_that("overwrite output html and log from file", {
   skip_on_cran()
   skip_if_offline()
+  sas_connect_if_no_session()
   local_dir_path <- withr::local_tempdir(pattern = "temp")
   
   local_path <- paste0(local_dir_path, "/", basename(tempfile(pattern = "temp", fileext = ".sas")))

@@ -1,6 +1,7 @@
 test_that("removing file from SAS", {
   skip_on_cran()
   skip_if_offline()
+  sas_connect_if_no_session()
   local_path <- withr::local_tempfile(pattern = "temp", fileext = ".sas", lines = "PROC MEANS DATA = sashelp.cars; RUN;")
   
   local_name <- basename(local_path)

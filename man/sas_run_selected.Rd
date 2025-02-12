@@ -11,7 +11,7 @@ sas_run_selected()
 }
 \description{
 Execute selected SAS code in current session and render html output as SAS
-widget. See \code{vignette("sasquatch")} for more information on how to utilize
+widget. See \code{vignette("overview")} for more information on how to utilize
 the addin within RStudio or Positron.
 }
 \examples{

@@ -1,6 +1,7 @@
 test_that("uploading file to SAS", {
   skip_on_cran()
   skip_if_offline()
+  sas_connect_if_no_session()
   withr::defer(file.remove(local_path))
   withr::defer(sas_file_remove(sas_path))
   

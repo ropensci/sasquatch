@@ -1,20 +1,20 @@
-#' Check SAS connection
+#' Check SAS session
 #' 
 #' Checks if a SAS session currently exists. If the SAS session has terminated
-#' during the session, `chk_connection()` will not detect it. 
+#' during the session, `chk_session()` will not detect it. 
 #' 
 #' @details 
 #' Use `execute_if_connection_active()` for any function that relies on a SAS
 #' connection to catch inactive sessions.
 #' 
 #' @keywords internal
-chk_connection <- function() {
-  if (vld_connection()) {
+chk_session <- function() {
+  if (vld_session()) {
     return(invisible())
   }
   chk::abort_chk("No active SAS session. Use sas_connect() to start one.")
 }
-vld_connection <- function() exists("session", envir = .pkgenv) && !is.null(.pkgenv$session)
+vld_session <- function() exists("session", envir = .pkgenv) && !is.null(.pkgenv$session) && !is.null(.pkgenv$session$SASpid)
 
 #' Execute SASPy function if session is active
 #' 

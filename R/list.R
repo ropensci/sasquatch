@@ -15,7 +15,7 @@
 #' sas_list(".")
 #' }
 sas_list <- function(path) {
-  chk_connection()
+  chk_session()
   chk::chk_not_missing(path, "`path`")
   chk::chk_string(path)
 

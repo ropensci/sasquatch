@@ -27,7 +27,7 @@
 #' # The below function is run internally within `sasquatch` on startup
 #' knitr::knit_engines$set(sas = sas_engine)
 sas_engine <- function (options) {
-  chk_connection()
+  chk_session()
   options$engine <- "txt"
   options$results <- "asis"
 

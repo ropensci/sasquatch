@@ -22,7 +22,7 @@
 #' sas_file_upload(local_path = "script.sas", sas_path = "~/script.sas")
 #' }
 sas_file_upload <- function(local_path, sas_path) {
-  chk_connection()
+  chk_session()
   chk::chk_not_missing(local_path, "`local_path`")
   chk::chk_string(local_path)
   chk::chk_file(local_path)

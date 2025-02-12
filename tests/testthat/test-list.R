@@ -1,7 +1,7 @@
 test_that("list SAS files", {
   skip_on_cran()
   skip_if_offline()
-  
+  sas_connect_if_no_session()
 
   "path that doesn't exist"
   expect_length(sas_list("~/thisIsARandomPathThatDoesntExist"), 0)

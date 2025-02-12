@@ -1,6 +1,7 @@
 test_that("SAS to R data.frame", {
   skip_on_cran()
   skip_if_offline()
+  sas_connect_if_no_session()
 
   r_airline <- structure(list(
     DATE = c("1949-01-01", "1949-02-01", "1949-03-01", 

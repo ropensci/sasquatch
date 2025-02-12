@@ -21,7 +21,7 @@
 #' sas_run_file("test.sas", "test.html")
 #' }
 sas_run_file <- function(input_path, output_path, overwrite = FALSE) {
-  chk_connection()
+  chk_session()
   chk::chk_not_missing(input_path)
   chk::chk_string(input_path)
   chk::chk_file(input_path)

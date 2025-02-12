@@ -1,7 +1,7 @@
 test_that("default connection", {
   skip_on_cran()
   skip_if_offline()
-  withr::defer(suppressMessages(sas_connect(cfgname = "oda")))
+  sas_connect_if_no_session()
 
   "disconnect when connected"
   expect_message(sas_disconnect(), "SAS Connection terminated.", fixed = TRUE)
