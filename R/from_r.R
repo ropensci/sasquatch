@@ -43,7 +43,9 @@ sas_from_r <- function(x, table_name, libref = "WORK") {
   x_copy <- x
 
   numeric_cols <- sapply(x, is.integer) | sapply(x, is.logical)
-  x[numeric_cols] <- lapply(x[numeric_cols], as.double)
+  x[numeric_cols] <- lapply(x[numeric_cols], as.double) 
+  factor_cols <- sapply(x, is.factor)
+  x[factor_cols] <- lapply(x[factor_cols], as.character)
   date_cols <- sapply(x, \(col) identical(class(col), "Date"))
   x[date_cols] <- lapply(x[date_cols], \(col) as.POSIXct(col))
 
