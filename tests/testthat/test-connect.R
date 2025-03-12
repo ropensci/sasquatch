@@ -4,7 +4,10 @@ test_that("default connection", {
   try(suppressMessages(sas_disconnect()), silent = TRUE)
 
   expect_message(sas_connect(), "SAS Connection established.", fixed = TRUE)
-  expect_s3_class(sas_get_session(), c("saspy.sasbase.SASsession", "python.builtin.object"))
+  expect_s3_class(
+    sas_get_session(),
+    c("saspy.sasbase.SASsession", "python.builtin.object")
+  )
 })
 
 test_that("specified cfgname", {
@@ -18,6 +21,13 @@ test_that("specified cfgname", {
   # invalid cfgnames are handeled by `SASPy`
 
   "valid-string cfgname"
-  expect_message(sas_connect(cfgname = "oda"), "SAS Connection established.", fixed = TRUE)
-  expect_s3_class(sas_get_session(), c("saspy.sasbase.SASsession", "python.builtin.object"))
+  expect_message(
+    sas_connect(cfgname = "oda"),
+    "SAS Connection established.",
+    fixed = TRUE
+  )
+  expect_s3_class(
+    sas_get_session(),
+    c("saspy.sasbase.SASsession", "python.builtin.object")
+  )
 })

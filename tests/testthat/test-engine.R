@@ -3,7 +3,9 @@ test_that("htmlwidget output if kniting is not in progress", {
   skip_if_offline()
   sas_connect_if_no_session()
   withr::local_options(list(knitr.in.progress = FALSE))
-  withr::defer(sas_get_session()$submit("proc datasets library=WORK;delete cars;run;"))
+  withr::defer(sas_get_session()$submit(
+    "proc datasets library=WORK;delete cars;run;"
+  ))
 
   options <- list(
     code = "DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;"
@@ -18,8 +20,12 @@ test_that("html; default", {
   skip_if_offline()
   sas_connect_if_no_session()
   withr::local_options(list(knitr.in.progress = TRUE))
-  local_mocked_bindings(is_html_output = function() {TRUE})
-  withr::defer(sas_get_session()$submit("proc datasets library=WORK;delete cars;run;"))
+  local_mocked_bindings(is_html_output = function() {
+    TRUE
+  })
+  withr::defer(sas_get_session()$submit(
+    "proc datasets library=WORK;delete cars;run;"
+  ))
 
   options <- list(
     echo = TRUE,
@@ -32,7 +38,11 @@ test_that("html; default", {
 
   output <- sas_engine(options)
 
-  expect_match(substr(output, 1, nchar(options$code)), options$code, fixed = TRUE)
+  expect_match(
+    substr(output, 1, nchar(options$code)),
+    options$code,
+    fixed = TRUE
+  )
   expect_match(output, "## Output\n<iframe", fixed = TRUE)
   expect_match(output, "## Log\n<pre>", fixed = TRUE)
   expect_match(output, "::: panel-tabset", fixed = TRUE)
@@ -44,8 +54,12 @@ test_that("html; capture log", {
   skip_if_offline()
   sas_connect_if_no_session()
   withr::local_options(list(knitr.in.progress = TRUE))
-  local_mocked_bindings(is_html_output = function() {TRUE})
-  withr::defer(sas_get_session()$submit("proc datasets library=WORK;delete cars;run;"))
+  local_mocked_bindings(is_html_output = function() {
+    TRUE
+  })
+  withr::defer(sas_get_session()$submit(
+    "proc datasets library=WORK;delete cars;run;"
+  ))
 
   options <- list(
     echo = TRUE,
@@ -57,8 +71,12 @@ test_that("html; capture log", {
   )
 
   output <- sas_engine(options)
-  
-  expect_match(substr(output, 1, nchar(options$code)), options$code, fixed = TRUE)
+
+  expect_match(
+    substr(output, 1, nchar(options$code)),
+    options$code,
+    fixed = TRUE
+  )
   expect_no_match(output, "<iframe", fixed = TRUE)
   expect_match(output, "<pre>", fixed = TRUE)
   expect_no_match(output, "::: panel-tabset", fixed = TRUE)
@@ -70,8 +88,12 @@ test_that("output; capture lst", {
   skip_if_offline()
   sas_connect_if_no_session()
   withr::local_options(list(knitr.in.progress = TRUE))
-  local_mocked_bindings(is_html_output = function() {TRUE})
-  withr::defer(sas_get_session()$submit("proc datasets library=WORK;delete cars;run;"))
+  local_mocked_bindings(is_html_output = function() {
+    TRUE
+  })
+  withr::defer(sas_get_session()$submit(
+    "proc datasets library=WORK;delete cars;run;"
+  ))
 
   options <- list(
     echo = TRUE,
@@ -84,7 +106,11 @@ test_that("output; capture lst", {
 
   output <- sas_engine(options)
 
-  expect_match(substr(output, 1, nchar(options$code)), options$code, fixed = TRUE)
+  expect_match(
+    substr(output, 1, nchar(options$code)),
+    options$code,
+    fixed = TRUE
+  )
   expect_match(output, "<iframe", fixed = TRUE)
   expect_no_match(output, "<pre>", fixed = TRUE)
   expect_no_match(output, "::: panel-tabset", fixed = TRUE)
@@ -96,7 +122,9 @@ test_that("html; eval false", {
   skip_if_offline()
   sas_connect_if_no_session()
   withr::local_options(list(knitr.in.progress = TRUE))
-  local_mocked_bindings(is_html_output = function() {TRUE})
+  local_mocked_bindings(is_html_output = function() {
+    TRUE
+  })
 
   options <- list(
     echo = TRUE,
@@ -121,8 +149,12 @@ test_that("html; echo false", {
   skip_if_offline()
   sas_connect_if_no_session()
   withr::local_options(list(knitr.in.progress = TRUE))
-  local_mocked_bindings(is_html_output = function() {TRUE})
-  withr::defer(sas_get_session()$submit("proc datasets library=WORK;delete cars;run;"))
+  local_mocked_bindings(is_html_output = function() {
+    TRUE
+  })
+  withr::defer(sas_get_session()$submit(
+    "proc datasets library=WORK;delete cars;run;"
+  ))
 
   options <- list(
     echo = FALSE,
@@ -135,7 +167,11 @@ test_that("html; echo false", {
 
   output <- sas_engine(options)
 
-  expect_no_match(substr(output, 1, nchar(options$code)), options$code, fixed = TRUE)
+  expect_no_match(
+    substr(output, 1, nchar(options$code)),
+    options$code,
+    fixed = TRUE
+  )
   expect_match(output, "<iframe", fixed = TRUE)
   expect_match(output, "<pre>", fixed = TRUE)
   expect_match(output, "::: panel-tabset", fixed = TRUE)
@@ -147,8 +183,12 @@ test_that("html; output false", {
   skip_if_offline()
   sas_connect_if_no_session()
   withr::local_options(list(knitr.in.progress = TRUE))
-  local_mocked_bindings(is_html_output = function() {TRUE})
-  withr::defer(sas_get_session()$submit("proc datasets library=WORK;delete cars;run;"))
+  local_mocked_bindings(is_html_output = function() {
+    TRUE
+  })
+  withr::defer(sas_get_session()$submit(
+    "proc datasets library=WORK;delete cars;run;"
+  ))
 
   options <- list(
     echo = TRUE,
@@ -170,8 +210,12 @@ test_that("html; include false", {
   skip_if_offline()
   sas_connect_if_no_session()
   withr::local_options(list(knitr.in.progress = TRUE))
-  local_mocked_bindings(is_html_output = function() {TRUE})
-  withr::defer(sas_get_session()$submit("proc datasets library=WORK;delete cars;run;"))
+  local_mocked_bindings(is_html_output = function() {
+    TRUE
+  })
+  withr::defer(sas_get_session()$submit(
+    "proc datasets library=WORK;delete cars;run;"
+  ))
 
   options <- list(
     echo = TRUE,
@@ -193,7 +237,9 @@ test_that("non-html; default", {
   skip_if_offline()
   sas_connect_if_no_session()
   withr::local_options(list(knitr.in.progress = TRUE))
-  local_mocked_bindings(is_html_output = function() {FALSE})
+  local_mocked_bindings(is_html_output = function() {
+    FALSE
+  })
 
   options <- list(
     echo = TRUE,
@@ -204,5 +250,9 @@ test_that("non-html; default", {
     code = "DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;"
   )
 
-  expect_error(sas_engine(options), "`sas_engine` cannot produce non-html output.", fixed = TRUE)
+  expect_error(
+    sas_engine(options),
+    "`sas_engine` cannot produce non-html output.",
+    fixed = TRUE
+  )
 })

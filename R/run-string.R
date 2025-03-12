@@ -1,14 +1,14 @@
 #' Execute SAS code string
-#' 
+#'
 #' @description
 #' Execute SAS code in current session and render html output.
-#' 
+#'
 #' @param input string; SAS code to run.
-#' 
+#'
 #' @return `htmlwidget`; HTML5 output.
-#' 
+#'
 #' @export
-#' 
+#'
 #' @family code execution functions
 #' @examples
 #' \dontrun{
@@ -25,7 +25,7 @@ sas_run_string <- function(input) {
   )
 
   sas_widget(
-    paste(gsub("'", "\"", results$LST), collapse = "\n"), 
+    paste(gsub("'", "\"", results$LST), collapse = "\n"),
     paste(results$LOG, collapse = "\n")
   )
 }

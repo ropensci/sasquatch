@@ -16,7 +16,11 @@ test_that("back and forth", {
   )
 
   "list columns: R to SAS"
-  expect_error(sas_from_r(df_all, "df"), "must only have logical, integer, double, factor, character, POSIXct, or Date class columns.", fixed = TRUE)
+  expect_error(
+    sas_from_r(df_all, "df"),
+    "must only have logical, integer, double, factor, character, POSIXct, or Date class columns.",
+    fixed = TRUE
+  )
 
   "valid columns: R to SAS"
   df <- df_all[!sapply(df_all, is.list)]
@@ -24,7 +28,11 @@ test_that("back and forth", {
 
   "rownames: R to SAS"
   rownames(df) <- paste("row", 1:3)
-  expect_warning(sas_from_r(df, "df"), "rownames will not be transferred as a column", fixed = TRUE)
+  expect_warning(
+    sas_from_r(df, "df"),
+    "rownames will not be transferred as a column",
+    fixed = TRUE
+  )
   rownames(df) <- NULL
 
   "back to R check"

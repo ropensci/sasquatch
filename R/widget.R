@@ -1,5 +1,10 @@
-sas_widget <- function(lst, log, width = NULL, height = NULL, elementId = NULL) {
-
+sas_widget <- function(
+  lst,
+  log,
+  width = NULL,
+  height = NULL,
+  elementId = NULL
+) {
   # forward options using x
   x = list(
     lst = lst,

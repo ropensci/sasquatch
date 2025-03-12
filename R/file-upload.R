@@ -1,23 +1,23 @@
 #' Upload a file to SAS
-#' 
+#'
 #' Uploads a file to the remote SAS server.
-#' 
+#'
 #' @param local_path string; Path of file on local machine to be uploaded.
 #' @param sas_path string; Path to upload local file to on the remote SAS server.
-#' 
+#'
 #' @return `logical`; value indicating if the operation succeeded.
-#' 
+#'
 #' @export
-#' 
+#'
 #' @family file management functions
 #' @examples
 #' \dontrun{
 #' # connect to SAS
 #' sas_connect()
-#' 
+#'
 #' # create a file to upload
 #' cat("PROC MEANS DATA = sashelp.cars;RUN;", file = "script.sas")
-#' 
+#'
 #' # upload file
 #' sas_file_upload(local_path = "script.sas", sas_path = "~/script.sas")
 #' }

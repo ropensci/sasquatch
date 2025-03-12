@@ -2,7 +2,9 @@ test_that("R data.frame checks", {
   skip_on_cran()
   skip_if_offline()
   sas_connect_if_no_session()
-  withr::defer(sas_get_session()$submit("proc datasets library=WORK;delete df;run;"))
+  withr::defer(sas_get_session()$submit(
+    "proc datasets library=WORK;delete df;run;"
+  ))
 
   df_all <- data.frame(
     a = c(1, 2.5, NA),
@@ -17,19 +19,29 @@ test_that("R data.frame checks", {
   )
 
   "list columns error"
-  expect_error(sas_from_r(df_all, "df"), "must only have logical, integer, double, factor, character, POSIXct, or Date class columns.", fixed = TRUE)
+  expect_error(
+    sas_from_r(df_all, "df"),
+    "must only have logical, integer, double, factor, character, POSIXct, or Date class columns.",
+    fixed = TRUE
+  )
 
   "rownames warning"
   df <- df_all[!sapply(df_all, is.list)]
   rownames(df) <- paste("row", 1:3)
-  expect_warning(sas_from_r(df, "df"), "rownames will not be transferred as a column", fixed = TRUE)
+  expect_warning(
+    sas_from_r(df, "df"),
+    "rownames will not be transferred as a column",
+    fixed = TRUE
+  )
 })
 
 test_that("Round trip", {
   skip_on_cran()
   skip_if_offline()
   sas_connect_if_no_session()
-  withr::defer(sas_get_session()$submit("proc datasets library=WORK;delete df;run;"))
+  withr::defer(sas_get_session()$submit(
+    "proc datasets library=WORK;delete df;run;"
+  ))
 
   df <- data.frame(
     a = c(1, 2.5, NA),

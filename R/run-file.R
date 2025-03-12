@@ -1,22 +1,22 @@
 #' Execute SAS file
-#' 
+#'
 #' @description
 #' Execute a SAS file and render html output or save output as html and log.
-#' 
+#'
 #' @param input_path string; Path of SAS file to run.
 #' @param output_path optional string; Path to save html output to (log file will be
-#' named the same). 
+#' named the same).
 #' @param overwrite logical; Can output overwrite prior output?
-#' 
+#'
 #' @return If `output_path` specified, `htmlwidget`. Else, no return value.
-#' 
+#'
 #' @export
-#' 
+#'
 #' @family code execution functions
 #' @examples
 #' \dontrun{
 #' cat("PROC MEANS DATA = sashelp.cars;\n RUN;", file = "test.sas")
-#' 
+#'
 #' sas_connect()
 #' sas_run_file("test.sas", "test.html")
 #' }
@@ -58,7 +58,10 @@ chk_no_file <- function(x, x_name = NULL) {
     return(invisible(x))
   }
   if (is.null(x_name)) x_name <- chk::deparse_backtick_chk(substitute(x))
-  chk::abort_chk(x_name, " already exists. If you would like to overwrite the file, use overwrite = TRUE.")
+  chk::abort_chk(
+    x_name,
+    " already exists. If you would like to overwrite the file, use overwrite = TRUE."
+  )
 }
 vld_no_file <- function(x) !file.exists(x)
 

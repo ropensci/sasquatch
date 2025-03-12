@@ -38,6 +38,8 @@ See the tidyverse guide on [how to create a great issue](https://code-review.tid
 *  We use [testthat](https://cran.r-project.org/package=testthat) for unit tests. 
    Contributions with test cases included are easier to accept.  
 
+*  We use [Air](https://posit-dev.github.io/air/) for formatting.
+
 ## Code of Conduct
 
 Please note that the sasquatch project is released with a
