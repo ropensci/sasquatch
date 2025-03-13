@@ -213,11 +213,11 @@ integer, double, factor, character, POSIXct, or Date class columns.</p>
 <span><span class="op">)</span></span>
 <span><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 3 × 7</span></span>
-<span><span class="co">#&gt;   double integer logical character factor date       datetime           </span></span>
-<span><span class="co">#&gt;    &lt;dbl&gt;   &lt;int&gt; &lt;lgl&gt;   &lt;chr&gt;     &lt;fct&gt;  &lt;date&gt;     &lt;dttm&gt;             </span></span>
+<span><span class="co">#&gt;   double integer logical character factor date       datetime</span></span>
+<span><span class="co">#&gt;    &lt;dbl&gt;   &lt;int&gt; &lt;lgl&gt;   &lt;chr&gt;     &lt;fct&gt;  &lt;date&gt;     &lt;dttm&gt;</span></span>
 <span><span class="co">#&gt; 1    1         1 TRUE    a         a      2015-12-10 2015-12-09 10:51:35</span></span>
 <span><span class="co">#&gt; 2    2.5       2 FALSE   b         b      2015-12-11 2015-12-09 10:51:36</span></span>
-<span><span class="co">#&gt; 3   NA        NA NA      NA        NA     NA         NA                 </span></span>
+<span><span class="co">#&gt; 3   NA        NA NA      NA        NA     NA         NA</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/sas_from_r.html">sas_from_r</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">"df"</span>, libref <span class="op">=</span> <span class="st">"WORK"</span><span class="op">)</span></span></code></pre></div>
 <p>SAS only has two data types (numeric and character). R data types are
@@ -237,11 +237,11 @@ converted as follows:</p>
 <span></span>
 <span><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 3 × 7</span></span>
-<span><span class="co">#&gt;   double integer logical character factor date                datetime           </span></span>
-<span><span class="co">#&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;  &lt;dttm&gt;              &lt;dttm&gt;             </span></span>
+<span><span class="co">#&gt;   double integer logical character factor date                datetime</span></span>
+<span><span class="co">#&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;  &lt;dttm&gt;              &lt;dttm&gt;</span></span>
 <span><span class="co">#&gt; 1    1         1       1 a         a      2015-12-09 18:00:00 2015-12-09 04:51:35</span></span>
 <span><span class="co">#&gt; 2    2.5       2       0 b         b      2015-12-10 18:00:00 2015-12-09 04:51:36</span></span>
-<span><span class="co">#&gt; 3   NA        NA      NA NA        NA     NA                  NA                 </span></span></code></pre></div>
+<span><span class="co">#&gt; 3   NA        NA      NA NA        NA     NA                  NA</span></span></code></pre></div>
 <p>SAS data types are converted as follows:</p>
 <ul>
 <li>numeric -&gt; double</li>
