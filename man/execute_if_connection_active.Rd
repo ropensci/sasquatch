@@ -4,7 +4,7 @@
 \alias{execute_if_connection_active}
 \title{Execute SASPy function if session is active}
 \usage{
-execute_if_connection_active(code)
+execute_if_connection_active(code, call = rlang::caller_env())
 }
 \description{
 Executes the code passed to it if the connection is active and provides a

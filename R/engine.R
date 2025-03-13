@@ -27,7 +27,7 @@
 #' # The below function is run internally within `sasquatch` on startup
 #' knitr::knit_engines$set(sas = sas_engine)
 sas_engine <- function(options) {
-  chk_session()
+  check_session()
   options$engine <- "txt"
   options$results <- "asis"
 
@@ -47,7 +47,7 @@ sas_engine <- function(options) {
     options$output <- FALSE
   } else if (is_html_output()) {
     execute_if_connection_active(
-      results <- .pkgenv$session$submit(code)
+      results <- .sas_run_string(code)
     )
 
     if (identical(options$capture, "lst")) {
@@ -60,7 +60,7 @@ sas_engine <- function(options) {
       out <- wrap_in_panel_tabset(lst, log)
     }
   } else {
-    chk::err("`sas_engine` cannot produce non-html output.")
+    cli::cli_abort("{.code sas_engine()} cannot produce non-html output.")
   }
 
   if (identical(options$echo, FALSE)) {

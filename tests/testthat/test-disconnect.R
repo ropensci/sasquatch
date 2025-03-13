@@ -4,7 +4,7 @@ test_that("default connection", {
   sas_connect_if_no_session()
 
   "disconnect when connected"
-  expect_message(sas_disconnect(), "SAS Connection terminated.", fixed = TRUE)
+  expect_message(sas_disconnect(), "SAS connection terminated.", fixed = TRUE)
   expect_null(sas_get_session())
 
   "error when not connected"

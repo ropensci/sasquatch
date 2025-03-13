@@ -22,13 +22,13 @@ install_saspy <- function(
   extra_packages,
   restart_session = TRUE
 ) {
-  chk::chk_string(envname)
+  check_string(envname)
   packages <- c("wheel", "saspy", "pandas")
   if (!missing(extra_packages)) {
-    chk::chk_character(extra_packages)
+    check_character(extra_packages)
     packages <- c(packages, extra_packages)
   }
-  chk::chk_logical(restart_session)
+  check_bool(restart_session)
 
   if (reticulate::virtualenv_exists(envname)) {
     reticulate::virtualenv_remove(envname = envname, confirm = FALSE)

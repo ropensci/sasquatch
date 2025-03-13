@@ -15,12 +15,20 @@
 #' sas_list(".")
 #' }
 sas_list <- function(path) {
-  chk_session()
-  chk::chk_not_missing(path, "`path`")
-  chk::chk_string(path)
+  check_session()
+  check_string(path)
 
   execute_if_connection_active(
-    dirlist <- .pkgenv$session$dirlist(path)
+    dirlist <- .sas_list(path)
   )
-  as.vector(dirlist)
+
+  if (length(dirlist) == 0) {
+    dirlist <- vector(mode = "character")
+  }
+
+  dirlist
+}
+
+.sas_list <- function(path) {
+  .pkgenv$session$dirlist(path)
 }

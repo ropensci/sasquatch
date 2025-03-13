@@ -5,6 +5,8 @@
   .pkgenv$SASPy <- reticulate::import("saspy", delay_load = TRUE)
   knitr::knit_engines$set(sas = sas_engine)
 
+  # adjusts iframe sizing so that they will adapt to the size of their
+  # content dynamically
   knitr::knit_hooks$set(document = function(x, options) {
     resizer_url <- system.file("resize-iframes.js", package = "sasquatch")
     resizer_code <- paste(readLines(resizer_url), collapse = "\n")

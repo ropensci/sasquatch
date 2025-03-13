@@ -50,7 +50,7 @@ test_that("overwrite output html and log from file", {
   "don't overwrite"
   expect_error(
     sas_run_file(local_path, local_html),
-    "already exists. If you would like to overwrite the file, use overwrite = TRUE.",
+    "already exists.",
     fixed = TRUE
   )
 

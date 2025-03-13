@@ -30,13 +30,12 @@
 #' cars <- sas_to_r("cars", "sashelp")
 #' }
 sas_to_r <- function(table_name, libref = "WORK") {
-  chk_session()
-  chk::chk_not_missing(table_name, "`table_name`")
-  chk::chk_string(table_name)
-  chk::chk_string(libref)
+  check_session()
+  check_string(table_name)
+  check_string(libref)
 
   execute_if_connection_active(
-    x <- .pkgenv$session$sasdata2dataframe(table_name, libref)
+    x <- .sas_to_r(table_name, libref)
   )
   x <- reticulate::py_to_r(x)
   x <- as.data.frame(lapply(x, function(col) {
@@ -45,4 +44,8 @@ sas_to_r <- function(table_name, libref = "WORK") {
   }))
 
   x
+}
+
+.sas_to_r <- function(table_name, libref) {
+  .pkgenv$session$sasdata2dataframe(table_name, libref)
 }

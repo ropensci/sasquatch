@@ -1,23 +1,30 @@
+valid_session <- function() {
+  exists("session", envir = .pkgenv) &&
+    !is.null(.pkgenv$session) &&
+    !is.null(.pkgenv$session$SASpid)
+}
+
 #' Check SAS session
 #'
 #' Checks if a SAS session currently exists. If the SAS session has terminated
-#' during the session, `chk_session()` will not detect it.
+#' during the session, `check_session()` will not detect it.
 #'
 #' @details
 #' Use `execute_if_connection_active()` for any function that relies on a SAS
 #' connection to catch inactive sessions.
 #'
 #' @keywords internal
-chk_session <- function() {
-  if (vld_session()) {
-    return(invisible())
+check_session <- function(call = rlang::caller_env()) {
+  if (!valid_session()) {
+    cli::cli_abort(
+      c(
+        "x" = "No active SAS connection.",
+        "i" = "Use {.code sas_connect()} to start a new SAS session."
+      ),
+      call = call
+    )
   }
-  chk::abort_chk("No active SAS session. Use sas_connect() to start one.")
 }
-vld_session <- function()
-  exists("session", envir = .pkgenv) &&
-    !is.null(.pkgenv$session) &&
-    !is.null(.pkgenv$session$SASpid)
 
 #' Execute SASPy function if session is active
 #'
@@ -30,16 +37,19 @@ vld_session <- function()
 #' check the connection and raise an error.
 #'
 #' @keywords internal
-execute_if_connection_active <- function(code) {
-  calling_env <- parent.frame()
+execute_if_connection_active <- function(code, call = rlang::caller_env()) {
   tryCatch(
     {
       code
     },
     error = function(e) {
       if (is.null(.pkgenv$session$SASpid)) {
-        chk::err(
-          "SAS process has terminated unexpectedly. Use sas_connect() to start new one."
+        cli::cli_abort(
+          c(
+            "x" = "SAS connection has terminated unexpectedly.",
+            "i" = "Use {.code sas_connect()} to start new SAS session."
+          ),
+          call = call
         )
       } else {
         e

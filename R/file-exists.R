@@ -23,15 +23,23 @@
 #' sas_file_exists("~/script.sas")
 #' }
 sas_file_exists <- function(path) {
-  chk_session()
-  chk::chk_string(path)
+  check_session()
+  check_string(path)
 
-  file <- basename(path)
-  dir <- gsub(file, "", path)
+  # cannot simply use `basename()` and `dirname()` because user may be on
+  # Windows while SAS is on a unix-like platform, or vice-versa.
+  uses_bslash <- grepl("\\\\", path)
+  path_split <- unlist(strsplit(path, "/|\\\\"))
+  path_basename <- path_split[length(path_split)]
+  if (length(path_split) == 1) {
+    path_dirname <- "/"
+  } else {
+    slash <- ifelse(uses_bslash, "\\", "/")
+    path_dirname <- paste0(
+      paste(path_split[-length(path_split)], collapse = slash),
+      slash
+    )
+  }
 
-  execute_if_connection_active(
-    dirlist <- .pkgenv$session$dirlist(dir)
-  )
-
-  any(dirlist == file)
+  invisible(any(sas_list(path_dirname) == path_basename))
 }

@@ -24,19 +24,21 @@
 #' sas_file_copy("~/script.sas", "~/script_copy.sas")
 #' }
 sas_file_copy <- function(from_path, to_path) {
-  chk_session()
-  chk::chk_not_missing(from_path, "`from_path`")
-  chk::chk_string(from_path)
-  chk::chk_not_missing(to_path, "`to_path`")
-  chk::chk_string(to_path)
+  check_session()
+  check_string(from_path)
+  check_string(to_path)
 
   execute_if_connection_active(
-    result <- .pkgenv$session$file_copy(from_path, to_path)
+    result <- .sas_file_copy(from_path, to_path)
   )
 
   if (!result$Success) {
-    chk::wrn(result$LOG)
+    cli::cli_warn("{result$LOG}")
   }
 
-  result$Success
+  invisible(result$Success)
+}
+
+.sas_file_copy <- function(from_path, to_path) {
+  .pkgenv$session$file_copy(from_path, to_path)
 }

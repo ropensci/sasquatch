@@ -23,7 +23,7 @@
 #' }
 sas_connect <- function(cfgname) {
   if (!missing(cfgname)) {
-    chk::chk_string(cfgname)
+    check_string(cfgname)
   }
 
   if (missing(cfgname)) {
@@ -31,11 +31,38 @@ sas_connect <- function(cfgname) {
       .pkgenv$session <- .pkgenv$SASPy$SASsession()
     )
   } else {
+    check_cfgname(cfgname)
+
     reticulate::py_capture_output(
       .pkgenv$session <- .pkgenv$SASPy$SASsession(cfgname = cfgname)
     )
   }
-  chk::msg("SAS Connection established.")
+  cli::cli_inform("SAS connection established.")
 
   invisible()
+}
+
+check_cfgname <- function(cfgname, call = rlang::caller_env()) {
+  reticulate::py_capture_output(
+    configs <- reticulate::py_to_r(reticulate::py_get_attr(
+      .pkgenv$SASPy$SASconfig()$`_find_config`(),
+      "SAS_config_names",
+      silent = TRUE
+    ))
+  )
+  if (is.null(configs)) {
+    cli::cli_abort(c(
+      "x" = "No configurations found.",
+      "i" = "Use {.code config_saspy()} to set up a connection and check out the {.vignette sasquatch::configuration} vignette."
+    ))
+  }
+  if (!(cfgname %in% configs)) {
+    cli::cli_abort(
+      c(
+        "{.arg cfgname} must specify an existing configuration.",
+        "x" = "`{.val {cfgname}} cannot be found.",
+        "i" = "Available configurations include: {.val {configs}}"
+      )
+    )
+  }
 }

@@ -18,10 +18,11 @@ SystemRequirements:
     SASPy,
     java (>= 7) required for IOM access method
 Imports: 
-    chk,
+    cli,
     htmlwidgets,
     knitr,
     reticulate,
+    rlang (>= 1.1.0),
     rstudioapi
 URL: https://ryanzomorrodi.github.io/sasquatch/, https://github.com/ryanzomorrodi/sasquatch
 Suggests: 

@@ -22,20 +22,21 @@
 #' sas_file_upload(local_path = "script.sas", sas_path = "~/script.sas")
 #' }
 sas_file_upload <- function(local_path, sas_path) {
-  chk_session()
-  chk::chk_not_missing(local_path, "`local_path`")
-  chk::chk_string(local_path)
-  chk::chk_file(local_path)
-  chk::chk_not_missing(sas_path, "`sas_path`")
-  chk::chk_string(sas_path)
+  check_session()
+  check_file(local_path, x_name = "local_path")
+  check_string(sas_path)
 
   execute_if_connection_active(
-    result <- .pkgenv$session$upload(local_path, sas_path)
+    result <- .sas_file_upload(local_path, sas_path)
   )
 
   if (!result$Success) {
-    chk::wrn(result$LOG)
+    cli::cli_warn("{result$LOG}")
   }
 
-  result$Success
+  invisible(result$Success)
+}
+
+.sas_file_upload <- function(local_path, sas_path) {
+  .pkgenv$session$upload(local_path, sas_path)
 }

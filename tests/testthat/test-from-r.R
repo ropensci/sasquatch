@@ -21,7 +21,7 @@ test_that("R data.frame checks", {
   "list columns error"
   expect_error(
     sas_from_r(df_all, "df"),
-    "must only have logical, integer, double, factor, character, POSIXct, or Date class columns.",
+    "must only contain logical, integer, numeric, factor, character, POSIXct, or Date columns",
     fixed = TRUE
   )
 

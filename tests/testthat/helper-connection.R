@@ -1,11 +1,11 @@
 skip_if_no_session <- function() {
-  if (!vld_session()) {
+  if (!valid_session()) {
     skip(message = "no session")
   }
 }
 
 sas_connect_if_no_session <- function() {
-  if (!vld_session()) {
+  if (!valid_session()) {
     suppressMessages(sas_connect())
   }
 }

@@ -32,13 +32,13 @@
 #' sas_from_r(mtcars, "mtcars")
 #' }
 sas_from_r <- function(x, table_name, libref = "WORK") {
-  chk::chk_not_missing(x)
-  chk::chk_data(x)
-  chk_has_sas_vld_datatypes(x)
-  chk_has_rownames(x)
-  chk::chk_not_missing(table_name, "`table_name`")
-  chk::chk_string(table_name)
-  chk::chk_string(libref)
+  check_session()
+  check_data_frame(x)
+  check_has_sas_valid_datatypes(x)
+  check_has_sas_valid_colnames(x)
+  check_has_rownames(x)
+  check_string(table_name)
+  check_string(libref)
 
   x_copy <- x
 
@@ -58,52 +58,145 @@ sas_from_r <- function(x, table_name, libref = "WORK") {
   x <- reticulate::r_to_py(x)
   execute_if_connection_active(
     reticulate::py_capture_output(
-      .pkgenv$session$dataframe2sasdata(
-        x,
-        table_name,
-        libref,
-        datetimes = date_dict
-      )
+      .sas_from_r(x, table_name, libref, date_dict)
     )
   )
 
   invisible(x_copy)
 }
 
-chk_has_sas_vld_datatypes <- function(x, x_name = NULL) {
-  if (vld_has_sas_vld_datatypes(x)) {
-    return(invisible(x))
-  }
-  if (is.null(x_name)) x_name <- chk::deparse_backtick_chk(substitute(x))
-  chk::abort_chk(
-    x_name,
-    " must only have logical, integer, double, factor, character, POSIXct, or Date class columns"
+.sas_from_r <- function(x, table_name, libref, date_dict) {
+  .pkgenv$session$dataframe2sasdata(
+    x,
+    table_name,
+    libref,
+    datetime = date_dict
   )
 }
-vld_has_sas_vld_datatypes <- function(x) {
-  all(sapply(
-    x,
-    \(col)
-      inherits(
-        col,
-        c(
-          "logical",
-          "integer",
-          "numeric",
-          "factor",
-          "character",
-          "POSIXct",
-          "Date"
-        )
-      )
-  ))
+
+check_has_sas_valid_datatypes <- function(x, call = rlang::caller_env()) {
+  valid_classes <- c(
+    "logical",
+    "integer",
+    "numeric",
+    "factor",
+    "character",
+    "POSIXct",
+    "Date"
+  )
+
+  invalid_cols <- sapply(x, function(col) {
+    !(class(col)[1] %in% valid_classes)
+  })
+  invalid_colnames <- colnames(x)[invalid_cols]
+  n_invalid <- length(invalid_colnames)
+
+  cli_multiple_problems(
+    n_invalid,
+    "{.arg x} must only contain {.or {valid_classes}} columns.",
+    "{.field {invalid_colnames[%i]}} is {.type {x[[invalid_colnames[%i]]]}} column.",
+    items = list(
+      x = x,
+      invalid_colnames = invalid_colnames,
+      valid_classes = valid_classes
+    ),
+    call = call
+  )
 }
 
-chk_has_rownames <- function(x, x_name = NULL) {
-  if (vld_has_rownames(x)) {
-    return(invisible(x))
-  }
-  if (is.null(x_name)) x_name <- chk::deparse_backtick_chk(substitute(x))
-  chk::wrn(x_name, " rownames will not be transferred as a column")
+check_has_sas_valid_colnames <- function(x, call = rlang::caller_env()) {
+  invalid_cols <- sapply(colnames(x), function(colname) {
+    !(substring(colname, 1, 1) %in% c(LETTERS, letters))
+  })
+  invalid_colnames <- colnames(x)[invalid_cols]
+  n_invalid <- length(invalid_colnames)
+
+  cli_multiple_problems(
+    n_invalid,
+    "{.arg x} column names must start with a latin letter.",
+    "{.field {invalid_colnames[%i]}} starts with {.val {substring(invalid_colnames[%i], 1, 1)}}.",
+    items = list(
+      x = x,
+      invalid_colnames = invalid_colnames
+    ),
+    call = call
+  )
+
+  invalid_cols <- sapply(colnames(x), function(colname) {
+    nchar(colname, type = "bytes") > 32
+  })
+  invalid_colnames <- colnames(x)[invalid_cols]
+  n_invalid <- length(invalid_colnames)
+
+  cli_multiple_problems(
+    n_invalid,
+    "{.arg x} column names must be less than or equal to 32 bytes.",
+    "{.field {invalid_colnames[%i]}} is {nchar(invalid_colnames[%i], 'bytes')} bytes long.",
+    items = list(
+      x = x,
+      invalid_colnames = invalid_colnames
+    ),
+    call = call
+  )
+
+  invalid_cols <- sapply(colnames(x), function(colname) {
+    !grepl("^[a-zA-Z0-9_]*$", colname)
+  })
+  invalid_colnames <- colnames(x)[invalid_cols]
+  invalid_chars <- sapply(invalid_colnames, function(colname) {
+    substring(gsub("[a-zA-Z0-9_]", "", colname), 1, 1)
+  })
+  n_invalid <- length(invalid_colnames)
+
+  cli_multiple_problems(
+    n_invalid,
+    "{.arg x} column names must only contain alphanumeric characters or underscores.",
+    "{.field {invalid_colnames[%i]}} contains a special character {.val {invalid_chars[%i]}}.",
+    items = list(
+      x = x,
+      invalid_colnames = invalid_colnames,
+      invalid_chars = invalid_chars
+    ),
+    call = call
+  )
 }
-vld_has_rownames <- function(x) is.na(.row_names_info(x, type = 0)[1])
+
+cli_multiple_problems <- function(
+  n_invalid,
+  rule,
+  alert,
+  max_alerts = 3,
+  items,
+  call = rlang::caller_env()
+) {
+  if (n_invalid == 0) {
+    return(invisible())
+  }
+
+  for (var_name in names(items)) {
+    assign(var_name, items[[var_name]])
+  }
+
+  err_msg <- sapply(1:min(max_alerts, n_invalid), function(col_idx) {
+    sprintf(alert, col_idx, col_idx)
+  })
+  names(err_msg) <- rep("x", length(err_msg))
+  err_msg <- c(rule, err_msg)
+  if (n_invalid > max_alerts) {
+    err_msg <- c(
+      err_msg,
+      "... and {n_invalid - max_alerts} more problem{?s}."
+    )
+  }
+
+  cli::cli_abort(err_msg, call = call)
+}
+
+check_has_rownames <- function(x, call = rlang::caller_env()) {
+  if (.row_names_info(x) > 0L && !is.na(.row_names_info(x, type = 0)[1])) {
+    cli::cli_warn(
+      "{.arg x} rownames will not be transferred as a column.",
+      call = call
+    )
+  }
+}

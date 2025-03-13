@@ -23,17 +23,20 @@
 #' sas_file_remove(sas_path = "~/script.sas")
 #' }
 sas_file_remove <- function(path) {
-  chk_session()
-  chk::chk_not_missing(path, "`path`")
-  chk::chk_string(path)
+  check_session()
+  check_string(path)
 
   execute_if_connection_active(
-    result <- .pkgenv$session$file_delete(path)
+    result <- .sas_file_remove(path)
   )
 
   if (!result$Success) {
-    chk::wrn(result$LOG)
+    cli::cli_warn("{result$LOG}")
   }
 
-  result$Success
+  invisible(result$Success)
+}
+
+.sas_file_remove <- function(path) {
+  .pkgenv$session$file_delete(path)
 }

@@ -252,7 +252,7 @@ test_that("non-html; default", {
 
   expect_error(
     sas_engine(options),
-    "`sas_engine` cannot produce non-html output.",
+    "`sas_engine()` cannot produce non-html output.",
     fixed = TRUE
   )
 })

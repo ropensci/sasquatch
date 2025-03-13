@@ -68,7 +68,7 @@ configure_saspy <- function(
 
     java_path <- Sys.which("java")
     if (identical(unname(java_path), "")) {
-      chk::msg(
+      cli::cli_abort(
         "No java installation found. Enter the java path manually within sascfg_personal.py."
       )
     }
@@ -111,9 +111,12 @@ configure_saspy <- function(
   sascfg_personal_path <- write_sascfg_personal(configs, overwrite)
 
   if (rstudioapi::hasFun("navigateToFile")) {
-    chk::msg("Opening sascfg_personal.py.")
+    cli::cli_inform("Opening sascfg_personal.py.")
     rstudioapi::navigateToFile(sascfg_personal_path)
   }
+  cli::cli_inform(c(
+    "i" = "For more information about {.pkg SASPy} configuration see the {.vignette sasquatch::configuration} vignette or the {.href [SASPy documentation](https://sassoftware.github.io/saspy/configuration.html)}."
+  ))
 
   invisible()
 }
@@ -126,13 +129,19 @@ get_home_dir <- function() {
   sub("[/|\\\\]$", "", home_dir)
 }
 
-write_authinfo <- function(config_name, username, password, overwrite) {
+write_authinfo <- function(
+  config_name,
+  username,
+  password,
+  overwrite,
+  call = rlang::caller_env()
+) {
   if (.Platform$OS.type == "windows") {
     authinfo_path <- paste0(get_home_dir(), "/_authinfo")
   } else {
     authinfo_path <- paste0(get_home_dir(), "/.authinfo")
   }
-  if (!overwrite) chk_no_file(authinfo_path, x_name = "authinfo")
+  if (!overwrite) check_no_file(authinfo_path, call)
 
   authinfo <- paste(config_name, "user", username, "password", password, "\n")
 
@@ -141,12 +150,13 @@ write_authinfo <- function(config_name, username, password, overwrite) {
   authinfo_path
 }
 
-write_sascfg_personal <- function(configs, overwrite) {
-  python <- reticulate::py_discover_config("saspy", "r-saspy")
-  saspy_path <- python$required_module_path
-  sascfg_personal_path <- paste0(saspy_path, "/sascfg_personal.py")
-  if (!overwrite)
-    chk_no_file(sascfg_personal_path, x_name = "sascfg_personal.py")
+write_sascfg_personal <- function(
+  configs,
+  overwrite,
+  call = rlang::caller_env()
+) {
+  sascfg_personal_path <- .pkgenv$SASPy$SAScfg
+  if (!overwrite) check_no_file(sascfg_personal_path, call)
 
   config_list <- paste(
     "SAS_config_names",
@@ -172,8 +182,8 @@ write_sascfg_personal <- function(configs, overwrite) {
   sascfg_personal_path
 }
 
-# created to facilitate mocking within testing
 write_file <- function(..., file) {
+  cli::cli_alert_success("Writing to {.path {file}}.")
   cat(..., file = file)
 }
 
@@ -181,7 +191,7 @@ menu <- function(choices, title) {
   choice_list <- sapply(seq_along(choices), function(choice_num) {
     paste0(choice_num, ": ", choices[choice_num])
   })
-  chk::msg(
+  cli::cli_inform(
     title,
     "\n\n",
     paste(choice_list, collapse = "\n"),
@@ -193,6 +203,6 @@ menu <- function(choices, title) {
     if (selection %in% as.character(seq_along(choice_list))) {
       return(as.integer(selection))
     }
-    chk::msg("Enter an item from the menu.")
+    cli::cli_inform("Enter an item from the menu.")
   }
 }

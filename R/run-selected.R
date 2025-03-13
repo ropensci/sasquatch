@@ -30,23 +30,23 @@ rstudio_selection <- function(context = rstudio_context()) {
 ################################################################################
 
 #' Execute selected SAS code
-#'
+#' 
 #' @description
 #' Execute selected SAS code in current session and render html output as SAS
-#' widget. See `vignette("overview")` for more information on how to utilize
+#' widget. See `vignette("overview")` for more information on how to utilize 
 #' the addin within RStudio or Positron.
-#'
+#' 
 #' @return `htmlwidget`; HTML5 output.
-#'
+#' 
 #' @export
-#'
+#' 
 #' @family code execution functions
 #' @examples
 #' \dontrun{
 #' sas_connect()
-#'
+#' 
 #' # highlight something in the active editor of RStudio or Positron
-#'
+#' 
 #' sas_run_selected()
 #' }
 sas_run_selected <- function() {
