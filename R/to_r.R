@@ -16,7 +16,7 @@
 #' * numeric (date) -> POSIXct
 #'
 #' In the conversion process dates and datetimes are converted to local
-#' time. If utilizing another timezone, use `as.POSIXct()` or
+#' time. If utilizing another timezone, use `attr(date, "tzone") <-` or
 #' `lubridate::with_tz()` to convert back to the desired time zone.
 #'
 #' @return `data.frame` of the specified SAS table.
@@ -38,10 +38,15 @@ sas_to_r <- function(table_name, libref = "WORK") {
     x <- .sas_to_r(table_name, libref)
   )
   x <- reticulate::py_to_r(x)
+
   x <- as.data.frame(lapply(x, function(col) {
     col[is.nan(col)] <- NA
     col
   }))
+  date_cols <- sapply(x, \(col) inherits(col, "POSIXct"))
+  x[date_cols] <- lapply(x[date_cols], function(col) {
+    as.POSIXct(format(col, tz = "UTC"))
+  })
 
   x
 }
