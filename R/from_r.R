@@ -18,7 +18,7 @@
 #' * double -> numeric
 #' * factor -> character
 #' * character -> character
-#' * POSIXct -> numeric (datetime)
+#' * POSIXct -> numeric (datetime; timezones are lost)
 #' * Date -> numeric (date)
 #'
 #' @return `data.frame`; `x`.
@@ -40,29 +40,17 @@ sas_from_r <- function(x, table_name, libref = "WORK") {
   check_string(table_name)
   check_string(libref)
 
-  x_copy <- x
+  x_processed <- from_r_processing(x)
+  x_data <- x_processed$x
+  date_dict <- x_processed$date_dict
 
-  numeric_cols <- sapply(x, is.integer) | sapply(x, is.logical)
-  x[numeric_cols] <- lapply(x[numeric_cols], as.double)
-  factor_cols <- sapply(x, is.factor)
-  x[factor_cols] <- lapply(x[factor_cols], as.character)
-  date_cols <- sapply(x, \(col) identical(class(col), "Date"))
-  x[date_cols] <- lapply(x[date_cols], \(col) as.POSIXct(col))
-
-  # Specify Date columns as date
-  date_colnames <- colnames(x)[date_cols]
-  date_list <- as.list(rep("date", length(date_colnames)))
-  names(date_list) <- date_colnames
-  date_dict <- do.call(what = reticulate::dict, date_list)
-
-  x <- reticulate::r_to_py(x)
   execute_if_connection_active(
     reticulate::py_capture_output(
-      .sas_from_r(x, table_name, libref, date_dict)
+      .sas_from_r(x_data, table_name, libref, date_dict)
     )
   )
 
-  invisible(x_copy)
+  invisible(x)
 }
 
 .sas_from_r <- function(x, table_name, libref, date_dict) {
@@ -70,7 +58,31 @@ sas_from_r <- function(x, table_name, libref = "WORK") {
     x,
     table_name,
     libref,
-    datetime = date_dict
+    datetimes = date_dict
+  )
+}
+
+from_r_processing <- function(x) {
+  numeric_cols <- sapply(x, is.integer) | sapply(x, is.logical)
+  x[numeric_cols] <- lapply(x[numeric_cols], as.double)
+  factor_cols <- sapply(x, is.factor)
+  x[factor_cols] <- lapply(x[factor_cols], as.character)
+  date_cols <- sapply(x, \(col) identical(class(col), "Date"))
+  posix_cols <- sapply(x, \(col) inherits(col, "POSIXct"))
+  x[date_cols | posix_cols] <- lapply(
+    x[date_cols | posix_cols],
+    \(col) as.POSIXct(format(col), tz = "UTC")
+  )
+
+  # Specify Date columns as date
+  date_colnames <- colnames(x)[date_cols]
+  date_list <- as.list(rep("date", length(date_colnames)))
+  names(date_list) <- date_colnames
+  date_dict <- do.call(what = reticulate::dict, date_list)
+
+  list(
+    x = x,
+    date_dict = date_dict
   )
 }
 
