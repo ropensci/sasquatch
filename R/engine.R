@@ -60,7 +60,9 @@ sas_engine <- function(options) {
       out <- wrap_in_panel_tabset(lst, log)
     }
   } else {
-    cli::cli_abort("{.code sas_engine()} cannot produce non-html output.")
+    cli::cli_abort(
+      "{.fun sasquatch::sas_engine} cannot produce non-html output."
+    )
   }
 
   if (identical(options$echo, FALSE)) {
@@ -93,7 +95,7 @@ wrap_in_iframe <- function(html) {
 
 wrap_in_pre <- function(html) {
   html <- paste(html, collapse = "\n")
-  paste("<pre>", html, "</pre>")
+  paste("<pre>", html, "</pre>", sep = "\n")
 }
 
 wrap_in_panel_tabset <- function(lst, log) {
