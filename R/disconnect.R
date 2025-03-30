@@ -13,13 +13,14 @@
 #' sas_disconnect()
 #' }
 sas_disconnect <- function() {
-  check_session()
+  if (!valid_session()) {
+    return(invisible())
+  }
 
   reticulate::py_capture_output(
     .pkgenv$session$endsas()
   )
-  .pkgenv$session <- NULL
-  cli::cli_inform("SAS connection terminated.")
+  cli::cli_alert_success("SAS connection terminated.")
 
   invisible()
 }
