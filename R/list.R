@@ -23,7 +23,7 @@ sas_list <- function(path) {
   )
 
   if (length(dirlist) == 0) {
-    dirlist <- vector(mode = "character")
+    dirlist <- character()
   }
 
   dirlist
