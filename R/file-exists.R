@@ -41,5 +41,6 @@ sas_file_exists <- function(path) {
     )
   }
 
-  invisible(any(sas_list(path_dirname) == path_basename))
+  sas_files <- .sas_list(path_dirname)
+  any(path_basename == gsub("/|\\\\", "", sas_files))
 }
