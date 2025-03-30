@@ -37,23 +37,17 @@ sas_connect <- function(cfgname) {
       .pkgenv$session <- .pkgenv$SASPy$SASsession(cfgname = cfgname)
     )
   }
-  cli::cli_inform("SAS connection established.")
+  cli::cli_alert_success("SAS connection established.")
 
   invisible()
 }
 
 check_cfgname <- function(cfgname, call = rlang::caller_env()) {
-  reticulate::py_capture_output(
-    configs <- reticulate::py_to_r(reticulate::py_get_attr(
-      .pkgenv$SASPy$SASconfig()$`_find_config`(),
-      "SAS_config_names",
-      silent = TRUE
-    ))
-  )
+  configs <- sas_cgfnames()
   if (is.null(configs)) {
     cli::cli_abort(c(
       "x" = "No configurations found.",
-      "i" = "Use {.code config_saspy()} to set up a connection and check out the {.vignette sasquatch::configuration} vignette."
+      "i" = "Use {.fun sasquatch::config_saspy} to set up a connection and check out the {.vignette sasquatch::configuration} vignette."
     ))
   }
   if (!(cfgname %in% configs)) {
@@ -65,4 +59,15 @@ check_cfgname <- function(cfgname, call = rlang::caller_env()) {
       )
     )
   }
+}
+
+sas_cgfnames <- function() {
+  reticulate::py_capture_output(
+    configs <- reticulate::py_to_r(reticulate::py_get_attr(
+      .pkgenv$SASPy$SASconfig()$`_find_config`(),
+      "SAS_config_names",
+      silent = TRUE
+    ))
+  )
+  configs
 }
