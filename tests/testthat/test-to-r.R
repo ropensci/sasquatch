@@ -1,76 +1,222 @@
+test_that("double should not be altered", {
+  skip_on_cran()
+  skip_if_offline()
+  skip_if_no_saspy_install()
+  sas_connect_if_no_session("oda")
+  withr::defer(sas_get_session()$submit(
+    "proc datasets library=WORK;delete x;run;"
+  ))
+
+  x <- data.frame(a = runif(1000, min = -1, max = 1))
+  sas_from_r(x, "x")
+
+  expect_equal(sas_to_r("x"), x)
+
+  x$a[sample(1:nrow(x), 100)] <- NA
+  sas_from_r(x, "x")
+
+  expect_equal(sas_to_r("x"), x)
+})
+
+test_that("integer should become a double", {
+  skip_on_cran()
+  skip_if_offline()
+  skip_if_no_saspy_install()
+  sas_connect_if_no_session("oda")
+  withr::defer(sas_get_session()$submit(
+    "proc datasets library=WORK;delete x;run;"
+  ))
+
+  x <- data.frame(a = sample(-1000:1000, 1000, replace = TRUE))
+  sas_from_r(x, "x")
+  x_expected <- x
+  x_expected$a <- as.double(x_expected$a)
+
+  expect_equal(sas_to_r("x"), x)
+
+  x$a[sample(1:nrow(x), 100)] <- NA
+  sas_from_r(x, "x")
+  x_expected <- x
+  x_expected$a <- as.double(x_expected$a)
+
+  expect_equal(sas_to_r("x"), x)
+})
+
+test_that("logical should become a double", {
+  skip_on_cran()
+  skip_if_offline()
+  skip_if_no_saspy_install()
+  sas_connect_if_no_session("oda")
+  withr::defer(sas_get_session()$submit(
+    "proc datasets library=WORK;delete x;run;"
+  ))
+
+  x <- data.frame(a = sample(c(TRUE, FALSE), 1000, replace = TRUE))
+  sas_from_r(x, "x")
+  x_expected <- x
+  x_expected$a <- as.double(x_expected$a)
+
+  expect_equal(sas_to_r("x"), x_expected)
+
+  x$a[sample(1:nrow(x), 100)] <- NA
+  sas_from_r(x, "x")
+  x_expected <- x
+  x_expected$a <- as.double(x_expected$a)
+
+  expect_equal(sas_to_r("x"), x_expected)
+})
+
+test_that("character should not be altered", {
+  skip_on_cran()
+  skip_if_offline()
+  skip_if_no_saspy_install()
+  sas_connect_if_no_session("oda")
+  withr::defer(sas_get_session()$submit(
+    "proc datasets library=WORK;delete x;run;"
+  ))
+
+  x <- data.frame(
+    a = sample(c("apple", "pear", "orange", "cherry"), 1000, replace = TRUE)
+  )
+  sas_from_r(x, "x")
+
+  expect_equal(sas_to_r("x"), x)
+  
+  x$a[sample(1:nrow(x), 100)] <- NA
+  sas_from_r(x, "x")
+  
+  expect_equal(sas_to_r("x"), x)
+})
+
+test_that("factor should become a character", {
+  skip_on_cran()
+  skip_if_offline()
+  skip_if_no_saspy_install()
+  sas_connect_if_no_session("oda")
+  withr::defer(sas_get_session()$submit(
+    "proc datasets library=WORK;delete x;run;"
+  ))
+
+  fruits <- c("apple", "pear", "orange", "cherry")
+  x <- data.frame(
+    a = factor(sample(fruits, 1000, replace = TRUE), levels = fruits)
+  )
+  sas_from_r(x, "x")
+  x_expected <- x
+  x_expected$a <- as.character(x_expected$a)
+
+  expect_equal(sas_to_r("x"), x_expected)
+  
+  x$a[sample(1:nrow(x), 100)] <- NA
+  sas_from_r(x, "x")
+  x_expected <- x
+  x_expected$a <- as.character(x_expected$a)
+  
+  expect_equal(sas_to_r("x"), x_expected)
+})
+
+test_that("POSIXct with local time should not be altered", {
+  skip_on_cran()
+  skip_if_offline()
+  skip_if_no_saspy_install()
+  sas_connect_if_no_session("oda")
+  withr::defer(sas_get_session()$submit(
+    "proc datasets library=WORK;delete x;run;"
+  ))
+
+  x <- data.frame(
+    a = as.POSIXct(format(Sys.time() + sample(-1000:1000, 1000, replace = TRUE)))
+  )
+  sas_from_r(x, "x")
+
+  expect_equal(sas_to_r("x"), x)
+  
+  x$a[sample(1:nrow(x), 100)] <- NA
+  sas_from_r(x, "x")
+  
+  expect_equal(sas_to_r("x"), x)
+})
+
+test_that("POSIXct with non-local timezone should lose its timezone", {
+  skip_on_cran()
+  skip_if_offline()
+  skip_if_no_saspy_install()
+  sas_connect_if_no_session("oda")
+  withr::defer(sas_get_session()$submit(
+    "proc datasets library=WORK;delete x;run;"
+  ))
+
+  other_timezone <- sample(OlsonNames()[OlsonNames() != Sys.timezone()], 1)
+
+  x <- data.frame(
+    a = as.POSIXct(format(Sys.time() + sample(-1000:1000, 1000, replace = TRUE)), tz = other_timezone)
+  )
+  sas_from_r(x, "x")
+  x_expected <- x
+  x_expected$a <- as.POSIXct(format(x_expected$a))
+
+  expect_equal(sas_to_r("x"), x_expected)
+  
+  x$a[sample(1:nrow(x), 100)] <- NA
+  sas_from_r(x, "x")
+  x_expected <- x
+  x_expected$a <- as.POSIXct(format(x_expected$a))
+
+  expect_equal(sas_to_r("x"), x_expected)
+})
+
+test_that("Dates should become a POSIXct", {
+  skip_on_cran()
+  skip_if_offline()
+  skip_if_no_saspy_install()
+  sas_connect_if_no_session("oda")
+  withr::defer(sas_get_session()$submit(
+    "proc datasets library=WORK;delete x;run;"
+  ))
+
+  x <- data.frame(
+    a = Sys.Date() + sample(-1000:1000, 1000, replace = TRUE)
+  )
+  sas_from_r(x, "x")
+  x_expected <- x
+  x_expected$a <- as.POSIXct(format(x_expected$a))
+
+  expect_equal(sas_to_r("x"), x_expected)
+  
+  x$a[sample(1:nrow(x), 100)] <- NA
+  sas_from_r(x, "x")
+  x_expected <- x
+  x_expected$a <- as.POSIXct(format(x_expected$a))
+  
+  expect_equal(sas_to_r("x"), x_expected)
+})
+
 test_that("SAS to R data.frame", {
   skip_on_cran()
   skip_if_offline()
-  sas_connect_if_no_session()
+  skip_if_no_saspy_install()
+  sas_connect_if_no_session("oda")
+  withr::defer(sas_get_session()$submit(
+    "proc datasets library=WORK;delete df_all;run;"
+  ))
 
-  r_airline <- structure(list(
-    DATE = c("1949-01-01", "1949-02-01", "1949-03-01", 
-      "1949-04-01", "1949-05-01", "1949-06-01", "1949-07-01", "1949-08-01", 
-      "1949-09-01", "1949-10-01", "1949-11-01", "1949-12-01", "1950-01-01", 
-      "1950-02-01", "1950-03-01", "1950-04-01", "1950-05-01", "1950-06-01", 
-      "1950-07-01", "1950-08-01", "1950-09-01", "1950-10-01", "1950-11-01", 
-      "1950-12-01", "1951-01-01", "1951-02-01", "1951-03-01", "1951-04-01", 
-      "1951-05-01", "1951-06-01", "1951-07-01", "1951-08-01", "1951-09-01", 
-      "1951-10-01", "1951-11-01", "1951-12-01", "1952-01-01", "1952-02-01", 
-      "1952-03-01", "1952-04-01", "1952-05-01", "1952-06-01", "1952-07-01", 
-      "1952-08-01", "1952-09-01", "1952-10-01", "1952-11-01", "1952-12-01", 
-      "1953-01-01", "1953-02-01", "1953-03-01", "1953-04-01", "1953-05-01", 
-      "1953-06-01", "1953-07-01", "1953-08-01", "1953-09-01", "1953-10-01", 
-      "1953-11-01", "1953-12-01", "1954-01-01", "1954-02-01", "1954-03-01", 
-      "1954-04-01", "1954-05-01", "1954-06-01", "1954-07-01", "1954-08-01", 
-      "1954-09-01", "1954-10-01", "1954-11-01", "1954-12-01", "1955-01-01", 
-      "1955-02-01", "1955-03-01", "1955-04-01", "1955-05-01", "1955-06-01", 
-      "1955-07-01", "1955-08-01", "1955-09-01", "1955-10-01", "1955-11-01", 
-      "1955-12-01", "1956-01-01", "1956-02-01", "1956-03-01", "1956-04-01", 
-      "1956-05-01", "1956-06-01", "1956-07-01", "1956-08-01", "1956-09-01", 
-      "1956-10-01", "1956-11-01", "1956-12-01", "1957-01-01", "1957-02-01", 
-      "1957-03-01", "1957-04-01", "1957-05-01", "1957-06-01", "1957-07-01", 
-      "1957-08-01", "1957-09-01", "1957-10-01", "1957-11-01", "1957-12-01", 
-      "1958-01-01", "1958-02-01", "1958-03-01", "1958-04-01", "1958-05-01", 
-      "1958-06-01", "1958-07-01", "1958-08-01", "1958-09-01", "1958-10-01", 
-      "1958-11-01", "1958-12-01", "1959-01-01", "1959-02-01", "1959-03-01", 
-      "1959-04-01", "1959-05-01", "1959-06-01", "1959-07-01", "1959-08-01", 
-      "1959-09-01", "1959-10-01", "1959-11-01", "1959-12-01", "1960-01-01", 
-      "1960-02-01", "1960-03-01", "1960-04-01", "1960-05-01", "1960-06-01", 
-      "1960-07-01", "1960-08-01", "1960-09-01", "1960-10-01", "1960-11-01", 
-      "1960-12-01"), 
-    AIR = c(112, 118, 132, 129, 121, 135, 148, 148, 
-      136, 119, 104, 118, 115, 126, 141, 135, 125, 149, 170, 170, 158, 
-      133, 114, 140, 145, 150, 178, 163, 172, 178, 199, 199, 184, 162, 
-      146, 166, 171, 180, 193, 181, 183, 218, 230, 242, 209, 191, 172, 
-      194, 196, 196, 236, 235, 229, 243, 264, 272, 237, 211, 180, 201, 
-      204, 188, 235, 227, 234, 264, 302, 293, 259, 229, 203, 229, 242, 
-      233, 267, 269, 270, 315, 364, 347, 312, 274, 237, 278, 284, 277, 
-      317, 313, 318, 374, 413, 405, 355, 306, 271, 306, 315, 301, 356, 
-      348, 355, 422, 465, 467, 404, 347, 305, 336, 340, 318, 362, 348, 
-      363, 435, 491, 505, 404, 359, 310, 337, 360, 342, 406, 396, 420, 
-      472, 548, 559, 463, 407, 362, 405, 417, 391, 419, 461, 472, 535, 
-      622, 606, 508, 461, 390, 432), 
-    Region = c("ALL", "ALL", "ALL", 
-      "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", 
-      "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", 
-      "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", 
-      "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", 
-      "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", 
-      "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", 
-      "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", 
-      "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", 
-      "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", 
-      "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", 
-      "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", 
-      "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", 
-      "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", 
-      "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", 
-      "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", 
-      "ALL", "ALL", "ALL", "ALL", "ALL", "ALL")
-    ), 
-    row.names = c(NA, -144L), 
-    class = "data.frame"
+  df_all <- data.frame(
+    dbl = c(1, 2.5, NA),
+    int = c(1:2, NA),
+    lgl = c(T, F, NA),
+    chr = c("a", "b", NA),
+    fct = factor(c("a", "b", NA)),
+    dte = as.Date("2015-12-09") + c(1:2, NA),
+    pos = as.POSIXct("2015-12-09 10:51:34.5678", tz = "UTC") + c(1:2, NA)
   )
-  r_airline$DATE <- as.POSIXct(r_airline$DATE, tz = "UTC")
 
-  sas_airline <- sas_to_r("airline", "sashelp")
-  expect_s3_class(sas_airline$DATE, c("POSIXct", "POSIXt"))
-  sas_airline$DATE <- as.POSIXct(format(sas_airline$DATE, tz = "UTC"), tz = "UTC")
-  expect_equal(r_airline, sas_airline)
+  sas_from_r(df_all, "df_all")
+  df_all_expected <- df_all
+  df_all_expected$int <- as.double(df_all_expected$int)
+  df_all_expected$lgl <- as.double(df_all_expected$lgl)
+  df_all_expected$fct <- as.character(df_all_expected$fct)
+  df_all_expected$dte <- as.POSIXct(format(df_all_expected$dte))
+  df_all_expected$pos <- as.POSIXct(format(df_all_expected$pos))
+
+  expect_equal(sas_to_r("df_all"), df_all_expected)
 })

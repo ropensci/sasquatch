@@ -1,12 +1,18 @@
-test_that("default connection", {
+test_that("when connected disconnect sets ends sas", {
   skip_on_cran()
   skip_if_offline()
-  sas_connect_if_no_session()
+  skip_if_no_saspy_install()
+  sas_connect_if_no_session("oda")
 
-  "disconnect when connected"
   expect_message(sas_disconnect(), "SAS connection terminated.", fixed = TRUE)
-  expect_null(sas_get_session())
+  expect_null(sas_get_session()$SASpid)
+})
 
-  "error when not connected"
-  expect_error(sas_disconnect())
+test_that("when disconnected already do nothing", {
+  skip_on_cran()
+  skip_if_offline()
+  skip_if_no_saspy_install()
+  try(suppressMessages(sas_disconnect()))
+
+  expect_no_error(sas_disconnect())
 })

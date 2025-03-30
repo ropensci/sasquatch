@@ -1,11 +1,17 @@
-skip_if_no_session <- function() {
+sas_connect_if_no_session <- function(cfgname) {
   if (!valid_session()) {
-    skip(message = "no session")
-  }
-}
-
-sas_connect_if_no_session <- function() {
-  if (!valid_session()) {
-    suppressMessages(sas_connect())
+    tryCatch(
+      {
+        suppressMessages(sas_connect(cfgname))
+      },
+      error = function(e) {
+        message <- paste0(
+          "Cannot connect to `\"",
+          cfgname,
+          "\"` configuration."
+        )
+        skip(message)
+      }
+    )
   }
 }

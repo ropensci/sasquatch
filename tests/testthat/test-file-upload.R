@@ -1,20 +1,34 @@
 test_that("uploading file to SAS", {
   skip_on_cran()
   skip_if_offline()
-  sas_connect_if_no_session()
-  withr::defer(file.remove(local_path))
-  withr::defer(sas_file_remove(sas_path))
+  skip_if_no_saspy_install()
+  sas_connect_if_no_session("oda")
 
   local_path <- tempfile(pattern = "temp", fileext = ".sas")
   local_name <- basename(local_path)
   sas_path <- paste0("~/", local_name)
 
-  "no file exists upload"
   expect_error(
     sas_file_upload(local_path, sas_path),
     "must specify an existing file",
     fixed = TRUE
   )
+})
+
+test_that("uploading file to SAS", {
+  skip_on_cran()
+  skip_if_offline()
+  skip_if_no_saspy_install()
+  sas_connect_if_no_session("oda")
+  local_path <- withr::local_tempfile(
+    pattern = "temp",
+    fileext = ".sas",
+    lines = "PROC MEANS DATA = sashelp.cars; RUN;"
+  )
+  withr::defer(sas_file_remove(sas_path))
+
+  local_name <- basename(local_path)
+  sas_path <- paste0("~/", local_name)
 
   "file exists upload"
   cat("PROC MEANS DATA = sashelp.cars; RUN;", file = local_path)

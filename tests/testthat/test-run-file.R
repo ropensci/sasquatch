@@ -1,7 +1,8 @@
 test_that("generate SAS widget from file", {
   skip_on_cran()
   skip_if_offline()
-  sas_connect_if_no_session()
+  skip_if_no_saspy_install()
+  sas_connect_if_no_session("oda")
   local_path <- withr::local_tempfile(
     pattern = "temp",
     fileext = ".sas",
@@ -15,6 +16,8 @@ test_that("generate SAS widget from file", {
 test_that("generate output html and log from file", {
   skip_on_cran()
   skip_if_offline()
+  skip_if_no_saspy_install()
+  sas_connect_if_no_session("oda")
   local_dir_path <- withr::local_tempdir(pattern = "temp")
 
   local_path <- paste0(
@@ -34,7 +37,8 @@ test_that("generate output html and log from file", {
 test_that("overwrite output html and log from file", {
   skip_on_cran()
   skip_if_offline()
-  sas_connect_if_no_session()
+  skip_if_no_saspy_install()
+  sas_connect_if_no_session("oda")
   local_dir_path <- withr::local_tempdir(pattern = "temp")
 
   local_path <- paste0(
