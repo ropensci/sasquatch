@@ -19,7 +19,7 @@ check_session <- function(call = rlang::caller_env()) {
     cli::cli_abort(
       c(
         "x" = "No active SAS connection.",
-        "i" = "Use {.code sas_connect()} to start a new SAS session."
+        "i" = "Use {.fun sasquatch::sas_connect} to start a new SAS session."
       ),
       call = call
     )
@@ -47,7 +47,7 @@ execute_if_connection_active <- function(code, call = rlang::caller_env()) {
         cli::cli_abort(
           c(
             "x" = "SAS connection has terminated unexpectedly.",
-            "i" = "Use {.code sas_connect()} to start new SAS session."
+            "i" = "Use {.fun sasquatch::sas_connect} to start new SAS session."
           ),
           call = call
         )
