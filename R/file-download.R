@@ -32,7 +32,16 @@ sas_file_download <- function(sas_path, local_path) {
   )
 
   if (!result$Success) {
-    cli::cli_warn("{result$LOG}")
+    if (sprintf("File %s is a directory.", sas_path) == result$LOG) {
+      cli::cli_warn("`{.val {sas_path}}` is a directory.")
+    } else if (sprintf("File %s does not exist.", sas_path) == result$LOG) {
+      cli::cli_warn("`{.val {sas_path}}` cannot be found.")
+    } else {
+      # Looking at the SASPy source code, it doesn't seem like this
+      # should ever fire, but this is a good backup in case SASPy
+      # changes.
+      cli::cli_warn("{result$LOG}")
+    }
   }
 
   invisible(result$Success)
