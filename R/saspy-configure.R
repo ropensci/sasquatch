@@ -111,7 +111,7 @@ configure_saspy <- function(
   sascfg_personal_path <- write_sascfg_personal(configs, overwrite)
 
   if (rstudioapi::hasFun("navigateToFile")) {
-    cli::cli_inform("Opening sascfg_personal.py.")
+    cli::cli_alert_success("Opening sascfg_personal.py.")
     rstudioapi::navigateToFile(sascfg_personal_path)
   }
   cli::cli_inform(c(
@@ -155,12 +155,13 @@ write_sascfg_personal <- function(
   overwrite,
   call = rlang::caller_env()
 ) {
-  sascfg_personal_path <- .pkgenv$SASPy$SAScfg
+  python <- reticulate::py_discover_config("saspy", "r-saspy")
+  saspy_path <- python$required_module_path
+  sascfg_personal_path <- paste0(saspy_path, "/sascfg_personal.py")
   if (!overwrite) check_no_file(sascfg_personal_path, call)
 
-  config_list <- paste(
-    "SAS_config_names",
-    "=",
+  config_list <- paste0(
+    "SAS_config_names = ",
     reticulate::r_to_py(list(names(configs)))
   )
   config_dicts <- sapply(names(configs), function(config_name) {
@@ -188,19 +189,14 @@ write_file <- function(..., file) {
 }
 
 menu <- function(choices, title) {
-  choice_list <- sapply(seq_along(choices), function(choice_num) {
-    paste0(choice_num, ": ", choices[choice_num])
+  cli::cli({
+    cli::cli_text(title)
+    cli::cli_text("")
+    cli::cli_ol(choices)
   })
-  cli::cli_inform(
-    title,
-    "\n\n",
-    paste(choice_list, collapse = "\n"),
-    "\n",
-    tidy = FALSE
-  )
   repeat {
     selection <- readline("Selection: ")
-    if (selection %in% as.character(seq_along(choice_list))) {
+    if (selection %in% as.character(seq_along(choices))) {
       return(as.integer(selection))
     }
     cli::cli_inform("Enter an item from the menu.")
