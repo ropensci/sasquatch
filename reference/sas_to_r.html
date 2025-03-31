@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">sasquatch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9035</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9037</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,7 +29,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Convert SAS table to R</h1>
-      <small class="dont-index">Source: <a href="https://github.com/ryanzomorrodi/sasquatch/blob/main/R/to_r.R" class="external-link"><code>R/to_r.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ryanzomorrodi/sasquatch/blob/main/R/to-r.R" class="external-link"><code>R/to-r.R</code></a></small>
       <div class="d-none name"><code>sas_to_r.Rd</code></div>
     </div>
 
@@ -66,7 +66,7 @@ as follows:</p><ul><li><p>numeric -&gt; double</p></li>
 <li><p>numeric (datetime) -&gt; POSIXct</p></li>
 <li><p>numeric (date) -&gt; POSIXct</p></li>
 </ul><p>In the conversion process dates and datetimes are converted to local
-time. If utilizing another timezone, use <code><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct()</a></code> or
+time. If utilizing another timezone, use <code>attr(date, "tzone") &lt;-</code> or
 <code>lubridate::with_tz()</code> to convert back to the desired time zone.</p>
     </div>
     <div class="section level2">
