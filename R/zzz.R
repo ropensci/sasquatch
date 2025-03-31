@@ -8,6 +8,16 @@
   # adjusts iframe sizing so that they will adapt to the size of their
   # content dynamically
   knitr::knit_hooks$set(document = function(x, options) {
+    if (is_latex_output()) {
+      sas_style_dependency <- list(
+        name = ".sasquatch/sas_style",
+        options = NULL,
+        extra_lines = NULL
+      )
+      class(sas_style_dependency) <- "latex_dependency"
+      knitr::knit_meta_add(list(sas_style_dependency))
+    }
+
     resizer_url <- system.file("resize-iframes.js", package = "sasquatch")
     resizer_code <- paste(readLines(resizer_url), collapse = "\n")
     resizer_script <- paste("<script>", resizer_code, "</script>", sep = "\n")
