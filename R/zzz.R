@@ -23,6 +23,25 @@
     resizer_script <- paste("<script>", resizer_code, "</script>", sep = "\n")
 
     iframe_start <- "<iframe width = '100%' class='resizable-iframe'"
-    sub(iframe_start, paste0(resizer_script, iframe_start), x)
+    x <- sub(iframe_start, paste0(resizer_script, iframe_start), x)
+
+    x_split <- unlist(strsplit(x, "\n"))
+    graphics_rows <- grepl("\\includegraphics{", x_split, fixed = TRUE)
+    picture_urls <- regmatches(
+      x_split[graphics_rows],
+      m = regexpr(
+        "(?<=\\\\includegraphics\\{)(.*)(?=\\}$)",
+        x_split[graphics_rows],
+        perl = TRUE
+      )
+    )
+    x_split[graphics_rows] <- paste0(
+      "![](",
+      sapply(picture_urls, knitr::image_uri),
+      ")"
+    )
+    sapply(picture_urls, file.remove)
+
+    paste(x_split, collapse = "\n")
   })
 }

@@ -140,6 +140,8 @@ wrap_in_panel_tabset <- function(lst, log) {
 
   .sas_run_string(wrapped_code)
 
+  suppressWarnings(dir.create(".sasquatch"))
+
   workspace_files <- .sas_list(sas_path)
   output_files <- grep("(tex|png|sty)$", workspace_files, value = TRUE)
 
@@ -176,6 +178,7 @@ wrap_in_panel_tabset <- function(lst, log) {
     output_tex[graphics_lines],
     fixed = TRUE
   )
+  file.remove(file.path(".sasquatch", tex_file))
 
   gsub("\\pagebreak", " ", output_tex)
 }
