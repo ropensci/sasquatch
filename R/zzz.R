@@ -1,8 +1,18 @@
 .pkgenv <- new.env(parent = emptyenv())
 
 .onLoad <- function(libname, pkgname) {
-  reticulate::py_discover_config("saspy", "r-saspy")
-  .pkgenv$SASPy <- reticulate::import("saspy", delay_load = TRUE)
+  Sys.setenv(RETICULATE_USE_MANAGED_VENV = "no")
+
+  reticulate::py_require(
+    c("wheel", "saspy", "pandas"),
+    ">3.4"
+  )
+  .pkgenv$SASPy <- reticulate::import(
+    "saspy",
+    delay_load = list(
+      environment = "r-saspy"
+    )
+  )
   knitr::knit_engines$set(sas = sas_engine)
 
   # adjusts iframe sizing so that they will adapt to the size of their

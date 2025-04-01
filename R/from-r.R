@@ -40,9 +40,9 @@ sas_from_r <- function(x, table_name, libref = "WORK") {
   check_string(table_name)
   check_string(libref)
 
-  x_processed <- from_r_processing(x)
-  x_data <- x_processed$x
-  date_dict <- x_processed$date_dict
+  x_data <- from_r_data(x)
+  x_datetypes <- from_r_datetypes(date_dict)
+  date_dict <- do.call(what = reticulate::dict, x_datetypes)
 
   execute_if_connection_active(
     reticulate::py_capture_output(
@@ -62,7 +62,7 @@ sas_from_r <- function(x, table_name, libref = "WORK") {
   )
 }
 
-from_r_processing <- function(x) {
+from_r_data <- function(x) {
   numeric_cols <- sapply(x, is.integer) | sapply(x, is.logical)
   x[numeric_cols] <- lapply(x[numeric_cols], as.double)
   factor_cols <- sapply(x, is.factor)
@@ -74,16 +74,17 @@ from_r_processing <- function(x) {
     \(col) as.POSIXct(format(col), tz = "UTC")
   )
 
-  # Specify Date columns as date
+  x
+}
+
+from_r_datetypes <- function(x) {
+  date_cols <- sapply(x, \(col) identical(class(col), "Date"))
+
   date_colnames <- colnames(x)[date_cols]
   date_list <- as.list(rep("date", length(date_colnames)))
   names(date_list) <- date_colnames
-  date_dict <- do.call(what = reticulate::dict, date_list)
 
-  list(
-    x = x,
-    date_dict = date_dict
-  )
+  date_list
 }
 
 check_has_sas_valid_datatypes <- function(x, call = rlang::caller_env()) {
