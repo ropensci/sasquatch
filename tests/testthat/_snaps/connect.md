@@ -16,5 +16,5 @@
       Error in `check_cfgname()`:
       ! `cfgname` must specify an existing configuration.
       x `"anotherconfigthatdoesntexist" cannot be found.
-      i Available configurations include: "default"
+      i Available configurations include: 
 

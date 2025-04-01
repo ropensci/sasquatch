@@ -14,6 +14,10 @@ test_that("non-existing cfgname throws error", {
   )
   expect_snapshot(
     sas_connect(cfgname = "anotherconfigthatdoesntexist"),
+    transform = function(lines) {
+      avail_config <- "Available configurations include: "
+      gsub(paste0(avail_config, "(.*)"), avail_config, lines)
+    },
     error = TRUE
   )
 })

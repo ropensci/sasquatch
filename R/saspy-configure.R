@@ -68,7 +68,7 @@ configure_saspy <- function(
 
     java_path <- Sys.which("java")
     if (identical(unname(java_path), "")) {
-      cli::cli_abort(
+      cli::cli_warn(
         "No java installation found. Enter the java path manually within sascfg_personal.py."
       )
     }

@@ -41,7 +41,7 @@ sas_from_r <- function(x, table_name, libref = "WORK") {
   check_string(libref)
 
   x_data <- from_r_data(x)
-  x_datetypes <- from_r_datetypes(date_dict)
+  x_datetypes <- from_r_datetypes(x)
   date_dict <- do.call(what = reticulate::dict, x_datetypes)
 
   execute_if_connection_active(
