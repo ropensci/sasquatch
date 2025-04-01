@@ -13,10 +13,10 @@ skip_if_no_saspy_install <- function() {
   )
 }
 
-skip_if_no_oda_configuration <- function() {
+skip_if_no_configuration <- function(config) {
   configs <- sas_cgfnames()
   skip_if(
-    is.null(configs) || !("oda" %in% configs),
-    message = "SAS configuration cannot be found."
+    is.null(configs) || !(config %in% configs),
+    message = paste0("\"", config, "\" configuration cannot be found.")
   )
 }

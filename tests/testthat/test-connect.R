@@ -6,6 +6,10 @@ test_that("non-existing cfgname throws error", {
 
   expect_snapshot(
     sas_connect(cfgname = "some config that doesn't exist"),
+    transform = function(lines) {
+      avail_config <- "Available configurations include: "
+      gsub(paste0(avail_config, "(.*)"), avail_config, lines)
+    },
     error = TRUE
   )
   expect_snapshot(
@@ -18,6 +22,7 @@ test_that("existing cfgname establishes connection", {
   skip_on_cran()
   skip_if_offline()
   skip_if_no_saspy_install()
+  skip_if_no_configuration("oda")
   suppressMessages(sas_disconnect())
 
   expect_message(
@@ -35,6 +40,7 @@ test_that("default connection establishes connection", {
   skip_on_cran()
   skip_if_offline()
   skip_if_no_saspy_install()
+  skip_if_no_configuration("oda")
   suppressMessages(sas_disconnect())
 
   expect_message(sas_connect(), "SAS connection established.", fixed = TRUE)

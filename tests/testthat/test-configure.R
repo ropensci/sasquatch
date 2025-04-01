@@ -33,7 +33,7 @@ test_that("oda configuration - sascfg_personal", {
   )
   expect_match(
     sascfg_personal_path,
-    "site-packages/saspy/sascfg_personal\\.py$"
+    "site-packages(\\\\|/)saspy(\\\\|/)sascfg_personal\\.py$"
   )
 })
 
