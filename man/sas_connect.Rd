@@ -4,11 +4,14 @@
 \alias{sas_connect}
 \title{Establish SAS session}
 \usage{
-sas_connect(cfgname)
+sas_connect(cfgname, reconnect = FALSE)
 }
 \arguments{
 \item{cfgname}{string; Name of configuration to use from the SAS_config_names
 list within in \code{sascfg_personal.py}.}
+
+\item{reconnect}{logical; Establish a new connection if a connection already
+exists?}
 }
 \value{
 No return value.
