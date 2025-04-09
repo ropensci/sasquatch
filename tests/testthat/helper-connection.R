@@ -5,9 +5,9 @@ sas_connect_if_no_session <- function(cfgname) {
     },
     error = function(e) {
       message <- paste0(
-        "Cannot connect to `\"",
+        "Cannot connect to \"",
         cfgname,
-        "\"` configuration."
+        "\" configuration."
       )
       skip(message)
     }
