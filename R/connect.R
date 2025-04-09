@@ -5,6 +5,8 @@
 #'
 #' @param cfgname string; Name of configuration to use from the SAS_config_names
 #' list within in `sascfg_personal.py`.
+#' @param reconnect logical; Establish a new connection if a connection already
+#' exists?
 #'
 #' @details
 #' All configurations are specified within the `sascfg_personal.py` file inside
@@ -21,9 +23,21 @@
 #' \dontrun{
 #' sas_connect(cfgname = "oda")
 #' }
-sas_connect <- function(cfgname) {
+sas_connect <- function(cfgname, reconnect = FALSE) {
   if (!missing(cfgname)) {
     check_string(cfgname)
+  }
+  check_logical(reconnect)
+
+  if (valid_session()) {
+    if (reconnect) {
+      sas_disconnect()
+    } else {
+      cli::cli_warn(
+        "SAS connection already established. Specify {.code reconnect = TRUE} to establish a new connection."
+      )
+      return(invisible())
+    }
   }
 
   if (missing(cfgname)) {
