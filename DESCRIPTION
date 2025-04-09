@@ -14,7 +14,7 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 SystemRequirements: 
-    python (>= 3.0.0), 
+    python (>= 3.4.0), 
     SASPy,
     java (>= 7) required for IOM access method
 Imports: 
