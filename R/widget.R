@@ -15,10 +15,11 @@ sas_widget <- function(
   htmlwidgets::createWidget(
     name = 'sas_widget',
     x,
-    width = width,
-    height = height,
+    width = "auto",
+    height = "auto",
     sizingPolicy = htmlwidgets::sizingPolicy(
       padding = 0,
+      viewer.fill = TRUE,
       browser.fill = TRUE
     ),
     package = 'sasquatch',

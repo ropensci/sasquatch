@@ -28,7 +28,10 @@
       knitr::knit_meta_add(list(sas_style_dependency))
     }
 
-    resizer_url <- system.file("resize-iframes.js", package = "sasquatch")
+    resizer_url <- system.file(
+      "htmlwidgets/lib/resize-iframes/resize-iframes.js",
+      package = "sasquatch"
+    )
     resizer_code <- paste(readLines(resizer_url), collapse = "\n")
     resizer_script <- paste("<script>", resizer_code, "</script>", sep = "\n")
 

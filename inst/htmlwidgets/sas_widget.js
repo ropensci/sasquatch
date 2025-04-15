@@ -27,7 +27,7 @@ HTMLWidgets.widget({
 </ul>
 <div style = "height: calc(100% - 49px) !important" class="tab-content" id="myTabContent">
   <div style = "height: 100% !important" class="tab-pane fade show active" id="lst" role="tabpanel" aria-labelledby="lst-tab">
-    <iframe width = '100%' height = "100%" srcdoc = '${lst}<style>table {margin-left: auto; margin-right: auto;}</style>'></iframe>
+    <iframe width = '100%' class='resizable-iframe' srcdoc = '${lst}<style>table {margin-left: auto; margin-right: auto;}</style>'></iframe>
   </div>
   <div style = "height: 100% !important" class="tab-pane fade" id="log" role="tabpanel" aria-labelledby="log-tab"><pre>${log}</pre></div>
 </div>`;

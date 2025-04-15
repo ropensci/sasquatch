@@ -4,3 +4,7 @@ dependencies:
   src: htmlwidgets/lib/bootstrap-5.3.3
   script: bootstrap.bundle.min.js
   stylesheet: bootstrap.min.css
+- name: resize-iframes
+  version: 0.0.1
+  src: htmlwidgets/lib/resize-iframes
+  script: resize-iframes.js
