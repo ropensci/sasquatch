@@ -2,7 +2,7 @@
 % Please edit documentation in R/engine.R
 \name{sas_engine}
 \alias{sas_engine}
-\title{A SAS HTML5 engine for \code{knitr}}
+\title{A SAS engine for \code{knitr}}
 \usage{
 sas_engine(options)
 }
@@ -13,7 +13,7 @@ sas_engine(options)
 \code{knitr} engine output.
 }
 \description{
-A SAS HTML5 engine for \code{knitr}
+Produces HTML or latex output for rending within quarto or rmarkdown documents.
 }
 \details{
 Will be activated by running \code{library(sasquatch)}
@@ -28,9 +28,8 @@ code into the output)
 \item \code{output} (Default: \code{TRUE}): Include the results of executing the code in
 the output (\code{TRUE} or \code{FALSE}).
 \item \code{include} (Default: \code{TRUE}): Include any output (code or results).
-\item \code{capture} (Default: \code{"both"}): If \code{"both"}, tabpanel with output and log
-included.
-If \code{"lst"}, only output is included. If \code{"log"} only log is included.
+\item \code{capture} (Only within HTML; Default: \code{"both"}): If \code{"both"}, tabpanel with output and log
+included. If \code{"listing"}, only output is included. If \code{"log"} only log is included.
 }
 }
 }

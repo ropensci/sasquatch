@@ -23,7 +23,7 @@ as follows:
 \itemize{
 \item numeric -> double
 \item character -> character
-\item numeric (datetime) -> POSIXct
+\item numeric (datetime, timezones are lost) -> POSIXct
 \item numeric (date) -> POSIXct
 }
 

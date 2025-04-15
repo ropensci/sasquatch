@@ -1,4 +1,6 @@
-#' A SAS HTML5 engine for `knitr`
+#' A SAS engine for `knitr`
+#'
+#' Produces HTML or latex output for rending within quarto or rmarkdown documents.
 #'
 #' @param options Options from `knitr`.
 #'
@@ -15,9 +17,8 @@
 #' - `output` (Default: `TRUE`): Include the results of executing the code in
 #' the output (`TRUE` or `FALSE`).
 #' - `include` (Default: `TRUE`): Include any output (code or results).
-#' - `capture` (Default: `"both"`): If `"both"`, tabpanel with output and log
-#' included.
-#' If `"lst"`, only output is included. If `"log"` only log is included.
+#' - `capture` (Only within HTML; Default: `"both"`): If `"both"`, tabpanel with output and log
+#' included. If `"listing"`, only output is included. If `"log"` only log is included.
 #'
 #' @return `knitr` engine output.
 #'
@@ -50,9 +51,9 @@ sas_engine <- function(options) {
       results <- .sas_run_string(code)
     )
 
-    if (identical(options$capture, "lst")) {
+    if (identical(tolower(options$capture), "listing")) {
       out <- wrap_in_iframe(results$LST)
-    } else if (identical(options$capture, "log")) {
+    } else if (identical(tolower(options$capture), "log")) {
       out <- wrap_in_pre(results$LOG)
     } else {
       lst <- wrap_in_iframe(results$LST)
@@ -65,7 +66,7 @@ sas_engine <- function(options) {
     )
   } else {
     cli::cli_abort(
-      "{.fun sasquatch::sas_engine} cannot produce non-html output."
+      "{.fun sasquatch::sas_engine} can only produce HTML and latex output."
     )
   }
 
@@ -105,12 +106,11 @@ wrap_in_pre <- function(html) {
 wrap_in_panel_tabset <- function(lst, log) {
   paste(
     '::: panel-tabset',
-    '## Output',
+    '## Listing',
     lst,
     '## Log',
     log,
-    ':::
-    ',
+    ':::',
     sep = "\n"
   )
 }

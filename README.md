@@ -18,7 +18,7 @@ together to create reproducible multilingual reports. `sasquatch` can:
 - Run SAS code blocks interactively
 - Send data back and forth between SAS and R
 - Conduct basic file management on a SAS client
-- Render SAS output within quarto documents.
+- Render html or latex SAS output within quarto/rmarkdown documents.
 
 ### Comparison with similar packages
 
@@ -62,9 +62,6 @@ packages, which work similarly to achieve related goals.
 - Would like to be able to easily send data back and forth between SAS
   and R  
   without the use of intermediate files
-
-If you require pdf `knitr` engine support and have a local installation
-of SAS, I would recommend using `SASmarkdown`at this time.
 
 ## Installation
 
@@ -188,9 +185,9 @@ sas_from_r(mtcars, "mtcars")
 cars <- sas_to_r("cars", libref = "sashelp")
 ```
 
-### Rendering quarto documents
+### Rendering quarto/rmarkdown documents
 
-And of course, render beautiful quarto documents in the same style you
-would expect from SAS with the `sas_engine()`.
+And of course, render beautiful HTML or latex quarto/rmarkdown documents
+in the same style you would expect from SAS with the `sas_engine()`.
 
 ![](man/figures/rendered_quarto.png)

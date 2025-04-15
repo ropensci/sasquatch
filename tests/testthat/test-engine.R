@@ -192,7 +192,7 @@ test_that("knitting html with capture lst doesnt show log", {
     eval = TRUE,
     output = TRUE,
     include = TRUE,
-    capture = "lst",
+    capture = "listing",
     code = "DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;"
   )
   output <- sas_engine(options)

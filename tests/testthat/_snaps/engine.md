@@ -5,7 +5,7 @@
     Output
       DATA work.cars; set sashelp.cars; where EngineSize > 2; RUN;
       ::: panel-tabset
-      ## Output
+      ## Listing
       <iframe width = '100%' class='resizable-iframe' srcdoc = '
       
       <style>table {margin-left: auto; margin-right: auto;}</style>
@@ -25,7 +25,6 @@
       63         
       </pre>
       :::
-          
 
 # knitting html with no evaluation does not evaluate the code
 
@@ -40,7 +39,7 @@
       cat(output)
     Output
       ::: panel-tabset
-      ## Output
+      ## Listing
       <iframe width = '100%' class='resizable-iframe' srcdoc = '
       lst output
       <style>table {margin-left: auto; margin-right: auto;}</style>
@@ -50,7 +49,6 @@
       log output
       </pre>
       :::
-          
 
 # knitting html with no output shows no results
 

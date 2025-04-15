@@ -12,7 +12,7 @@
 #'
 #' * numeric -> double
 #' * character -> character
-#' * numeric (datetime) -> POSIXct
+#' * numeric (datetime, timezones are lost) -> POSIXct
 #' * numeric (date) -> POSIXct
 #'
 #' In the conversion process dates and datetimes are converted to local

@@ -26,21 +26,22 @@ connected to your first SAS configuration (for more about configurations see
 
 ```{r, eval = FALSE}
 sas_connect()
-#> SAS Connection established.
+#> ✔ SAS connection established.
 ```
 
 You can also specify your configuration by name:
 
 ```{r, eval = FALSE}
-sas_connect(cfgname = "my_config")
-#> SAS Connection established.
+sas_connect(cfgname = "my_config", reconnect = TRUE)
+#> ✔ SAS connection terminated.
+#> ✔ SAS connection established.
 ```
 
 If you ever need to end a connection, you can do so by using:
 
 ```{r, eval = FALSE}
 sas_disconnect()
-#> SAS Connection terminated.
+#> ✔ SAS connection terminated.
 ```
 
 All connection information is stored within a `saspy.sasbase.SASsession` object.
@@ -98,7 +99,7 @@ R and SAS within a single reproducable document.
 
 You can create a `sasquatch` quarto document by:
 
-* Specifying the format as html (currenly, only html is well supported)
+* Specifying the format as html or pdf 
 * Specifying the engine as knitr
 * Creating an R code block with `library(sasquatch); sas_connect()`
 
@@ -187,11 +188,11 @@ as follows:
 * double -> numeric
 * factor -> character
 * character -> character
-* POSIXct -> numeric (datetime)
+* POSIXct -> numeric (datetime; timezones are lost)
 * Date -> numeric (date)
 
 
-And back to SAS tables with `sas_to_r()`.
+And convert SAS tables back to R `data.frame`s with `sas_to_r()`.
 
 ```{r, eval = FALSE}
 df <- sas_to_r("df", libref = "WORK")
@@ -200,8 +201,8 @@ tibble::tibble(df)
 #> # A tibble: 3 × 7
 #>   double integer logical character factor date                datetime
 #>    <dbl>   <dbl>   <dbl> <chr>     <chr>  <dttm>              <dttm>
-#> 1    1         1       1 a         a      2015-12-09 18:00:00 2015-12-09 04:51:35
-#> 2    2.5       2       0 b         b      2015-12-10 18:00:00 2015-12-09 04:51:36
+#> 1    1         1       1 a         a      2015-12-10 00:00:00 2015-12-09 10:51:35
+#> 2    2.5       2       0 b         b      2015-12-11 00:00:00 2015-12-09 10:51:36
 #> 3   NA        NA      NA NA        NA     NA                  NA
 ```
 
@@ -209,12 +210,8 @@ SAS data types are converted as follows:
 
 * numeric -> double
 * character -> character
-* numeric (datetime) -> POSIXct
+* numeric (datetime; timezones are lost) -> POSIXct
 * numeric (date) -> POSIXct
-
-In the conversion process dates and datetimes are converted to local time. If 
-utilizing another timezone, use `as.POSIXct()` or `lubridate::with_tz()` to 
-convert back to the desired time zone.
 
 ## File management
 
@@ -234,6 +231,7 @@ sas_file_download(sas_path = "~/script.sas", local_path = "script.sas")
 ```
 
 Check if a file exists on the remote SAS server with `sas_file_exists()`.
+
 ```{r, eval = FALSE}
 sas_file_exists("~/script.sas")
 ```
