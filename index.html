@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="index.html">sasquatch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9041</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9042</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,6 +41,7 @@
 <li class="nav-item"><a class="nav-link" href="articles/configuration.html">Configuration</a></li>
 <li class="nav-item"><a class="nav-link" href="articles/overview.html">Overview</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -67,7 +68,7 @@
 <li>Run SAS code blocks interactively</li>
 <li>Send data back and forth between SAS and R</li>
 <li>Conduct basic file management on a SAS client</li>
-<li>Render SAS output within quarto documents.</li>
+<li>Render html or latex SAS output within quarto/rmarkdown documents.</li>
 </ul>
 <div class="section level3">
 <h3 id="comparison-with-similar-packages">Comparison with similar packages<a class="anchor" aria-label="anchor" href="#comparison-with-similar-packages"></a>
@@ -104,7 +105,6 @@
 <li>Would like to be able to easily send data back and forth between SAS and R<br>
 without the use of intermediate files</li>
 </ul>
-<p>If you require pdf <code>knitr</code> engine support and have a local installation of SAS, I would recommend using <code>SASmarkdown</code>at this time.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -198,9 +198,9 @@ without the use of intermediate files</li>
 <span><span class="va">cars</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sas_to_r.html">sas_to_r</a></span><span class="op">(</span><span class="st">"cars"</span>, libref <span class="op">=</span> <span class="st">"sashelp"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="rendering-quarto-documents">Rendering quarto documents<a class="anchor" aria-label="anchor" href="#rendering-quarto-documents"></a>
+<h3 id="rendering-quartormarkdown-documents">Rendering quarto/rmarkdown documents<a class="anchor" aria-label="anchor" href="#rendering-quartormarkdown-documents"></a>
 </h3>
-<p>And of course, render beautiful quarto documents in the same style you would expect from SAS with the <code><a href="reference/sas_engine.html">sas_engine()</a></code>.</p>
+<p>And of course, render beautiful HTML or latex quarto/rmarkdown documents in the same style you would expect from SAS with the <code><a href="reference/sas_engine.html">sas_engine()</a></code>.</p>
 <p><img src="reference/figures/rendered_quarto.png"></p>
 </div>
 </div>
