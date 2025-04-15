@@ -8,6 +8,8 @@
 [![R-CMD-check](https://github.com/ryanzomorrodi/sasquatch/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ryanzomorrodi/sasquatch/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/ryanzomorrodi/sasquatch/branch/main/graph/badge.svg)](https://app.codecov.io/gh/ryanzomorrodi/sasquatch?branch=main)
+[![Status at rOpenSci Software Peer
+Review](https://badges.ropensci.org/673_status.svg)](https://github.com/ropensci/software-review/issues/673)
 <!-- badges: end -->
 
 Use SAS, R, and Quarto Together
