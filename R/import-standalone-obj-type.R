@@ -261,7 +261,7 @@ vec_type_friendly <- function(x, length = FALSE) {
   )
 }
 
-.rlang_stop_unexpected_typeof <- function(x, call = caller_env()) {
+.rlang_stop_unexpected_typeof <- function(x, call = rlang::caller_env()) {
   rlang::abort(
     sprintf("Unexpected type <%s>.", typeof(x)),
     call = call
@@ -306,8 +306,8 @@ stop_input_type <- function(x,
                             allow_na = FALSE,
                             allow_null = FALSE,
                             show_value = TRUE,
-                            arg = caller_arg(x),
-                            call = caller_env()) {
+                            arg = rlang::caller_arg(x),
+                            call = rlang::caller_env()) {
   # From standalone-cli.R
   cli <- rlang::env_get_list(
     nms = c("format_arg", "format_code"),

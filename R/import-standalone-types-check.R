@@ -130,7 +130,7 @@ check_string <- function(x,
     return(TRUE)
   }
 
-  if (allow_na && (identical(x, NA) || identical(x, na_chr))) {
+  if (allow_na && (identical(x, NA) || identical(x, rlang::na_chr))) {
     return(TRUE)
   }
 
@@ -505,8 +505,8 @@ check_character <- function(x,
 check_logical <- function(x,
                           ...,
                           allow_null = FALSE,
-                          arg = caller_arg(x),
-                          call = caller_env()) {
+                          arg = rlang::caller_arg(x),
+                          call = rlang::caller_env()) {
   if (!missing(x)) {
     if (rlang::is_logical(x)) {
       return(invisible(NULL))
