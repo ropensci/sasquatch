@@ -59,10 +59,13 @@ sas_connect <- function(cfgname, reconnect = FALSE) {
 check_cfgname <- function(cfgname, call = rlang::caller_env()) {
   configs <- sas_cgfnames()
   if (is.null(configs)) {
-    cli::cli_abort(c(
-      "x" = "No configurations found.",
-      "i" = "Use {.fun sasquatch::config_saspy} to set up a connection and check out the {.vignette sasquatch::configuration} vignette."
-    ))
+    cli::cli_abort(
+      c(
+        "x" = "No configurations found.",
+        "i" = "Use {.fun sasquatch::config_saspy} to set up a connection and check out the {.vignette sasquatch::configuration} vignette."
+      ),
+      call = call
+    )
   }
   if (!(cfgname %in% configs)) {
     cli::cli_abort(
@@ -70,7 +73,8 @@ check_cfgname <- function(cfgname, call = rlang::caller_env()) {
         "{.arg cfgname} must specify an existing configuration.",
         "x" = "`{.val {cfgname}} cannot be found.",
         "i" = "Available configurations include: {.val {configs}}"
-      )
+      ),
+      call = call
     )
   }
 }
