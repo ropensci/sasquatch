@@ -84,7 +84,7 @@ configure_saspy <- function(
         'odaws01-usw2-2.oda.sas.com',
         'odaws02-usw2-2.oda.sas.com'
       ),
-      "Europe 2" = list('odaws01-euw1.oda.sas.com', 'odaws02-euw1.oda.sas.com'),
+      "Europe 1" = list('odaws01-euw1.oda.sas.com', 'odaws02-euw1.oda.sas.com'),
       "Asia Pacific 1" = list(
         'odaws01-apse1.oda.sas.com',
         'odaws02-apse1.oda.sas.com'
