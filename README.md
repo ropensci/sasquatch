@@ -52,9 +52,6 @@ packages, which work similarly to achieve related goals.
 - In contrast, `SASPy`-reliant packages can interface with both local
   and remote SAS installations and can easily pass data between R and
   SAS without the need for intermediate files.
-- `SASmarkdown` features several different engines for various formats
-  not currently implemented within `sasquatch` like latex pdfs or
-  non-HTML5 HTML.
 
 `sasquatch` may be beneficial to you if you…
 
@@ -91,7 +88,7 @@ Foundation](https://www.python.org/downloads/').
 ### `SASPy` installation
 
 To install the `SASPy` package and its dependencies within a Python
-virutal environment:
+virtual environment:
 
 ``` r
 sasquatch::install_saspy()
@@ -183,8 +180,8 @@ If you want to send the SAS output to the viewer, you can utilize the
 Pass tables between R and SAS with `sas_from_r()` and `sas_to_r()`.
 
 ``` r
-sas_from_r(mtcars, "mtcars")
-cars <- sas_to_r("cars", libref = "sashelp")
+sas_from_r(warpbreaks, "warpbreaks")
+sas_cars <- sas_to_r("cars", libref = "sashelp")
 ```
 
 ### Rendering quarto/rmarkdown documents

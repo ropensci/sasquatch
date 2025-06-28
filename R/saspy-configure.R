@@ -141,7 +141,9 @@ write_authinfo <- function(
   } else {
     authinfo_path <- paste0(get_home_dir(), "/.authinfo")
   }
-  if (!overwrite) check_no_file(authinfo_path, call)
+  if (!overwrite) {
+    check_no_file(authinfo_path, call)
+  }
 
   authinfo <- paste(config_name, "user", username, "password", password, "\n")
 
@@ -157,8 +159,15 @@ write_sascfg_personal <- function(
 ) {
   python <- reticulate::py_discover_config("saspy", "r-saspy")
   saspy_path <- python$required_module_path
+  if (is.null(saspy_path)) {
+    cli::cli_abort(
+      "No SASPy installation found. Use {.fun sasquatch::install_saspy} to install SASPy."
+    )
+  }
   sascfg_personal_path <- paste0(saspy_path, "/sascfg_personal.py")
-  if (!overwrite) check_no_file(sascfg_personal_path, call)
+  if (!overwrite) {
+    check_no_file(sascfg_personal_path, call)
+  }
 
   config_list <- paste0(
     "SAS_config_names = ",

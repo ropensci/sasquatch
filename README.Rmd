@@ -93,7 +93,7 @@ or download the installer from the [Python Software Foundation](https://www.pyth
 
 ### `SASPy` installation
 
-To install the `SASPy` package and its dependencies within a Python virutal
+To install the `SASPy` package and its dependencies within a Python virtual
 environment:
 
 ```{r, eval = FALSE}
