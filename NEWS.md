@@ -64,3 +64,9 @@
   > https://github.com/ryanzomorrodi/sasquatch/blob/18cd7ca03a107be78700fdd3febf6908f28563c6/R/import-standalone-types-check.R#L508-L509  
   >   
   > I might be tempted to write my own wrapper function or ask rlang to export their check functions, but this is just personal preference.  
+- Added a Code of Conduct.  
+  From [thisisnic](https://github.com/ropensci/software-review/issues/673#issuecomment-2833364073):
+
+  > Contribution guidelines
+  > 
+  > These guidelines exist, but the code of conduct that they link to is missing.
