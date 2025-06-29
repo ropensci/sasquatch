@@ -59,43 +59,15 @@ configure_saspy <- function(
   template = c("none", "oda"),
   overwrite = FALSE
 ) {
-  if (template[1] == "none") {
+  template <- rlang::arg_match(template, c("none", "oda"))
+
+  saspy_path <- get_saspy_path()
+
+  if (template == "none") {
     configs <- list(config_name = list())
   } else if (template == "oda") {
-    oda_username <- readline("Enter your ODA username: ")
-    oda_password <- readline("Enter your ODA password: ")
-    write_authinfo("oda", oda_username, oda_password, overwrite)
-
-    java_path <- Sys.which("java")
-    if (identical(unname(java_path), "")) {
-      cli::cli_warn(
-        "No java installation found. Enter the java path manually within sascfg_personal.py."
-      )
-    }
-
-    oda_servers <- list(
-      "United States 1" = list(
-        'odaws01-usw2.oda.sas.com',
-        'odaws02-usw2.oda.sas.com',
-        'odaws03-usw2.oda.sas.com',
-        'odaws04-usw2.oda.sas.com'
-      ),
-      "United States 2" = list(
-        'odaws01-usw2-2.oda.sas.com',
-        'odaws02-usw2-2.oda.sas.com'
-      ),
-      "Europe 1" = list('odaws01-euw1.oda.sas.com', 'odaws02-euw1.oda.sas.com'),
-      "Asia Pacific 1" = list(
-        'odaws01-apse1.oda.sas.com',
-        'odaws02-apse1.oda.sas.com'
-      ),
-      "Asia Pacific 2" = list(
-        'odaws01-apse1-2.oda.sas.com',
-        'odaws02-apse1-2.oda.sas.com'
-      )
-    )
-    server_num = menu(names(oda_servers), "Which server is your account on?")
-    iom_host = oda_servers[[server_num]]
+    java_path <- check_java_installation(saspy_path)
+    iom_host <- ask_oda_server()
 
     configs <- list(
       oda = list(
@@ -108,12 +80,16 @@ configure_saspy <- function(
     )
   }
 
-  sascfg_personal_path <- write_sascfg_personal(configs, overwrite)
+  write_sascfg_personal(configs, saspy_path, overwrite)
 
-  if (rstudioapi::hasFun("navigateToFile")) {
-    cli::cli_alert_success("Opening sascfg_personal.py.")
-    rstudioapi::navigateToFile(sascfg_personal_path)
+  if (template == "oda") {
+    write_authinfo_template(overwrite)
+    sas_oda_jar_dir <- paste0(saspy_path, "/java/iomclient/")
+    cli::cli_inform(c(
+      "i" = "Download and extract the SAS ODA zip encryption jars ({.url https://support.sas.com/downloads/package.htm?pid=2494}) into {.file {sas_oda_jar_dir}}."
+    ))
   }
+
   cli::cli_inform(c(
     "i" = "For more information about {.pkg SASPy} configuration see the {.vignette sasquatch::configuration} vignette or the {.href [SASPy documentation](https://sassoftware.github.io/saspy/configuration.html)}."
   ))
@@ -121,18 +97,64 @@ configure_saspy <- function(
   invisible()
 }
 
-get_home_dir <- function() {
-  home_dir <- Sys.getenv("HOME")
-  if (.Platform$OS.type == "windows") {
-    home_dir <- regmatches(home_dir, regexpr("(.*?[/|\\\\]){3}", home_dir))
+get_saspy_path <- function() {
+  python <- reticulate::py_discover_config("saspy", "r-saspy")
+  saspy_path <- python$required_module_path
+  if (is.null(saspy_path)) {
+    cli::cli_abort(
+      "No SASPy installation found. Use {.fun sasquatch::install_saspy} to install SASPy."
+    )
   }
-  sub("[/|\\\\]$", "", home_dir)
+  saspy_path
 }
 
-write_authinfo <- function(
-  config_name,
-  username,
-  password,
+check_java_installation <- function(saspy_path) {
+  java_path <- Sys.which("java")
+  if (identical(unname(java_path), "")) {
+    sascfg_personal_path <- paste0(saspy_path, "/sascfg_personal.py")
+    cli::cli_warn(
+      "No java installation found. Enter the java path manually within {.file {sascfg_personal_path}}."
+    )
+  }
+
+  java_path
+}
+
+ask_oda_server <- function() {
+  oda_servers <- list(
+    "United States 1" = list(
+      'odaws01-usw2.oda.sas.com',
+      'odaws02-usw2.oda.sas.com',
+      'odaws03-usw2.oda.sas.com',
+      'odaws04-usw2.oda.sas.com'
+    ),
+    "United States 2" = list(
+      'odaws01-usw2-2.oda.sas.com',
+      'odaws02-usw2-2.oda.sas.com'
+    ),
+    "Europe 1" = list('odaws01-euw1.oda.sas.com', 'odaws02-euw1.oda.sas.com'),
+    "Asia Pacific 1" = list(
+      'odaws01-apse1.oda.sas.com',
+      'odaws02-apse1.oda.sas.com'
+    ),
+    "Asia Pacific 2" = list(
+      'odaws01-apse1-2.oda.sas.com',
+      'odaws02-apse1-2.oda.sas.com'
+    )
+  )
+
+  cli::cli_inform("Which server is your account on?")
+  server_num = utils::menu(
+    names(oda_servers)
+  )
+  if (server_num == 0L) {
+    cli::cli_abort("Server location required to create SAS ODA configuration.")
+  }
+
+  oda_servers[[server_num]]
+}
+
+write_authinfo_template <- function(
   overwrite,
   call = rlang::caller_env()
 ) {
@@ -145,26 +167,34 @@ write_authinfo <- function(
     check_no_file(authinfo_path, call)
   }
 
-  authinfo <- paste(config_name, "user", username, "password", password, "\n")
-
+  authinfo <- "oda user {username} password {password}\n"
   write_file(authinfo, file = authinfo_path)
 
-  authinfo_path
+  cli::cli_inform(c(
+    "i" = "Replace {.str {{username}}} and {.str {{password}}} with your ODA username and password within {.file {authinfo_path}}."
+  ))
+
+  if (rstudioapi::hasFun("navigateToFile")) {
+    rstudioapi::navigateToFile(authinfo_path)
+  }
+}
+
+get_home_dir <- function() {
+  home_dir <- Sys.getenv("HOME")
+  if (.Platform$OS.type == "windows") {
+    home_dir <- regmatches(home_dir, regexpr("(.*?[/|\\\\]){3}", home_dir))
+  }
+  sub("[/|\\\\]$", "", home_dir)
 }
 
 write_sascfg_personal <- function(
   configs,
+  saspy_path,
   overwrite,
   call = rlang::caller_env()
 ) {
-  python <- reticulate::py_discover_config("saspy", "r-saspy")
-  saspy_path <- python$required_module_path
-  if (is.null(saspy_path)) {
-    cli::cli_abort(
-      "No SASPy installation found. Use {.fun sasquatch::install_saspy} to install SASPy."
-    )
-  }
   sascfg_personal_path <- paste0(saspy_path, "/sascfg_personal.py")
+
   if (!overwrite) {
     check_no_file(sascfg_personal_path, call)
   }
@@ -195,19 +225,4 @@ write_sascfg_personal <- function(
 write_file <- function(..., file) {
   cli::cli_alert_success("Writing to {.path {file}}.")
   cat(..., file = file)
-}
-
-menu <- function(choices, title) {
-  cli::cli({
-    cli::cli_text(title)
-    cli::cli_text("")
-    cli::cli_ol(choices)
-  })
-  repeat {
-    selection <- readline("Selection: ")
-    if (selection %in% as.character(seq_along(choices))) {
-      return(as.integer(selection))
-    }
-    cli::cli_inform("Enter an item from the menu.")
-  }
 }

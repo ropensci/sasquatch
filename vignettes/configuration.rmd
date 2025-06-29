@@ -102,10 +102,16 @@ ODA relies on the IOM access method, which requires Java. Make sure Java is inst
 
 ### Configuration
 
-Set up for ODA is super easy. Run `config_saspy()` and follow the prompts (you may need to recall your username, server, and java installation path from earlier).
+Set up for ODA is super easy. Run `config_saspy()` and follow the prompts.
 
 ```{r, eval = FALSE}
 sasquatch::configure_saspy(template = "oda")
 ```
 
-`config_saspy(template = "oda")` will create a `sascfg_personal.py` file with all the relevant configuration information and create an `authinfo` file, which will store your ODA credentials. More information about ODA configuration can be found in the [ODA section of `SASPy` configuration documentation](https://sassoftware.github.io/saspy/configuration.html#iom).
+`config_saspy(template = "oda")` will:
+
+- Create a `sascfg_personal.py` file with all the relevant configuration information.
+- Create an `authinfo` file, which you will be able to write your ODA credentials into.
+- Request that you download the [SAS ODA encryption jars](https://support.sas.com/downloads/package.htm?pid=2494) into the `SASPy` package's `java/iomclient/` folder.
+
+More information about ODA configuration can be found in the [ODA section of `SASPy` configuration documentation](https://sassoftware.github.io/saspy/configuration.html#iom).
