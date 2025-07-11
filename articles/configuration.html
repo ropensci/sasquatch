@@ -6,12 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Configuration • sasquatch</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -26,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">sasquatch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9042</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9043</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -226,22 +225,58 @@ the profile dropdown). We will need these for later.</p>
 <h3 id="java-installation">Java installation<a class="anchor" aria-label="anchor" href="#java-installation"></a>
 </h3>
 <p>ODA relies on the IOM access method, which requires Java. Make sure
-Java is installed on your system. You can download Java from <a href="https://www.java.com/en/download/" class="external-link">their website</a>. Note the
-Java installation path.</p>
+Java is installed on your system. You can download Java from <a href="https://www.java.com/en/download/" class="external-link">their website</a>. ODA also
+requires you to install <a href="https://support.sas.com/downloads/package.htm?pid=2494" class="external-link">additional
+encryption jars</a> within the <code>java/iomclient</code> folder inside
+of your <code>SASPy</code> installation.</p>
+<p><strong>Note:</strong> Adding your java installation to path will
+help <code><a href="../reference/configure_saspy.html">sasquatch::configure_saspy()</a></code> find your Java
+installation path. Otherwise, note the path so that you can manually
+enter it within your <code>sascfg_personal.py</code> file.</p>
 </div>
 <div class="section level3">
 <h3 id="configuration">Configuration<a class="anchor" aria-label="anchor" href="#configuration"></a>
 </h3>
 <p>Set up for ODA is super easy. Run <code>config_saspy()</code> and
-follow the prompts (you may need to recall your username, server, and
-java installation path from earlier).</p>
+follow the prompts.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sasquatch</span><span class="fu">::</span><span class="fu"><a href="../reference/configure_saspy.html">configure_saspy</a></span><span class="op">(</span>template <span class="op">=</span> <span class="st">"oda"</span><span class="op">)</span></span></code></pre></div>
-<p><code>config_saspy(template = "oda")</code> will create a
-<code>sascfg_personal.py</code> file with all the relevant configuration
-information and create an <code>authinfo</code> file, which will store
-your ODA credentials. More information about ODA configuration can be
-found in the <a href="https://sassoftware.github.io/saspy/configuration.html#iom" class="external-link">ODA
+<p><code>config_saspy(template = "oda")</code> will:</p>
+<ul>
+<li>
+<p>Create a <code>sascfg_personal.py</code> file with all the
+relevant configuration information. Generally, your
+<code>sascfg_personal.py</code> will look something like:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>SAS_config_names<span class="op">=</span>[<span class="st">'oda'</span>]</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>oda <span class="op">=</span> {</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="st">'java'</span> : <span class="st">'path_to_java'</span>, <span class="co"># replace with your java path</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="co"># Uncomment the one for your region</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="co">#US Home Region 1</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  <span class="co"># 'iomhost' : ['odaws01-usw2.oda.sas.com','odaws02-usw2.oda.sas.com','odaws03-usw2.oda.sas.com','odaws04-usw2.oda.sas.com'],</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>  <span class="co">#US Home Region 2</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>  <span class="co">#'iomhost' : ['odaws01-usw2-2.oda.sas.com','odaws02-usw2-2.oda.sas.com'],</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>  <span class="co">#European Home Region 1</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>  <span class="co">#'iomhost' : ['odaws01-euw1.oda.sas.com','odaws02-euw1.oda.sas.com'], </span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>  <span class="co">#Asia Pacific Home Region 1</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>  <span class="co">#'iomhost' : ['odaws01-apse1.oda.sas.com','odaws02-apse1.oda.sas.com'],</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>  <span class="co">#Asia Pacific Home Region 2</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>  <span class="co">#'iomhost' : ['odaws01-apse1-2.oda.sas.com','odaws02-apse1-2.oda.sas.com'],</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>  <span class="st">'iomport'</span> : <span class="dv">8591</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>  <span class="st">'authkey'</span> : <span class="st">'oda'</span>,</span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>  <span class="st">'encoding'</span> : <span class="st">'utf-8'</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>}</span></code></pre></div>
+</li>
+<li>
+<p>Create an <code>authinfo</code> file, which you will be able to
+write your ODA credentials into. Generally, your <code>authinfo</code>
+file will look something like:</p>
+<pre><code>oda user {your username} password {your password}</code></pre>
+</li>
+<li><p>Request that you download the <a href="https://support.sas.com/downloads/package.htm?pid=2494" class="external-link">SAS ODA
+encryption jars</a> into the <code>SASPy</code> package’s
+<code>java/iomclient/</code> folder.</p></li>
+</ul>
+<p>More information about ODA configuration can be found in the <a href="https://sassoftware.github.io/saspy/configuration.html#iom" class="external-link">ODA
 section of <code>SASPy</code> configuration documentation</a>.</p>
 </div>
 </div>
@@ -256,7 +291,7 @@ section of <code>SASPy</code> configuration documentation</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>
