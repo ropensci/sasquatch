@@ -98,7 +98,11 @@ Once you have set up your account, log in and note the ODA server (in the pictur
 
 ### Java installation
 
-ODA relies on the IOM access method, which requires Java. Make sure Java is installed on your system. You can download Java from [their website](https://www.java.com/en/download/). Note the Java installation path.
+ODA relies on the IOM access method, which requires Java. Make sure Java is installed on your system. You can download Java from [their website](https://www.java.com/en/download/). 
+You may also have to install [additional encryption jars](https://support.sas.com/downloads/package.htm?pid=2494) within the `java/iomclient` folder inside of your `SASPy` installation.
+
+**Note:** Adding your java installation to path will help `sasquatch::configure_saspy()` find your Java installation path. Otherwise, note the path so that you can manually enter it 
+within your `sascfg_personal.py` file.
 
 ### Configuration
 
@@ -111,7 +115,32 @@ sasquatch::configure_saspy(template = "oda")
 `config_saspy(template = "oda")` will:
 
 - Create a `sascfg_personal.py` file with all the relevant configuration information.
+  Generally, your `sascfg_personal.py` will look something like:
+  ```python
+  SAS_config_names=['oda']
+  oda = {
+    'java' : 'path_to_java', # replace with your java path
+    # Uncomment the one for your region
+    #US Home Region 1
+    # 'iomhost' : ['odaws01-usw2.oda.sas.com','odaws02-usw2.oda.sas.com','odaws03-usw2.oda.sas.com','odaws04-usw2.oda.sas.com'],
+    #US Home Region 2
+    #'iomhost' : ['odaws01-usw2-2.oda.sas.com','odaws02-usw2-2.oda.sas.com'],
+    #European Home Region 1
+    #'iomhost' : ['odaws01-euw1.oda.sas.com','odaws02-euw1.oda.sas.com'], 
+    #Asia Pacific Home Region 1
+    #'iomhost' : ['odaws01-apse1.oda.sas.com','odaws02-apse1.oda.sas.com'],
+    #Asia Pacific Home Region 2
+    #'iomhost' : ['odaws01-apse1-2.oda.sas.com','odaws02-apse1-2.oda.sas.com'],
+    'iomport' : 8591,
+    'authkey' : 'oda',
+    'encoding' : 'utf-8'
+  }
+  ```
 - Create an `authinfo` file, which you will be able to write your ODA credentials into.
+  Generally, your `authinfo` file will look something like:
+  ```
+  oda user {your username} password {your password}
+  ```
 - Request that you download the [SAS ODA encryption jars](https://support.sas.com/downloads/package.htm?pid=2494) into the `SASPy` package's `java/iomclient/` folder.
 
 More information about ODA configuration can be found in the [ODA section of `SASPy` configuration documentation](https://sassoftware.github.io/saspy/configuration.html#iom).
