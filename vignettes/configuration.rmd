@@ -99,7 +99,7 @@ Once you have set up your account, log in and note the ODA server (in the pictur
 ### Java installation
 
 ODA relies on the IOM access method, which requires Java. Make sure Java is installed on your system. You can download Java from [their website](https://www.java.com/en/download/). 
-You may also have to install [additional encryption jars](https://support.sas.com/downloads/package.htm?pid=2494) within the `java/iomclient` folder inside of your `SASPy` installation.
+ODA also requires you to install [additional encryption jars](https://support.sas.com/downloads/package.htm?pid=2494) within the `java/iomclient` folder inside of your `SASPy` installation.
 
 **Note:** Adding your java installation to path will help `sasquatch::configure_saspy()` find your Java installation path. Otherwise, note the path so that you can manually enter it 
 within your `sascfg_personal.py` file.
