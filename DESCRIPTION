@@ -17,6 +17,8 @@ SystemRequirements:
     python (>= 3.4.0), 
     SASPy,
     java (>= 7) required for IOM access method
+Depends: 
+    R (>= 4.1.0)
 Imports: 
     cli,
     htmlwidgets,
@@ -24,12 +26,12 @@ Imports:
     reticulate,
     rlang (>= 1.1.0),
     rstudioapi
-URL: https://ryanzomorrodi.github.io/sasquatch/, https://github.com/ryanzomorrodi/sasquatch
 Suggests: 
     curl,
     rmarkdown,
     testthat (>= 3.0.0),
     withr
+URL: https://ryanzomorrodi.github.io/sasquatch/, https://github.com/ryanzomorrodi/sasquatch
+BugReports: https://github.com/ryanzomorrodi/sasquatch/issues
 VignetteBuilder: knitr
 Config/testthat/edition: 3
-BugReports: https://github.com/ryanzomorrodi/sasquatch/issues
