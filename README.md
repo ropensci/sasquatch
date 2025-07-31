@@ -22,46 +22,6 @@ together to create reproducible multilingual reports. `sasquatch` can:
 - Conduct basic file management on a SAS client
 - Render html or latex SAS output within quarto/rmarkdown documents.
 
-### Comparison with similar packages
-
-`sasquatch` relies on the
-[`SASPy`](https://sassoftware.github.io/saspy/) Python package and the
-`reticulate` R package to interoperate with Python. There exist similar
-packages, which work similarly to achieve related goals.
-
-[`sasr`](https://CRAN.R-project.org/package=sasr)
-
-- `sasr` works identically to `sasquatch` relying on the `SASPy` Python
-  package to interface with SAS, but does not include any interactive,
-  file management, or quarto functionality.
-
-[`configSAS`](https://github.com/baselr/configSAS)
-
-- Like `sasr` and `sasquatch`, `configSAS` relies on the `SASPy` Python
-  package, but it primarily focuses on solely on `knitr` engine support.
-- The `configSAS` engine HTML output CSS styles interfere with the rest
-  of the document and SAS code output is not contained within a code
-  block.
-- `configSAS` is not actively maintained.
-
-[`SASmarkdown`](https://CRAN.R-project.org/package=SASmarkdown)
-
-- `SASmarkdown` does not rely on the `SASPy` Python package and thus is
-  fairly simple to set up; however, it does require a SAS executable to
-  be installed on the same machine as R.
-- In contrast, `SASPy`-reliant packages can interface with both local
-  and remote SAS installations and can easily pass data between R and
-  SAS without the need for intermediate files.
-
-`sasquatch` may be beneficial to you if you…
-
-- Rely on a remote SAS client  
-- Desire interactive SAS functionality while developing  
-- Require remote SAS file management  
-- Would like to be able to easily send data back and forth between SAS
-  and R  
-  without the use of intermediate files
-
 ## Installation
 
 ### Package installation
@@ -168,12 +128,48 @@ other.
 
 ![](man/figures/run_sas_chunk.gif)
 
+Quarto document contents within the picture:
+
+```` default
+---
+title: Example
+subtitle: isn't this cool!
+format: html
+engine: knitr
+---
+
+```{r}
+library(sasquatch)
+sas_connect()
+```
+
+```{sas}
+PROC MEANS DATA = sashelp.cars;
+RUN;
+```
+````
+
 ### Sending output to viewer
 
 If you want to send the SAS output to the viewer, you can utilize the
 `sas_run_selected()` addin with a custom shortcut.
 
 ![](man/figures/run_sas_selected.gif)
+
+Or with a keyboard shortcut in Positron.
+
+``` json
+{
+    "key": "ctrl+shift+enter",
+    "command": "workbench.action.executeCode.console",
+    "when": "editorTextFocus",
+    "args": {
+        "langId": "r",
+        "code": "sasquatch::sas_run_selected()",
+        "focus": true
+    }
+}
+```
 
 ### Converting tables
 
@@ -190,3 +186,43 @@ And of course, render beautiful HTML or latex quarto/rmarkdown documents
 in the same style you would expect from SAS with the `sas_engine()`.
 
 ![](man/figures/rendered_quarto.png)
+
+## Comparison with similar packages
+
+`sasquatch` relies on the
+[`SASPy`](https://sassoftware.github.io/saspy/) Python package and the
+`reticulate` R package to interoperate with Python. There exist similar
+packages, which work similarly to achieve related goals.
+
+[`sasr`](https://CRAN.R-project.org/package=sasr)
+
+- `sasr` works identically to `sasquatch` relying on the `SASPy` Python
+  package to interface with SAS, but does not include any interactive,
+  file management, or quarto functionality.
+
+[`configSAS`](https://github.com/baselr/configSAS)
+
+- Like `sasr` and `sasquatch`, `configSAS` relies on the `SASPy` Python
+  package, but it primarily focuses on solely on `knitr` engine support.
+- The `configSAS` engine HTML output CSS styles interfere with the rest
+  of the document and SAS code output is not contained within a code
+  block.
+- `configSAS` is not actively maintained.
+
+[`SASmarkdown`](https://CRAN.R-project.org/package=SASmarkdown)
+
+- `SASmarkdown` does not rely on the `SASPy` Python package and thus is
+  fairly simple to set up; however, it does require a SAS executable to
+  be installed on the same machine as R.
+- In contrast, `SASPy`-reliant packages can interface with both local
+  and remote SAS installations and can easily pass data between R and
+  SAS without the need for intermediate files.
+
+`sasquatch` may be beneficial to you if you…
+
+- Rely on a remote SAS client  
+- Desire interactive SAS functionality while developing  
+- Require remote SAS file management  
+- Would like to be able to easily send data back and forth between SAS
+  and R  
+  without the use of intermediate files
