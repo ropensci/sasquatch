@@ -1,0 +1,98 @@
+# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
+# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+name: R-CMD-check.yaml
+
+permissions: read-all
+
+jobs:
+  R-CMD-check:
+    runs-on: ${{ matrix.config.os }}
+
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {os: ubuntu-latest,   r: 'release'}
+
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.config.r }}
+          http-user-agent: ${{ matrix.config.http-user-agent }}
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck
+          needs: check
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'oracle'
+          java-version: '21'
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: install saspy
+        shell: Rscript {0}
+        run: |
+          pak::pkg_install(".")
+          sasquatch::install_saspy()
+
+      - name: setup saspy
+        shell: Rscript {0}
+        env:
+          SAS_ODA_USERNAME: ${{ secrets.SAS_ODA_USERNAME }}
+          SAS_ODA_PASSWORD: ${{ secrets.SAS_ODA_PASSWORD }}
+        run: |
+          oda_username = Sys.getenv("SAS_ODA_USERNAME")
+          oda_password = Sys.getenv("SAS_ODA_PASSWORD")
+          cat(paste("oda user", oda_username,  "password", oda_password), file = "~/.authinfo")
+          saspy_path <- reticulate::py_discover_config("saspy", "r-saspy")$required_module_path
+          cat("SAS_config_names = ['oda']
+          
+          oda = {
+              'java' : '/usr/bin/java',
+              'iomhost' : ['odaws01-usw2-2.oda.sas.com','odaws02-usw2-2.oda.sas.com'],
+              'iomport' : 8591,
+              'encoding' : 'utf-8',
+              'authkey' : 'oda'
+          }", file = paste0(saspy_path, "/sascfg_personal.py"))
+
+      - name: Checkout sasquatch-jars private repo
+        uses: actions/checkout@v4
+        with:
+          repository: ryanzomorrodi/sasquatch-jars
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          path: sasquatch-jars
+
+      - name: Copy JAR files into saspy java/iomclient directory
+        shell: Rscript {0}
+        run: |
+          jar_base <- reticulate::py_discover_config("saspy", "r-saspy")$required_module_path
+          jar_target <- file.path(jar_base, "java", "iomclient")
+          dir.create(jar_target, recursive = TRUE, showWarnings = FALSE)
+          file.copy(list.files("sasquatch-jars", full.names = TRUE, pattern = "\\.jar$"), jar_target, overwrite = TRUE)
+
+      - uses: r-lib/actions/check-r-package@v2
+        with:
+          upload-snapshots: true
+          build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
