@@ -98,13 +98,35 @@ configure_saspy <- function(
 }
 
 get_saspy_path <- function() {
-  python <- reticulate::py_discover_config("saspy", "r-saspy")
-  saspy_path <- python$required_module_path
+  python_config <- reticulate::py_discover_config("saspy", "r-saspy")
+  python_path <- python_config$python
+  saspy_path <- python_config$required_module_path
+
   if (is.null(saspy_path)) {
-    cli::cli_abort(
-      "No SASPy installation found. Use {.fun sasquatch::install_saspy} to install SASPy."
+    cli_python_path <- ifelse(
+      is.null(python_path),
+      "",
+      paste0(" within ", python_path)
     )
+    cli_msg <- c(
+      "x" = "No SASPy installation found{cli_python_path}."
+    )
+    if (!is.null(python_config$forced)) {
+      cli_msg <- c(
+        cli_msg,
+        "i" = "Python version was forced by {python_config$forced}.",
+        "i" = "If SASPy is installed elsewhere, set the Python version with {.fun reticulate::use_python}, {.fun reticulate::use_virtualenv}, {.fun reticulate::use_conda}, or {.fun reticulate::use_miniconda}.",
+        "i" = "Else, use {.fun sasquatch::install_saspy} and {.fun reticulate::use_virtualenv} to install SASPy within a virtual env and set it as your Python version."
+      )
+    } else {
+      cli_msg <- c(
+        cli_msg,
+        "i" = "Use {.fun sasquatch::install_saspy} to install SASPy within a virtual env."
+      )
+    }
+    cli::cli_abort(cli_msg)
   }
+
   saspy_path
 }
 

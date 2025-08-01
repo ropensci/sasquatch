@@ -28,6 +28,8 @@ Use the following function to create a `sascfg_personal.py` templated file.
 sasquatch::configure_saspy()
 ```
 
+**Note**: `sasquatch::configure_saspy()` will configure `reticulate`'s current python version. You may have to run `reticulate::use_virtualenv("r-saspy")` in order to specify that you want to configure that python environment.
+
 This will create a file like the following:
 
 ```{python, eval = FALSE}
@@ -111,6 +113,8 @@ Set up for ODA is super easy. Run `config_saspy()` and follow the prompts.
 ```{r, eval = FALSE}
 sasquatch::configure_saspy(template = "oda")
 ```
+
+**Note**: `sasquatch::configure_saspy()` will configure `reticulate`'s current python version. You may have to run `reticulate::use_virtualenv("r-saspy")` in order to specify that you want to configure that python environment.
 
 `config_saspy(template = "oda")` will:
 

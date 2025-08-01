@@ -10,6 +10,9 @@
   .pkgenv$SASPy <- reticulate::import(
     "saspy",
     delay_load = list(
+      on_error = function(error) {
+        get_saspy_path()
+      },
       environment = "r-saspy"
     )
   )
