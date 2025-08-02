@@ -4,14 +4,48 @@
 \alias{install_saspy}
 \title{Install SASPy package}
 \usage{
-install_saspy(envname = "r-saspy", extra_packages, restart_session = TRUE)
+install_saspy(
+  method = c("auto", "virtualenv", "conda"),
+  conda = "auto",
+  envname = "r-saspy",
+  extra_packages = NULL,
+  restart_session = TRUE,
+  conda_python_version = NULL,
+  ...,
+  pip_ignore_installed = FALSE,
+  new_env = identical(envname, "r-saspy"),
+  python_version = NULL
+)
 }
 \arguments{
-\item{envname}{Name of virtual environment to install SASPy within.}
+\item{method}{By default, \verb{“auto”} automatically finds a method that
+will work in the local environment. Change the default to force a
+specific installation method.}
+
+\item{conda}{The path to a conda executable. Use \code{"auto"} to allow reticulate to automatically find an
+appropriate conda binary.}
+
+\item{envname}{The name, or full path, of the environment in which Python packages are to be installed.}
 
 \item{extra_packages}{Additional packages to install.}
 
 \item{restart_session}{Restart session?}
+
+\item{conda_python_version}{Passed to conda (only applicable if \code{method = "conda"})}
+
+\item{...}{other arguments passed to \code{\link[reticulate:conda-tools]{reticulate::conda_install()}} or \code{\link[reticulate:virtualenv-tools]{reticulate::virtualenv_install()}},
+depending on the \code{method} used.}
+
+\item{pip_ignore_installed}{Should pip ignore installed python packages and reinstall all already installed
+python packages?}
+
+\item{new_env}{If \code{TRUE}, any existing Python virtual environment and/or conda environment specified by
+\code{envname} is deleted first.}
+
+\item{python_version}{Select the Python that will be used to create the virtualenv. Pass a string with
+version constraints like \code{"3.8"}, or \code{">=3.9,<=3.11"} or a file path to a \code{python} executable like
+\code{"/path/to/bin/python3"}. The supplied value is passed on to \code{reticulate::virtualenv_starter()}.
+Note that \code{SASPy} requires a Python version of at least >3.4.}
 }
 \value{
 No return value.
@@ -19,6 +53,8 @@ No return value.
 \description{
 Installs the \code{SASPy} package and its dependencies within a
 virtual Python environment.
+
+Behavior was derived from \code{tensorflow::install_tensorflow()}.
 }
 \examples{
 \dontrun{
