@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">sasquatch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9043</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9045</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,7 +42,10 @@
 <li>Dataset used to show <code><a href="../reference/sas_to_r.html">sas_to_r()</a></code> in <code>README.md</code> changed to <code>warpbreaks</code> and the variable name of the version of <code>"sashelp.cars"</code> was renamed to <code>sas_cars</code>.</li>
 <li>Fixed typo in <code><a href="../reference/configure_saspy.html">configure_saspy()</a></code>. Changed Europe 2 to Europe 1.<br></li>
 <li>Specified <code>rlang</code> imports.<br></li>
-<li>Added a Code of Conduct.</li>
+<li>Added a Code of Conduct.<br></li>
+<li>A more informative error is now shown when a <code>reticulate::use_*</code> function is used for an environment without <code>SASPy</code> installed. (<a href="https://github.com/ryanzomorrodi/sasquatch/issues/11" class="external-link">#11</a>)</li>
+<li>
+<code><a href="../reference/install_saspy.html">install_saspy()</a></code> now supports conda environments. (<a href="https://github.com/ryanzomorrodi/sasquatch/issues/11" class="external-link">#11</a>)</li>
 </ul></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
