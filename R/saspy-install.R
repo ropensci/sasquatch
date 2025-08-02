@@ -26,7 +26,7 @@
 #' @param python_version Select the Python that will be used to create the virtualenv. Pass a string with
 #' version constraints like `"3.8"`, or `">=3.9,<=3.11"` or a file path to a `python` executable like
 #' `"/path/to/bin/python3"`. The supplied value is passed on to `reticulate::virtualenv_starter()`.
-#' Note that `SASPy` requires a Python version of at least >3.4.
+#' Note that `SASPy` requires a Python version of at least >=3.4.
 #'
 #' @return No return value.
 #'

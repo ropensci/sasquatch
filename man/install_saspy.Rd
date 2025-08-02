@@ -45,7 +45,7 @@ python packages?}
 \item{python_version}{Select the Python that will be used to create the virtualenv. Pass a string with
 version constraints like \code{"3.8"}, or \code{">=3.9,<=3.11"} or a file path to a \code{python} executable like
 \code{"/path/to/bin/python3"}. The supplied value is passed on to \code{reticulate::virtualenv_starter()}.
-Note that \code{SASPy} requires a Python version of at least >3.4.}
+Note that \code{SASPy} requires a Python version of at least >=3.4.}
 }
 \value{
 No return value.
