@@ -7,3 +7,5 @@
 - Fixed typo in `configure_saspy()`. Changed Europe 2 to Europe 1.  
 - Specified `rlang` imports.  
 - Added a Code of Conduct.  
+- A more informative error is now shown when a `reticulate::use_*` function is used for an environment without `SASPy` installed. (#11)
+- `install_saspy()` now supports conda environments. (#11)
