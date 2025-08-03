@@ -26,7 +26,7 @@ test_that("existing cfgname establishes connection", {
   skip_on_cran()
   skip_if_offline()
   skip_if_no_saspy_install()
-  skip_if_no_configuration("oda")
+  skip_if_no_configuration("oda", require_jars = TRUE)
   suppressMessages(sas_disconnect())
 
   expect_message(
@@ -44,7 +44,7 @@ test_that("reconnecting warns user if `reconnect = FALSE` and doesn't replace co
   skip_on_cran()
   skip_if_offline()
   skip_if_no_saspy_install()
-  skip_if_no_configuration("oda")
+  skip_if_no_configuration("oda", require_jars = TRUE)
   suppressMessages(sas_disconnect())
 
   suppressMessages(sas_connect(cfgname = "oda"))
@@ -64,7 +64,7 @@ test_that("reconnecting establishes a new connection if `reconnect = TRUE`", {
   skip_on_cran()
   skip_if_offline()
   skip_if_no_saspy_install()
-  skip_if_no_configuration("oda")
+  skip_if_no_configuration("oda", require_jars = TRUE)
   suppressMessages(sas_disconnect())
 
   suppressMessages(sas_connect(cfgname = "oda"))
@@ -87,7 +87,7 @@ test_that("default connection establishes connection", {
   skip_on_cran()
   skip_if_offline()
   skip_if_no_saspy_install()
-  skip_if_no_configuration("oda")
+  skip_if_no_configuration("oda", require_jars = TRUE)
   suppressMessages(sas_disconnect())
 
   expect_message(sas_connect(), "SAS connection established.", fixed = TRUE)
