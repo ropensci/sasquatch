@@ -43,7 +43,7 @@ sas_to_r <- function(table_name, libref = "WORK") {
     col[is.nan(col)] <- NA
     col
   }))
-  date_cols <- sapply(x, \(col) inherits(col, "POSIXct"))
+  date_cols <- vapply(x, \(col) inherits(col, "POSIXct"))
   x[date_cols] <- lapply(x[date_cols], function(col) {
     as.POSIXct(format(col, tz = "UTC"))
   })

@@ -53,10 +53,10 @@
     )
     x_split[graphics_rows] <- paste0(
       "![](",
-      sapply(picture_urls, knitr::image_uri),
+      vapply(picture_urls, knitr::image_uri, FUN.VALUE = character()),
       ")"
     )
-    sapply(picture_urls, file.remove)
+    lapply(picture_urls, file.remove)
 
     paste(x_split, collapse = "\n")
   })

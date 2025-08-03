@@ -6,7 +6,7 @@ sas_widget <- function(
   elementId = NULL
 ) {
   # forward options using x
-  x = list(
+  x <- list(
     lst = lst,
     log = log
   )

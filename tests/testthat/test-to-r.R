@@ -12,7 +12,7 @@ test_that("double should not be altered", {
 
   expect_equal(sas_to_r("x"), x)
 
-  x$a[sample(1:nrow(x), 100)] <- NA
+  x$a[sample(seq_len(nrow(x)), 100)] <- NA
   sas_from_r(x, "x")
 
   expect_equal(sas_to_r("x"), x)
@@ -34,7 +34,7 @@ test_that("integer should become a double", {
 
   expect_equal(sas_to_r("x"), x)
 
-  x$a[sample(1:nrow(x), 100)] <- NA
+  x$a[sample(seq_len(nrow(x)), 100)] <- NA
   sas_from_r(x, "x")
   x_expected <- x
   x_expected$a <- as.double(x_expected$a)
@@ -58,7 +58,7 @@ test_that("logical should become a double", {
 
   expect_equal(sas_to_r("x"), x_expected)
 
-  x$a[sample(1:nrow(x), 100)] <- NA
+  x$a[sample(seq_len(nrow(x)), 100)] <- NA
   sas_from_r(x, "x")
   x_expected <- x
   x_expected$a <- as.double(x_expected$a)
@@ -82,7 +82,7 @@ test_that("character should not be altered", {
 
   expect_equal(sas_to_r("x"), x)
   
-  x$a[sample(1:nrow(x), 100)] <- NA
+  x$a[sample(seq_len(nrow(x)), 100)] <- NA
   sas_from_r(x, "x")
   
   expect_equal(sas_to_r("x"), x)
@@ -107,7 +107,7 @@ test_that("factor should become a character", {
 
   expect_equal(sas_to_r("x"), x_expected)
   
-  x$a[sample(1:nrow(x), 100)] <- NA
+  x$a[sample(seq_len(nrow(x)), 100)] <- NA
   sas_from_r(x, "x")
   x_expected <- x
   x_expected$a <- as.character(x_expected$a)
@@ -131,7 +131,7 @@ test_that("POSIXct with local time should not be altered", {
 
   expect_equal(sas_to_r("x"), x)
   
-  x$a[sample(1:nrow(x), 100)] <- NA
+  x$a[sample(seq_len(nrow(x)), 100)] <- NA
   sas_from_r(x, "x")
   
   expect_equal(sas_to_r("x"), x)
@@ -157,7 +157,7 @@ test_that("POSIXct with non-local timezone should lose its timezone", {
 
   expect_equal(sas_to_r("x"), x_expected)
   
-  x$a[sample(1:nrow(x), 100)] <- NA
+  x$a[sample(seq_len(nrow(x)), 100)] <- NA
   sas_from_r(x, "x")
   x_expected <- x
   x_expected$a <- as.POSIXct(format(x_expected$a))
@@ -183,7 +183,7 @@ test_that("Dates should become a POSIXct", {
 
   expect_equal(sas_to_r("x"), x_expected)
   
-  x$a[sample(1:nrow(x), 100)] <- NA
+  x$a[sample(seq_len(nrow(x)), 100)] <- NA
   sas_from_r(x, "x")
   x_expected <- x
   x_expected$a <- as.POSIXct(format(x_expected$a))

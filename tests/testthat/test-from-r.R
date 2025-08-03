@@ -4,7 +4,7 @@ test_that("double should not be altered", {
 
   expect_equal(x, from_r_data(x))
 
-  x$a[sample(1:nrow(x), 100)] <- NA
+  x$a[sample(seq_len(nrow(x)), 100)] <- NA
 
   expect_equal(from_r_data(x), x)
 })
@@ -16,7 +16,7 @@ test_that("integer should become a double", {
 
   expect_equal(from_r_data(x), x_expected)
 
-  x$a[sample(1:nrow(x), 100)] <- NA
+  x$a[sample(seq_len(nrow(x)), 100)] <- NA
   x_expected <- x
   x_expected$a <- as.double(x_expected$a)
 
@@ -30,7 +30,7 @@ test_that("logical should become a double", {
 
   expect_equal(from_r_data(x), x_expected)
 
-  x$a[sample(1:nrow(x), 100)] <- NA
+  x$a[sample(seq_len(nrow(x)), 100)] <- NA
   x_expected <- x
   x_expected$a <- as.double(x_expected$a)
 
@@ -44,7 +44,7 @@ test_that("character should not be altered", {
 
   expect_equal(from_r_data(x), x)
 
-  x$a[sample(1:nrow(x), 100)] <- NA
+  x$a[sample(seq_len(nrow(x)), 100)] <- NA
 
   expect_equal(from_r_data(x), x)
 })
@@ -62,7 +62,7 @@ test_that("factor should become a character", {
 
   expect_equal(from_r_data(x), x_expected)
 
-  x$a[sample(1:nrow(x), 100)] <- NA
+  x$a[sample(seq_len(nrow(x)), 100)] <- NA
   x_expected <- x
   x_expected$a <- as.character(x_expected$a)
 
@@ -80,7 +80,7 @@ test_that("POSIXct should be converted to UTC", {
 
   expect_equal(from_r_data(x), x_expected)
 
-  x$a[sample(1:nrow(x), 100)] <- NA
+  x$a[sample(seq_len(nrow(x)), 100)] <- NA
   x_expected <- x
   x_expected$a <- as.POSIXct(format(x_expected$a), tz = "UTC")
 
@@ -96,7 +96,7 @@ test_that("date should become a POSIXct", {
 
   expect_equal(from_r_data(x), x_expected)
 
-  x$a[sample(1:nrow(x), 100)] <- NA
+  x$a[sample(seq_len(nrow(x)), 100)] <- NA
   x_expected <- x
   x_expected$a <- as.POSIXct(x_expected$a)
 
@@ -120,8 +120,7 @@ test_that("date should be added to date dict", {
 })
 
 test_that("only the right types are allowed to be transfered", {
-  local_mocked_bindings(check_session = function() {
-  })
+  local_mocked_bindings(check_session = function() {})
 
   expect_snapshot(
     sas_from_r(list2DF(
@@ -160,8 +159,7 @@ test_that("only the right types are allowed to be transfered", {
 })
 
 test_that("colnames must start with a latin letter", {
-  local_mocked_bindings(check_session = function() {
-  })
+  local_mocked_bindings(check_session = function() {})
 
   expect_snapshot(
     sas_from_r(list2DF(list(int = 1, `1` = 1)), "test"),
@@ -183,8 +181,7 @@ test_that("colnames must start with a latin letter", {
 })
 
 test_that("colnames must be less or equal than 32 bytes", {
-  local_mocked_bindings(check_session = function() {
-  })
+  local_mocked_bindings(check_session = function() {})
 
   expect_snapshot(
     sas_from_r(
@@ -226,8 +223,7 @@ test_that("colnames must be less or equal than 32 bytes", {
 })
 
 test_that("colnames must be less or equal than 32 bytes", {
-  local_mocked_bindings(check_session = function() {
-  })
+  local_mocked_bindings(check_session = function() {})
 
   expect_snapshot(
     sas_from_r(

@@ -63,12 +63,21 @@ sas_from_r <- function(x, table_name, libref = "WORK") {
 }
 
 from_r_data <- function(x) {
-  numeric_cols <- sapply(x, is.integer) | sapply(x, is.logical)
+  numeric_cols <- vapply(x, is.integer, FUN.VALUE = logical(1)) |
+    vapply(x, is.logical, FUN.VALUE = logical(1))
   x[numeric_cols] <- lapply(x[numeric_cols], as.double)
-  factor_cols <- sapply(x, is.factor)
+  factor_cols <- vapply(x, is.factor, FUN.VALUE = logical(1))
   x[factor_cols] <- lapply(x[factor_cols], as.character)
-  date_cols <- sapply(x, \(col) identical(class(col), "Date"))
-  posix_cols <- sapply(x, \(col) inherits(col, "POSIXct"))
+  date_cols <- vapply(
+    x,
+    \(col) identical(class(col), "Date"),
+    FUN.VALUE = logical(1)
+  )
+  posix_cols <- vapply(
+    x,
+    \(col) inherits(col, "POSIXct"),
+    FUN.VALUE = logical(1)
+  )
   x[date_cols | posix_cols] <- lapply(
     x[date_cols | posix_cols],
     \(col) as.POSIXct(format(col), tz = "UTC")
@@ -78,7 +87,11 @@ from_r_data <- function(x) {
 }
 
 from_r_datetypes <- function(x) {
-  date_cols <- sapply(x, \(col) identical(class(col), "Date"))
+  date_cols <- vapply(
+    x,
+    \(col) identical(class(col), "Date"),
+    FUN.VALUE = logical(1)
+  )
 
   date_colnames <- colnames(x)[date_cols]
   date_list <- as.list(rep("date", length(date_colnames)))
@@ -98,9 +111,13 @@ check_has_sas_valid_datatypes <- function(x, call = rlang::caller_env()) {
     "Date"
   )
 
-  invalid_cols <- sapply(x, function(col) {
-    !(class(col)[1] %in% valid_classes)
-  })
+  invalid_cols <- vapply(
+    x,
+    function(col) {
+      !(class(col)[1] %in% valid_classes)
+    },
+    FUN.VALUE = logical(1)
+  )
   invalid_colnames <- colnames(x)[invalid_cols]
   n_invalid <- length(invalid_colnames)
 
@@ -118,9 +135,13 @@ check_has_sas_valid_datatypes <- function(x, call = rlang::caller_env()) {
 }
 
 check_has_sas_valid_colnames <- function(x, call = rlang::caller_env()) {
-  invalid_cols <- sapply(colnames(x), function(colname) {
-    !(substring(colname, 1, 1) %in% c(LETTERS, letters))
-  })
+  invalid_cols <- vapply(
+    colnames(x),
+    function(colname) {
+      !(substring(colname, 1, 1) %in% c(LETTERS, letters))
+    },
+    FUN.VALUE = logical(1)
+  )
   invalid_colnames <- colnames(x)[invalid_cols]
   n_invalid <- length(invalid_colnames)
 
@@ -135,9 +156,13 @@ check_has_sas_valid_colnames <- function(x, call = rlang::caller_env()) {
     call = call
   )
 
-  invalid_cols <- sapply(colnames(x), function(colname) {
-    nchar(colname, type = "bytes") > 32
-  })
+  invalid_cols <- vapply(
+    colnames(x),
+    function(colname) {
+      nchar(colname, type = "bytes") > 32
+    },
+    FUN.VALUE = logical(1)
+  )
   invalid_colnames <- colnames(x)[invalid_cols]
   n_invalid <- length(invalid_colnames)
 
@@ -152,13 +177,21 @@ check_has_sas_valid_colnames <- function(x, call = rlang::caller_env()) {
     call = call
   )
 
-  invalid_cols <- sapply(colnames(x), function(colname) {
-    !grepl("^[a-zA-Z0-9_]*$", colname)
-  })
+  invalid_cols <- vapply(
+    colnames(x),
+    function(colname) {
+      !grepl("^[a-zA-Z0-9_]*$", colname)
+    },
+    FUN.VALUE = logical(1)
+  )
   invalid_colnames <- colnames(x)[invalid_cols]
-  invalid_chars <- sapply(invalid_colnames, function(colname) {
-    substring(gsub("[a-zA-Z0-9_]", "", colname), 1, 1)
-  })
+  invalid_chars <- vapply(
+    invalid_colnames,
+    function(colname) {
+      substring(gsub("[a-zA-Z0-9_]", "", colname), 1, 1)
+    },
+    FUN.VALUE = character(1)
+  )
   n_invalid <- length(invalid_colnames)
 
   cli_multiple_problems(
@@ -190,9 +223,13 @@ cli_multiple_problems <- function(
     assign(var_name, items[[var_name]])
   }
 
-  err_msg <- sapply(1:min(max_alerts, n_invalid), function(col_idx) {
-    sprintf(alert, col_idx, col_idx)
-  })
+  err_msg <- vapply(
+    1:min(max_alerts, n_invalid),
+    function(col_idx) {
+      sprintf(alert, col_idx, col_idx)
+    },
+    FUN.VALUE = character(1)
+  )
   names(err_msg) <- rep("x", length(err_msg))
   err_msg <- c(rule, err_msg)
   if (n_invalid > max_alerts) {

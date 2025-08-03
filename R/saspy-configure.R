@@ -166,7 +166,7 @@ ask_oda_server <- function() {
   )
 
   cli::cli_inform("Which server is your account on?")
-  server_num = utils::menu(
+  server_num <- utils::menu(
     names(oda_servers)
   )
   if (server_num == 0L) {
@@ -225,13 +225,17 @@ write_sascfg_personal <- function(
     "SAS_config_names = ",
     reticulate::r_to_py(list(names(configs)))
   )
-  config_dicts <- sapply(names(configs), function(config_name) {
-    paste(
-      config_name,
-      "=",
-      as.character(reticulate::dict(configs[[config_name]]))
-    )
-  })
+  config_dicts <- vapply(
+    names(configs),
+    function(config_name) {
+      paste(
+        config_name,
+        "=",
+        as.character(reticulate::dict(configs[[config_name]]))
+      )
+    },
+    FUN.VALUE = character(1)
+  )
   contents <- paste(
     config_list,
     paste(config_dicts, collapse = "\n\n"),
