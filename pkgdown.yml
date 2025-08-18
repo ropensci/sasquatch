@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   configuration: configuration.html
   overview: overview.html
-last_built: 2025-08-03T19:21Z
+last_built: 2025-08-18T17:30Z
 urls:
-  reference: https://ryanzomorrodi.github.io/sasquatch/reference
-  article: https://ryanzomorrodi.github.io/sasquatch/articles
+  reference: https://docs.ropensci.org/sasquatch/reference
+  article: https://docs.ropensci.org/sasquatch/articles
