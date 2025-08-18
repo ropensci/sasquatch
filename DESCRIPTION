@@ -31,7 +31,7 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0),
     withr
-URL: https://ryanzomorrodi.github.io/sasquatch/, https://github.com/ryanzomorrodi/sasquatch
-BugReports: https://github.com/ryanzomorrodi/sasquatch/issues
+URL: https://docs.ropensci.org/sasquatch, https://github.com/ropensci/sasquatch
+BugReports: https://github.com/ropensci/sasquatch/issues
 VignetteBuilder: knitr
 Config/testthat/edition: 3

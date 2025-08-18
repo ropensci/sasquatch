@@ -1,11 +1,6 @@
-url: https://ryanzomorrodi.github.io/sasquatch/
+url: https://docs.ropensci.org/sasquatch
 project:
   render: ['*.qmd']
-template:
-  bootstrap: 5
-  bslib:
-    bg: "#edf2f9"
-    fg: "#112277"
 navbar:
   components:
     configuration:

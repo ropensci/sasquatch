@@ -4,7 +4,7 @@
   "identifier": "sasquatch",
   "description": "Use R and 'SAS' within reproducible multilingual 'quarto' documents. Run 'SAS' code blocks interactively, send data back and forth between 'SAS' and R, and render 'SAS' output within quarto documents. 'SAS' connections are established through a combination of 'SASPy' and 'reticulate'.",
   "name": "sasquatch: Use 'SAS', R, and 'quarto' together",
-  "codeRepository": "https://github.com/ryanzomorrodi/sasr",
+  "codeRepository": "https://github.com/ropensci/sasquatch",
   "license": "https://spdx.org/licenses/MIT",
   "version": "0.0.0.9000",
   "programmingLanguage": {
@@ -119,7 +119,7 @@
     "SystemRequirements": "\n    python (>= 3.0.0), \n    SASPy,\n    java (>= 7) required for IOM access method"
   },
   "fileSize": "3047.614KB",
-  "relatedLink": "https://ryanzomorrodi.github.io/sasquatch/",
-  "readme": "https://github.com/ryanzomorrodi/sasquatch/blob/main/README.md",
-  "contIntegration": "https://github.com/ryanzomorrodi/sasr/actions/workflows/R-CMD-check.yaml"
+  "relatedLink": "https://docs.ropensci.org/sasquatch/",
+  "readme": "https://github.com/ropensci/sasquatch/blob/main/README.md",
+  "contIntegration": "https://github.com/ropensci/sasquatch/actions/workflows/R-CMD-check.yaml"
 }

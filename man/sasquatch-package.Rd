@@ -13,9 +13,9 @@ Use R and 'SAS' within reproducible multilingual 'quarto' documents. Run 'SAS' c
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://ryanzomorrodi.github.io/sasquatch/}
-  \item \url{https://github.com/ryanzomorrodi/sasquatch}
-  \item Report bugs at \url{https://github.com/ryanzomorrodi/sasquatch/issues}
+  \item \url{https://docs.ropensci.org/sasquatch}
+  \item \url{https://github.com/ropensci/sasquatch}
+  \item Report bugs at \url{https://github.com/ropensci/sasquatch/issues}
 }
 
 }

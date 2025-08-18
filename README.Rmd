@@ -16,9 +16,7 @@ knitr::opts_chunk$set(
 # sasquatch
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/ryanzomorrodi/sasquatch/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ryanzomorrodi/sasquatch/actions/workflows/R-CMD-check.yaml)
-[![Codecov test
-coverage](https://codecov.io/gh/ryanzomorrodi/sasquatch/branch/main/graph/badge.svg)](https://app.codecov.io/gh/ryanzomorrodi/sasquatch?branch=main)
+[![R-CMD-check](https://github.com/ropensci/sasquatch/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ropensci/sasquatch/actions/workflows/R-CMD-check.yaml)
 [![Status at rOpenSci Software Peer Review](https://badges.ropensci.org/673_status.svg)](https://github.com/ropensci/software-review/issues/673)
 <!-- badges: end -->
 
@@ -39,8 +37,13 @@ to create reproducible multilingual reports. `sasquatch` can:
 You can install the development version of sasquatch like so:
 
 ```{r eval = FALSE}
+install.packages(
+  "sasquatch",
+  repos = c('https://ropensci.r-universe.dev', 'https://cloud.r-project.org')
+)
+# or
 # install.packages("pak")
-pak::pkg_install("ryanzomorrodi/sasquatch")
+pak::pkg_install("ropensci/sasquatch")
 ```
 
 ### Python installation
@@ -213,3 +216,9 @@ for intermediate files.
 * Require remote SAS file management  
 * Would like to be able to easily send data back and forth between SAS and R   
 without the use of intermediate files  
+
+## Contributing
+
+Please note that this package is released with a [Contributor
+Code of Conduct](https://ropensci.org/code-of-conduct/). 
+By contributing to this project, you agree to abide by its terms.

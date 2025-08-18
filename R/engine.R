@@ -147,11 +147,12 @@ wrap_in_panel_tabset <- function(lst, log) {
 
   lapply(
     output_files,
-    \(file)
+    \(file) {
       .sas_file_download(
         file.path(".sasquatch", file),
         paste0(sas_path, "/", file)
       )
+    }
   )
   lapply(
     output_files,

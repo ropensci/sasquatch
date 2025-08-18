@@ -1,0 +1,16 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Open Evcxr REPL",
+            "type": "shell",
+            "command": "evcxr",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "group": "evcxr"
+            }
+        }
+    ]
+}

@@ -17,7 +17,7 @@ See the tidyverse guide on [how to create a great issue](https://code-review.tid
 
 ### Pull request process
 
-*   Fork the package and clone onto your computer. If you haven't done this before, we recommend using `usethis::create_from_github("ryanzomorrodi/sasquatch", fork = TRUE)`.
+*   Fork the package and clone onto your computer. If you haven't done this before, we recommend using `usethis::create_from_github("ropensci/sasquatch", fork = TRUE)`.
 
 *   Install all development dependencies with `devtools::install_dev_deps()`.
 *   Install Python (we recommend `reticulate::install_python()`) or Java if not already installed.
