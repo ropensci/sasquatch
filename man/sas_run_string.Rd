@@ -4,10 +4,17 @@
 \alias{sas_run_string}
 \title{Execute SAS code string}
 \usage{
-sas_run_string(input)
+sas_run_string(input, capture = "both", height = "auto", width = "auto")
 }
 \arguments{
 \item{input}{string; SAS code to run.}
+
+\item{capture}{If \code{"both"}, tabpanel with output and log included. If
+\code{"listing"}, only output is included. If \code{"log"} only log is included.}
+
+\item{height}{string; The height of the SAS output.}
+
+\item{width}{string; The width of the SAS output.}
 }
 \value{
 \code{htmlwidget}; HTML5 output.

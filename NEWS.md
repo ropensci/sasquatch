@@ -1,5 +1,10 @@
 # sasquatch (development version)
 
+## Features
+
+- Added `out.height` and `out.width` arguments to HTML engine. HTML engine now returns an htmlwidget (#13)
+- Added `capture`, `height`, `width` to `sas_run_string()`. (#13)
+
 ## rOpenSci Review Changes
 
 - `configure_saspy()` no longer asks that users type in their SAS ODA username and password within the terminal. See `vignette("secrets", "httr")`.  

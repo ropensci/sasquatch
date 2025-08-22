@@ -30,6 +30,8 @@ the output (\code{TRUE} or \code{FALSE}).
 \item \code{include} (Default: \code{TRUE}): Include any output (code or results).
 \item \code{capture} (Only within HTML; Default: \code{"both"}): If \code{"both"}, tabpanel with output and log
 included. If \code{"listing"}, only output is included. If \code{"log"} only log is included.
+\item \code{out.width} (Only within HTML; Default: \code{"auto"}): Width of output.
+\item \code{out.height} (Only within HTML; Default: \code{"auto"}): Height of output.
 }
 }
 }

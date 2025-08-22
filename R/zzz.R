@@ -29,35 +29,27 @@
       )
       class(sas_style_dependency) <- "latex_dependency"
       knitr::knit_meta_add(list(sas_style_dependency))
-    }
 
-    resizer_url <- system.file(
-      "htmlwidgets/lib/resize-iframes/resize-iframes.js",
-      package = "sasquatch"
-    )
-    resizer_code <- paste(readLines(resizer_url), collapse = "\n")
-    resizer_script <- paste("<script>", resizer_code, "</script>", sep = "\n")
-
-    iframe_start <- "<iframe width = '100%' class='resizable-iframe'"
-    x <- sub(iframe_start, paste0(resizer_script, iframe_start), x)
-
-    x_split <- unlist(strsplit(x, "\n"))
-    graphics_rows <- grepl("\\includegraphics{", x_split, fixed = TRUE)
-    picture_urls <- regmatches(
-      x_split[graphics_rows],
-      m = regexpr(
-        "(?<=\\\\includegraphics\\{)(.*)(?=\\}$)",
+      x_split <- unlist(strsplit(x, "\n"))
+      graphics_rows <- grepl("\\includegraphics{", x_split, fixed = TRUE)
+      picture_urls <- regmatches(
         x_split[graphics_rows],
-        perl = TRUE
+        m = regexpr(
+          "(?<=\\\\includegraphics\\{)(.*)(?=\\}$)",
+          x_split[graphics_rows],
+          perl = TRUE
+        )
       )
-    )
-    x_split[graphics_rows] <- paste0(
-      "![](",
-      vapply(picture_urls, knitr::image_uri, FUN.VALUE = character()),
-      ")"
-    )
-    lapply(picture_urls, file.remove)
+      x_split[graphics_rows] <- paste0(
+        "![](",
+        vapply(picture_urls, knitr::image_uri, FUN.VALUE = character()),
+        ")"
+      )
+      lapply(picture_urls, file.remove)
 
-    paste(x_split, collapse = "\n")
+      paste(x_split, collapse = "\n")
+    } else {
+      x
+    }
   })
 }
