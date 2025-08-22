@@ -4,7 +4,7 @@
 #' Execute SAS code in current session and render html output.
 #'
 #' @param input string; SAS code to run.
-#' @param capture If `"both"`, tabpanel with output and log included. If
+#' @param capture string; If `"both"`, tabpanel with output and log included. If
 #' `"listing"`, only output is included. If `"log"` only log is included.
 #' @param height string; The height of the SAS output.
 #' @param width string; The width of the SAS output.
