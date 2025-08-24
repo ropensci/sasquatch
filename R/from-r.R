@@ -52,10 +52,14 @@ sas_from_r <- function(
   date_dict <- from_r_datedict(x)
   factor_dict <- reticulate::dict()
   if (!factors_as_strings) {
-    from_r_factordict(x, libref)
+    factor_dict <- from_r_factordict(x, libref)
   }
 
-  .sas_from_r(x_data, table_name, libref, date_dict, factor_dict)
+  execute_if_connection_active(
+    reticulate::py_capture_output(
+      .sas_from_r(x_data, table_name, libref, date_dict, factor_dict)
+    )
+  )
 
   invisible(x)
 }
@@ -126,7 +130,11 @@ from_r_factordict <- function(x, libref) {
 
   format_statements <- paste0(format_dataframe$statement, collapse = "\n\n")
 
-  .sas_run_string(format_statements)
+  execute_if_connection_active(
+    reticulate::py_capture_output(
+      .sas_run_string(format_statements)
+    )
+  )
 
   reticulate::py_dict(
     factor_col_names,
