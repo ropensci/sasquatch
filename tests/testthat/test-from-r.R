@@ -2,11 +2,11 @@
 test_that("double should not be altered", {
   x <- data.frame(a = runif(1000, min = -1, max = 1))
 
-  expect_equal(x, from_r_data(x))
+  expect_equal(x, from_r_data(x, factors_as_strings = TRUE))
 
   x$a[sample(seq_len(nrow(x)), 100)] <- NA
 
-  expect_equal(from_r_data(x), x)
+  expect_equal(from_r_data(x, factors_as_strings = TRUE), x)
 })
 
 test_that("integer should become a double", {
@@ -14,13 +14,13 @@ test_that("integer should become a double", {
   x_expected <- x
   x_expected$a <- as.double(x_expected$a)
 
-  expect_equal(from_r_data(x), x_expected)
+  expect_equal(from_r_data(x, factors_as_strings = TRUE), x_expected)
 
   x$a[sample(seq_len(nrow(x)), 100)] <- NA
   x_expected <- x
   x_expected$a <- as.double(x_expected$a)
 
-  expect_equal(from_r_data(x), x_expected)
+  expect_equal(from_r_data(x, factors_as_strings = TRUE), x_expected)
 })
 
 test_that("logical should become a double", {
@@ -28,13 +28,13 @@ test_that("logical should become a double", {
   x_expected <- x
   x_expected$a <- as.double(x_expected$a)
 
-  expect_equal(from_r_data(x), x_expected)
+  expect_equal(from_r_data(x, factors_as_strings = TRUE), x_expected)
 
   x$a[sample(seq_len(nrow(x)), 100)] <- NA
   x_expected <- x
   x_expected$a <- as.double(x_expected$a)
 
-  expect_equal(from_r_data(x), x_expected)
+  expect_equal(from_r_data(x, factors_as_strings = TRUE), x_expected)
 })
 
 test_that("character should not be altered", {
@@ -42,14 +42,14 @@ test_that("character should not be altered", {
     a = sample(c("apple", "pear", "orange", "cherry"), 1000, replace = TRUE)
   )
 
-  expect_equal(from_r_data(x), x)
+  expect_equal(from_r_data(x, factors_as_strings = TRUE), x)
 
   x$a[sample(seq_len(nrow(x)), 100)] <- NA
 
-  expect_equal(from_r_data(x), x)
+  expect_equal(from_r_data(x, factors_as_strings = TRUE), x)
 })
 
-test_that("factor should become a character", {
+test_that("factor as character", {
   x <- data.frame(
     a = as.factor(sample(
       c("apple", "pear", "orange", "cherry"),
@@ -60,13 +60,33 @@ test_that("factor should become a character", {
   x_expected <- x
   x_expected$a <- as.character(x_expected$a)
 
-  expect_equal(from_r_data(x), x_expected)
+  expect_equal(from_r_data(x, factors_as_strings = TRUE), x_expected)
 
   x$a[sample(seq_len(nrow(x)), 100)] <- NA
   x_expected <- x
   x_expected$a <- as.character(x_expected$a)
 
-  expect_equal(from_r_data(x), x_expected)
+  expect_equal(from_r_data(x, factors_as_strings = TRUE), x_expected)
+})
+
+test_that("factor as format (numeric)", {
+  x <- data.frame(
+    a = as.factor(sample(
+      c("apple", "pear", "orange", "cherry"),
+      1000,
+      replace = TRUE
+    ))
+  )
+  x_expected <- x
+  x_expected$a <- as.numeric(x_expected$a)
+
+  expect_equal(from_r_data(x, factors_as_strings = FALSE), x_expected)
+
+  x$a[sample(seq_len(nrow(x)), 100)] <- NA
+  x_expected <- x
+  x_expected$a <- as.numeric(x_expected$a)
+
+  expect_equal(from_r_data(x, factors_as_strings = FALSE), x_expected)
 })
 
 test_that("POSIXct should be converted to UTC", {
@@ -78,13 +98,13 @@ test_that("POSIXct should be converted to UTC", {
   x_expected <- x
   x_expected$a <- as.POSIXct(format(x_expected$a), tz = "UTC")
 
-  expect_equal(from_r_data(x), x_expected)
+  expect_equal(from_r_data(x, factors_as_strings = TRUE), x_expected)
 
   x$a[sample(seq_len(nrow(x)), 100)] <- NA
   x_expected <- x
   x_expected$a <- as.POSIXct(format(x_expected$a), tz = "UTC")
 
-  expect_equal(from_r_data(x), x_expected)
+  expect_equal(from_r_data(x, factors_as_strings = TRUE), x_expected)
 })
 
 test_that("date should become a POSIXct", {
@@ -94,13 +114,13 @@ test_that("date should become a POSIXct", {
   x_expected <- x
   x_expected$a <- as.POSIXct(x_expected$a)
 
-  expect_equal(from_r_data(x), x_expected)
+  expect_equal(from_r_data(x, factors_as_strings = TRUE), x_expected)
 
   x$a[sample(seq_len(nrow(x)), 100)] <- NA
   x_expected <- x
   x_expected$a <- as.POSIXct(x_expected$a)
 
-  expect_equal(from_r_data(x), x_expected)
+  expect_equal(from_r_data(x, factors_as_strings = TRUE), x_expected)
 })
 
 test_that("date should be added to date dict", {
@@ -114,7 +134,7 @@ test_that("date should be added to date dict", {
   )
 
   expect_equal(
-    from_r_datetypes(x),
+    reticulate::py_to_r(from_r_datedict(x)),
     date_dict_expected
   )
 })

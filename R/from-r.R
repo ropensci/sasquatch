@@ -8,6 +8,8 @@
 #' @param x `data.frame`; R table.
 #' @param table_name string; Name of table to be created in SAS.
 #' @param libref string; Name of libref to store SAS table within.
+#' @param factors_as_strings logical; If `TRUE`, factors will become SAS strings.
+#' Else, factors will become formatted numerics.
 #'
 #' @details
 #' SAS only has two data types (numeric and character). Data types are converted
@@ -31,7 +33,12 @@
 #' sas_connect()
 #' sas_from_r(mtcars, "mtcars")
 #' }
-sas_from_r <- function(x, table_name, libref = "WORK") {
+sas_from_r <- function(
+  x,
+  table_name,
+  libref = "WORK",
+  factors_as_strings = TRUE
+) {
   check_session()
   check_data_frame(x)
   check_has_sas_valid_datatypes(x)
@@ -39,35 +46,40 @@ sas_from_r <- function(x, table_name, libref = "WORK") {
   check_has_rownames(x)
   check_string(table_name)
   check_string(libref)
+  check_logical(factors_as_strings)
 
-  x_data <- from_r_data(x)
-  x_datetypes <- from_r_datetypes(x)
-  date_dict <- do.call(what = reticulate::dict, x_datetypes)
+  x_data <- from_r_data(x, factors_as_strings)
+  date_dict <- from_r_datedict(x)
+  factor_dict <- reticulate::dict()
+  if (!factors_as_strings) {
+    from_r_factordict(x, libref)
+  }
 
-  execute_if_connection_active(
-    reticulate::py_capture_output(
-      .sas_from_r(x_data, table_name, libref, date_dict)
-    )
-  )
+  .sas_from_r(x_data, table_name, libref, date_dict, factor_dict)
 
   invisible(x)
 }
 
-.sas_from_r <- function(x, table_name, libref, date_dict) {
+.sas_from_r <- function(x, table_name, libref, date_dict, factor_dict) {
   .pkgenv$session$dataframe2sasdata(
     x,
     table_name,
     libref,
-    datetimes = date_dict
+    datetimes = date_dict,
+    outfmts = factor_dict
   )
 }
 
-from_r_data <- function(x) {
+from_r_data <- function(x, factors_as_strings) {
   numeric_cols <- vapply(x, is.integer, FUN.VALUE = logical(1)) |
     vapply(x, is.logical, FUN.VALUE = logical(1))
   x[numeric_cols] <- lapply(x[numeric_cols], as.double)
   factor_cols <- vapply(x, is.factor, FUN.VALUE = logical(1))
-  x[factor_cols] <- lapply(x[factor_cols], as.character)
+  if (factors_as_strings) {
+    x[factor_cols] <- lapply(x[factor_cols], as.character)
+  } else {
+    x[factor_cols] <- lapply(x[factor_cols], as.numeric)
+  }
   date_cols <- vapply(
     x,
     \(col) identical(class(col), "Date"),
@@ -86,7 +98,7 @@ from_r_data <- function(x) {
   x
 }
 
-from_r_datetypes <- function(x) {
+from_r_datedict <- function(x) {
   date_cols <- vapply(
     x,
     \(col) identical(class(col), "Date"),
@@ -97,8 +109,62 @@ from_r_datetypes <- function(x) {
   date_list <- as.list(rep("date", length(date_colnames)))
   names(date_list) <- date_colnames
 
-  date_list
+  do.call(reticulate::dict, date_list)
 }
+
+from_r_factordict <- function(x, libref) {
+  is_factor_col <- vapply(x, is.factor, logical(1))
+  factor_col_names <- names(x)[is_factor_col]
+
+  format_dataframe <- lapply(
+    factor_col_names,
+    function(col_name) {
+      generate_format_string(x, col_name, libref)
+    }
+  ) |>
+    do.call(what = rbind.data.frame)
+
+  format_statements <- paste0(format_dataframe$statement, collapse = "\n\n")
+
+  .sas_run_string(format_statements)
+
+  reticulate::py_dict(
+    factor_col_names,
+    paste0(format_dataframe$name, ".")
+  )
+}
+
+generate_format_string <- function(x, colname, libref) {
+  col <- x[[colname]]
+
+  proc_statement <- paste0("proc format library = ", libref, ";")
+
+  rand_string <- intToUtf8(sample(c(65:90, 97:122), 6))
+  format_name <- paste0(colname, "_", rand_string)
+  values_start <- paste0("value ", format_name)
+
+  col_levels <- levels(col)
+  format_values <- vapply(
+    seq_along(col_levels),
+    function(i) {
+      paste(i, "=", shQuote(col_levels[i], "cmd"))
+    },
+    character(1)
+  )
+
+  list(
+    name = format_name,
+    statement = paste(
+      proc_statement,
+      values_start,
+      paste(format_values, collapse = "\n"),
+      ";",
+      "run;",
+      sep = "\n"
+    )
+  )
+}
+
 
 check_has_sas_valid_datatypes <- function(x, call = rlang::caller_env()) {
   valid_classes <- c(
