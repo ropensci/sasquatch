@@ -147,7 +147,7 @@ generate_format_string <- function(x, colname, libref) {
 
   proc_statement <- paste0("proc format library = ", libref, ";")
 
-  rand_string <- intToUtf8(sample(c(65:90, 97:122), 6))
+  rand_string <- paste(sample(c(LETTERS, 0:9), 6), collapse = "")
   format_name <- paste0(colname, "_", rand_string)
   values_start <- paste0("value ", format_name)
 
@@ -155,7 +155,7 @@ generate_format_string <- function(x, colname, libref) {
   format_values <- vapply(
     seq_along(col_levels),
     function(i) {
-      paste(i, "=", shQuote(col_levels[i], "cmd"))
+      paste(i, "=", sas_quote(col_levels[i]))
     },
     character(1)
   )
@@ -173,6 +173,9 @@ generate_format_string <- function(x, colname, libref) {
   )
 }
 
+sas_quote <- function(x) {
+  paste0("'", gsub("'", "''", x), "'")
+}
 
 check_has_sas_valid_datatypes <- function(x, call = rlang::caller_env()) {
   valid_classes <- c(
