@@ -4,7 +4,7 @@
 \alias{sas_from_r}
 \title{Convert R table to SAS}
 \usage{
-sas_from_r(x, table_name, libref = "WORK")
+sas_from_r(x, table_name, libref = "WORK", factors_as_strings = TRUE)
 }
 \arguments{
 \item{x}{\code{data.frame}; R table.}
@@ -12,6 +12,9 @@ sas_from_r(x, table_name, libref = "WORK")
 \item{table_name}{string; Name of table to be created in SAS.}
 
 \item{libref}{string; Name of libref to store SAS table within.}
+
+\item{factors_as_strings}{logical; If \code{TRUE}, factors will become SAS strings.
+Else, factors will become formatted numerics.}
 }
 \value{
 \code{data.frame}; \code{x}.

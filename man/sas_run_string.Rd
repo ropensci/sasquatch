@@ -9,7 +9,7 @@ sas_run_string(input, capture = "both", height = "auto", width = "auto")
 \arguments{
 \item{input}{string; SAS code to run.}
 
-\item{capture}{If \code{"both"}, tabpanel with output and log included. If
+\item{capture}{string; If \code{"both"}, tabpanel with output and log included. If
 \code{"listing"}, only output is included. If \code{"log"} only log is included.}
 
 \item{height}{string; The height of the SAS output.}
