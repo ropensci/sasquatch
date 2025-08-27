@@ -20,11 +20,11 @@ knitr::opts_chunk$set(
 
 ### Initial python environment setup
 
-After downloading `sasquatch`, your next step will be to either create a python environment or associate an existing environment with `sasquatch` and `SASPy`.
+After downloading `sasquatch`, your next step will be to either create a python environment or associate an existing environment to work with `sasquatch` and `SASPy`.
 
-If you do not have a python environment, you will need the `reticulate` package and can run `reticulate::use_virtualenv("r-saspy")`, which will create a new python virtual environment named "r-saspy". 
+If you do not have a python environment, you will need the `reticulate` package and can run `reticulate::use_virtualenv("r-saspy")`, which will create a new python virtual environment named "r-saspy".
 
-Next, you should associate your python environment with `sasquatch` and `SASPy`, which you can run `sasquatch::install_saspy()` to set this up. If you manually created the "r-saspy" python environment with `reticulate`, you shouldn't have to specify anything else in `sasquatch::install_saspy()`. If you have an existing python environment, you can specify the path to your python environment by setting:
+Next, you will configure your python environment to work with `SASPy`. `sasquatch` has a convenient function `sasquatch::install_saspy()` to install `SASPy` and the required python packages. If you manually created the "r-saspy" python environment with `reticulate`, you shouldn't have to specify other options in `sasquatch::install_saspy()`. If you have an existing python environment, you can specify the path to your python environment:
 
 ```{r, eval = FALSE}
 sasquatch::install_saspy(
@@ -51,7 +51,7 @@ config_name = {
 }
 ```
 
-:::{.callout-important}
+::: callout-important
 It is important to understand that this is a basic template that needs to be further modified for your specific environment.
 :::
 
@@ -61,7 +61,7 @@ The `config_name` placeholders should be replaced with options, such as `winloca
 
 There are other required configuration options for `SASPy`, which vary depending on 1) what type of SAS instance you are connecting to, and 2) whether you are connecting to SAS locally on your machine or via a remote connection. Understanding your system setup will be important in defining the configuration options for your specific `sascfg_personal.py` file. See the [Access methods section](#access-methods) for the various deployments and possible configurations and refer to the [`SASPy` configuration page](https://sassoftware.github.io/saspy/configuration.html) for other required options.
 
-For example, if you have SAS installed locally on a Windows machine, you will edit your `sascfg_personal.py` file to define `winlocal` in place of `conf_name`. You will also include the path to a Java executable, which is frequently shipped with SAS and can be found frequently at the path below. `SASPy` requires one additional option, which is including the `sspiauth.dll` file in your PATH. All together, your `sascfg_personal.py` file could end up looking like:
+For example, if you have SAS installed locally on a Windows machine, you will edit your `sascfg_personal.py` file to define `winlocal` in place of `conf_name`. You will also include the path to a Java executable, which is frequently shipped with SAS and can be found often at the path shown below. `SASPy` requires one additional option with [Windows local](https://sassoftware.github.io/saspy/configuration.html#local), which is to include the `sspiauth.dll` file in your PATH; however, `SASPy` only recommends listing the path to the directory, not the path to the `sspiauth.dll` file itself. All together, your `sascfg_personal.py` file could end up looking like:
 
 ```{python, eval = FALSE}
 import os
@@ -75,15 +75,15 @@ winlocal = {
 }
 ```
 
-:::{.callout-caution}
-Again, remember that your computer system and SAS instance may differ from this speicifc example. You may have additional requirements distinct from this example of Windows and local SAS. Please refer to the [`SASPy` configuration page](https://sassoftware.github.io/saspy/configuration.html) for requirements and support for your specific setup.
+::: callout-caution
+Again, remember that your computer system and SAS instance may differ drastically from this specific example. You may have additional requirements distinct from this example of Windows and local SAS. Please refer to the [`SASPy` configuration page](https://sassoftware.github.io/saspy/configuration.html) for requirements and support for your specific setup.
 :::
 
 #### Further configuration
 
 Some access methods will require an additional authentication file (`.authinfo` for Linux and Mac, `_authinfo` for Windows) stored in the user's home directory, which are constructed as follows:
 
-```
+```         
 config_name user {your username} password {your password}
 ```
 
@@ -118,7 +118,7 @@ The following is a breakdown of the access method by SAS deployment:
     * On Windows  
       * HTTP - must have compute service configured and running (Viya V3.5 and V4)  
 
-There is a file called `sascfg.py`, located in the same folder as the `sascfg_personal.py` file, that outlines futher configuration options and details for numerous computer and software setups. This `sascfg.py` file can be a good short summary of various configuration options in a shorter and more succinct form. However, many of these options are not necessary to configure and are advised against configuring, unless you have experience with these options and understand their use. Most users should be able to configure basic options, like in [the example above](#basic-saspy) and follow and modify the requirements for their system based on the [`SASPy` configuration documentation](https://sassoftware.github.io/saspy/configuration.html).
+There is a file called `sascfg.py`, located in the same folder as the `sascfg_personal.py` file, that outlines further configuration options and details for numerous computer and software setups. This `sascfg.py` file can be a good short summary of various configuration options in a shorter and more succinct form. However, many of these options are not necessary to configure and are advised against configuring, unless you have experience with these options and understand their use. Most users should be able to configure basic options, like in [the example above](#basic-saspy) and follow and modify the requirements for their system based on the [`SASPy` configuration documentation](https://sassoftware.github.io/saspy/configuration.html).
 
 ## SAS On Demand for Academics configuration
 
@@ -132,11 +132,9 @@ Once you have set up your account, log in and note the ODA server (in the pictur
 
 ### Java installation
 
-ODA relies on the IOM access method, which requires Java. Make sure Java is installed on your system. You can download Java from [their website](https://www.java.com/en/download/). 
-ODA also requires you to install [additional encryption jars](https://support.sas.com/downloads/package.htm?pid=2494) within the `java/iomclient` folder inside of your `SASPy` installation.
+ODA relies on the IOM access method, which requires Java. Make sure Java is installed on your system. You can download Java from [their website](https://www.java.com/en/download/). ODA also requires you to install [additional encryption jars](https://support.sas.com/downloads/package.htm?pid=2494) within the `java/iomclient` folder inside of your `SASPy` installation.
 
-**Note:** Adding your java installation to path will help `sasquatch::configure_saspy()` find your Java installation path. Otherwise, note the path so that you can manually enter it 
-within your `sascfg_personal.py` file.
+**Note:** Adding your java installation to path will help `sasquatch::configure_saspy()` find your Java installation path. Otherwise, note the path so that you can manually enter it within your `sascfg_personal.py` file.
 
 ### Configuration
 
@@ -153,30 +151,30 @@ sasquatch::configure_saspy(template = "oda")
 - Create a `sascfg_personal.py` file with all the relevant configuration information.
   Generally, your `sascfg_personal.py` will look something like:
   ```python
-  SAS_config_names=['oda']
-  oda = {
-    'java' : 'path_to_java', # replace with your java path
-    # Uncomment the one for your region
-    #US Home Region 1
-    # 'iomhost' : ['odaws01-usw2.oda.sas.com','odaws02-usw2.oda.sas.com','odaws03-usw2.oda.sas.com','odaws04-usw2.oda.sas.com'],
-    #US Home Region 2
-    #'iomhost' : ['odaws01-usw2-2.oda.sas.com','odaws02-usw2-2.oda.sas.com'],
-    #European Home Region 1
-    #'iomhost' : ['odaws01-euw1.oda.sas.com','odaws02-euw1.oda.sas.com'], 
-    #Asia Pacific Home Region 1
-    #'iomhost' : ['odaws01-apse1.oda.sas.com','odaws02-apse1.oda.sas.com'],
-    #Asia Pacific Home Region 2
-    #'iomhost' : ['odaws01-apse1-2.oda.sas.com','odaws02-apse1-2.oda.sas.com'],
-    'iomport' : 8591,
-    'authkey' : 'oda',
-    'encoding' : 'utf-8'
-  }
-  ```
+    SAS_config_names=['oda']
+    oda = {
+      'java' : 'path_to_java', # replace with your java path
+      # Uncomment the one for your region
+      #US Home Region 1
+      # 'iomhost' : ['odaws01-usw2.oda.sas.com','odaws02-usw2.oda.sas.com','odaws03-usw2.oda.sas.com','odaws04-usw2.oda.sas.com'],
+      #US Home Region 2
+      #'iomhost' : ['odaws01-usw2-2.oda.sas.com','odaws02-usw2-2.oda.sas.com'],
+      #European Home Region 1
+      #'iomhost' : ['odaws01-euw1.oda.sas.com','odaws02-euw1.oda.sas.com'], 
+      #Asia Pacific Home Region 1
+      #'iomhost' : ['odaws01-apse1.oda.sas.com','odaws02-apse1.oda.sas.com'],
+      #Asia Pacific Home Region 2
+      #'iomhost' : ['odaws01-apse1-2.oda.sas.com','odaws02-apse1-2.oda.sas.com'],
+      'iomport' : 8591,
+      'authkey' : 'oda',
+      'encoding' : 'utf-8'
+    }
+    ```
 - Create an `authinfo` file, which you will be able to write your ODA credentials into.
   Generally, your `authinfo` file will look something like:
-  ```
-  oda user {your username} password {your password}
-  ```
+    ```         
+    oda user {your username} password {your password}
+    ```
 - Request that you download the [SAS ODA encryption jars](https://support.sas.com/downloads/package.htm?pid=2494) into the `SASPy` package's `java/iomclient/` folder.
 
 More information about ODA configuration can be found in the [ODA section of `SASPy` configuration documentation](https://sassoftware.github.io/saspy/configuration.html#iom).
