@@ -16,21 +16,32 @@ knitr::opts_chunk$set(
 
 ## General configuration
 
-`sasquatch` works by utilizing the [`SASPy`](https://sassoftware.github.io/saspy/) python package, similar to packages like [`sasr`](https://github.com/insightsengineering/sasr) or [configSAS](https://github.com/baselr/configSAS). This means everything we do to connect R and SAS, needs to go through `SASPy`.
+`sasquatch` works by utilizing the [`SASPy`](https://sassoftware.github.io/saspy/) python package, an open source package created by the [developers of SAS](https://support.sas.com/en/software/saspy.html). There are some configuration steps necessary by you the user to get `SASPy` ready to work with `sasquatch`.
 
-Configuration steps for `SASPy` can vary greatly depending on the SAS client, but all configuration is specified within the `sascfg_personal.py` file inside of the `SASPy` package.
+### Initial python environment setup
 
-### Setting up
+After downloading `sasquatch`, your next step will be to either create a python environment or associate an existing environment with `sasquatch` and `SASPy`.
 
-Use the following function to create a `sascfg_personal.py` templated file.
+If you do not have a python environment, you will need the `reticulate` package and can run `reticulate::use_virtualenv("r-saspy")`, which will create a new python virtual environment named "r-saspy". 
+
+Next, you should associate your python environment with `sasquatch` and `SASPy`, which you can run `sasquatch::install_saspy()` to set this up. If you manually created the "r-saspy" python environment with `reticulate`, you shouldn't have to specify anything else in `sasquatch::install_saspy()`. If you have an existing python environment, you can specify the path to your python environment by setting:
+
+```{r, eval = FALSE}
+sasquatch::install_saspy(
+  envname = "NAME/OR/FULL/PATH/TO/PYTHON/ENV",
+  new_env = FALSE
+)
+```
+
+### Initial `SASPy` setup
+
+After setting up your python environment and installing `SASPy`, you next need to configure a `sascfg_personal.py` file. With `sasquatch` you can set this up by running:
 
 ```{r, eval = FALSE}
 sasquatch::configure_saspy()
 ```
 
-**Note**: `sasquatch::configure_saspy()` will configure `reticulate`'s current python version. You may have to run `reticulate::use_virtualenv("r-saspy")` in order to specify that you want to configure that python environment.
-
-This will create a file like the following:
+Within your python environment, you should find within the `saspy` library folder a file named `sascfg_personal.py` with the basic structure:
 
 ```{python, eval = FALSE}
 SAS_config_names = ['config_name']
@@ -40,19 +51,43 @@ config_name = {
 }
 ```
 
-`SAS_config_names` should contain a string list of the variable names of all configurations. Configurations are specified as dictionaries, and configuration parameters depend on the access method.
+:::{.callout-important}
+It is important to understand that this is a basic template that needs to be further modified for your specific environment.
+:::
 
-Additionally, some access methods will require an additional authentication file (`.authinfo` for Linux and Mac, `_authinfo` for Windows) stored in the user's home directory, which are constructed as follows:
+### Configuring `SASPy` to your system {#basic-saspy}
+
+The `config_name` placeholders should be replaced with options, such as `winlocal`, `ssh`, or other options listed on the [`SASPy` page](https://sassoftware.github.io/saspy/configuration.html) for `SAS_config_names` that best suit your computer system and SAS setup.
+
+There are other required configuration options for `SASPy`, which vary depending on 1) what type of SAS instance you are connecting to, and 2) whether you are connecting to SAS locally on your machine or via a remote connection. Understanding your system setup will be important in defining the configuration options for your specific `sascfg_personal.py` file. See the [Access methods section](#access-methods) for the various deployments and possible configurations and refer to the [`SASPy` configuration page](https://sassoftware.github.io/saspy/configuration.html) for other required options.
+
+For example, if you have SAS installed locally on a Windows machine, you will edit your `sascfg_personal.py` file to define `winlocal` in place of `conf_name`. You will also include the path to a Java executable, which is frequently shipped with SAS and can be found frequently at the path below. `SASPy` requires one additional option, which is including the `sspiauth.dll` file in your PATH. All together, your `sascfg_personal.py` file could end up looking like:
+
+```{python, eval = FALSE}
+import os
+
+os.environ["PATH"] += ";C:\\Program Files\\SASHome\\SASFoundation\\9.4\\core\\sasext"
+
+SAS_config_names = ["winlocal"]
+
+winlocal = {
+    "java": "C:\\Program Files\\SASHome\\SASPrivateJavaRuntimeEnvironment\\9.4\\jre\\bin\\java"
+}
+```
+
+:::{.callout-caution}
+Again, remember that your computer system and SAS instance may differ from this speicifc example. You may have additional requirements distinct from this example of Windows and local SAS. Please refer to the [`SASPy` configuration page](https://sassoftware.github.io/saspy/configuration.html) for requirements and support for your specific setup.
+:::
+
+#### Further configuration
+
+Some access methods will require an additional authentication file (`.authinfo` for Linux and Mac, `_authinfo` for Windows) stored in the user's home directory, which are constructed as follows:
 
 ```
 config_name user {your username} password {your password}
 ```
 
-### Access methods
-
-From here, you will need to fill out the `config_name` dictionary with your
-configuration definition. The required definition fields will depend on the 
-access method required to connect to your SAS client.
+### Access methods {#access-methods}
 
 The following is a breakdown of the access method by SAS deployment:
 
@@ -83,10 +118,7 @@ The following is a breakdown of the access method by SAS deployment:
     * On Windows  
       * HTTP - must have compute service configured and running (Viya V3.5 and V4)  
 
-### More information
-
-Further documentation and examples for each access type can be found within the 
-[`SASPy` configuration documentation](https://sassoftware.github.io/saspy/configuration.html)
+There is a file called `sascfg.py`, located in the same folder as the `sascfg_personal.py` file, that outlines futher configuration options and details for numerous computer and software setups. This `sascfg.py` file can be a good short summary of various configuration options in a shorter and more succinct form. However, many of these options are not necessary to configure and are advised against configuring, unless you have experience with these options and understand their use. Most users should be able to configure basic options, like in [the example above](#basic-saspy) and follow and modify the requirements for their system based on the [`SASPy` configuration documentation](https://sassoftware.github.io/saspy/configuration.html).
 
 ## SAS On Demand for Academics configuration
 
