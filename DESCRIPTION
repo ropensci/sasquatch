@@ -20,7 +20,7 @@ Imports:
     evaluate,
     htmlwidgets,
     knitr,
-    reticulate,
+    reticulate (>= 1.41.0),
     rlang (>= 1.1.0),
     rstudioapi
 Suggests: 
