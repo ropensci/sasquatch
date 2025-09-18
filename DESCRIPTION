@@ -4,19 +4,15 @@ Version: 0.1.0.9000
 Authors@R: 
     person("Ryan", "Zomorrodi", , "rzomor2@uic.edu", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0009-0003-6417-5985"))
-Description: Use R and 'SAS' within reproducible multilingual 'quarto' 
-    documents. Run 'SAS' code blocks interactively, send data back and forth
-    between 'SAS' and R, and render 'SAS' output within quarto documents. 'SAS'
-    connections are established through a combination of 'SASPy' and 
-    'reticulate'.
+Description: Use R and 'SAS' within reproducible multilingual 'quarto'
+    documents. Run 'SAS' code blocks interactively, send data back and
+    forth between 'SAS' and R, and render 'SAS' output within quarto
+    documents. 'SAS' connections are established through a combination of
+    'SASPy' and 'reticulate'.
 License: MIT + file LICENSE
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
-SystemRequirements: 
-    python (>= 3.4.0), 
-    SASPy,
-    java (>= 7) required for IOM access method
+URL: https://docs.ropensci.org/sasquatch,
+    https://github.com/ropensci/sasquatch
+BugReports: https://github.com/ropensci/sasquatch/issues
 Depends: 
     R (>= 4.1.0)
 Imports: 
@@ -32,7 +28,11 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0),
     withr
-URL: https://docs.ropensci.org/sasquatch, https://github.com/ropensci/sasquatch
-BugReports: https://github.com/ropensci/sasquatch/issues
-VignetteBuilder: knitr
+VignetteBuilder: 
+    knitr
 Config/testthat/edition: 3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+SystemRequirements: python (>= 3.4.0), SASPy, java (>= 7) required for IOM
+    access method
