@@ -8,3 +8,7 @@ docs
 
 /.quarto/
 inst/doc
+
+nix_setup
+result
+.direnv
