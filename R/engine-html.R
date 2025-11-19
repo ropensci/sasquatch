@@ -5,12 +5,19 @@ sas_html_engine <- function(options) {
   res <- if (isFALSE(options$eval)) {
     as.source(code)
   } else {
+    if (is.numeric(options$out.width)) {
+      options$out.width <- paste0(options$out.width, "px")
+    }
+    if (is.numeric(options$out.height)) {
+      options$out.height <- paste0(options$out.height, "px")
+    }
+
     evaluate(
       sas_run_string_code(
         paste(code, collapse = "\n"),
-        options$capture,
-        options$out.width,
-        options$out.height
+        capture = options$capture %||% "both",
+        width = options$out.width %||% "auto",
+        height = options$out.height %||% "auto"
       ),
       envir = knitr::knit_global(),
       new_device = FALSE,
