@@ -62,7 +62,7 @@ let
 
   system_packages = builtins.attrValues {
     inherit (pkgs)
-      glibcLocales nix openjdk17 python312 R;
+      glibcLocales nix openjdk17 python312 R quarto;
   };
 
 in
