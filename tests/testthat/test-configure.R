@@ -3,7 +3,7 @@ test_that("oda configuration - sascfg_personal", {
   skip_if_no_saspy_install()
   tempdir <- withr::local_tempdir()
   tempfile <- paste0(tempdir, "/sascfg_personal.py")
-  local_mocked_bindings(write_file = function(file, ...) {
+  local_mocked_bindings(write_file = function(file, message, ...) {
     cat(file = tempfile, ...)
   })
 
@@ -39,7 +39,7 @@ test_that("oda configuration - authinfo", {
   skip_on_cran()
   skip_if_no_saspy_install()
   tempfile <- withr::local_tempfile()
-  local_mocked_bindings(write_file = function(file, ...) {
+  local_mocked_bindings(write_file = function(file, message, ...) {
     cat(file = tempfile, ...)
   })
 

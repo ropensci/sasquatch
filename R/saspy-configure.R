@@ -190,7 +190,11 @@ write_authinfo_template <- function(
   }
 
   authinfo <- "oda user {username} password {password}\n"
-  write_file(authinfo, file = authinfo_path)
+  write_file(
+    message = "SASPy requires you to store ODA credentials in a authinfo file stored in\n\n - {.file {file}}\n\nIs it okay to create a template file at this path?",
+    file = authinfo_path,
+    authinfo
+  )
 
   cli::cli_inform(c(
     "i" = "Replace {.str {{username}}} and {.str {{password}}} with your ODA username and password within {.file {authinfo_path}}."
@@ -243,12 +247,26 @@ write_sascfg_personal <- function(
     sep = "\n"
   )
 
-  write_file(contents, file = sascfg_personal_path)
+  write_file(
+    message = "SASPy utilizes a configuration file stored within the SASPy package itself at\n\n - {.file {file}}\n\nIs it okay to create a configuration file at this path?",
+    file = sascfg_personal_path,
+    contents
+  )
 
   sascfg_personal_path
 }
 
-write_file <- function(..., file) {
+write_file <- function(..., file, message = NULL) {
+  if (!is.null(message)) {
+    cli::cli_alert(
+      message
+    )
+    server_num <- utils::menu(c("Yes", "No"))
+    if (server_num == 2L) {
+      cli::cli_abort("Unable to write to {.file {file}}.")
+    }
+  }
+
   cli::cli_alert_success("Writing to {.path {file}}.")
   cat(..., file = file)
 }
