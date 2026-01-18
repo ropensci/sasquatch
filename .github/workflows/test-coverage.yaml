@@ -38,9 +38,11 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: setup r-reticulate venv
+      - name: install saspy
         shell: Rscript {0}
-        run: sasquatch::install_saspy()
+        run: |
+          pak::pkg_install(".")
+          sasquatch::install_saspy()
 
       - name: setup saspy
         shell: Rscript {0}
