@@ -83,6 +83,10 @@ The following is a breakdown of the access method by SAS deployment:
     * On Windows  
       * HTTP - must have compute service configured and running (Viya V3.5 and V4)  
 
+### Additional configuration
+
+Not included in the template `sascfg_personal.py` file above are two additional configuration dictionaries: `SAS_config_options` and `SAS_output_options`. Configuration of these options is not necessary, but they are documented within the `sascfg.py` file found in the same folder as the templated `sascfg_personal.py` (Or within the [source code](https://github.com/sassoftware/saspy/blob/main/saspy/sascfg.py))
+
 ### More information
 
 Further documentation and examples for each access type can be found within the 
@@ -148,3 +152,28 @@ sasquatch::configure_saspy(template = "oda")
 - Request that you download the [SAS ODA encryption jars](https://support.sas.com/downloads/package.htm?pid=2494) into the `SASPy` package's `java/iomclient/` folder.
 
 More information about ODA configuration can be found in the [ODA section of `SASPy` configuration documentation](https://sassoftware.github.io/saspy/configuration.html#iom).
+
+## Local Windows installation configuration
+
+Configuration of a local installation of a Window installation is relatively simple. First, `SASPy` requires yout to add the `sspiauth.dll` file to your PATH (`SASPy` only recommends listing the path to the directory, not the path to the `sspiauth.dll` file itself). You can add this directory to your PATH at runtime by adding the following two lines to the `sascfg_personal.py` file.
+
+```{python, eval = FALSE}
+import os
+os.environ["PATH"] += ";C:\\Program Files\\SASHome\\SASFoundation\\9.4\\core\\sasext"
+```
+
+From there the only other required configuration step is specifying the path of your java installation. An example, `sascfg_personal.py` file is provided below:
+
+```{python, eval = FALSE}
+import os
+
+os.environ["PATH"] += ";C:\\Program Files\\SASHome\\SASFoundation\\9.4\\core\\sasext"
+
+SAS_config_names = ["winlocal"]
+
+winlocal = {
+    "java": "C:\\Program Files\\SASHome\\SASPrivateJavaRuntimeEnvironment\\9.4\\jre\\bin\\java"
+}
+```
+
+Additional information about connecting to a local Windows machine can be found within the [local configuration section](https://sassoftware.github.io/saspy/configuration.html#local) of the SASPy documentation.
