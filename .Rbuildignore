@@ -9,3 +9,4 @@
 ^codemeta\.json$
 ^[\.]?air\.toml$
 ^\.vscode$
+^cran-comments\.md$

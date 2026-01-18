@@ -13,7 +13,7 @@ Use R and 'SAS' within reproducible multilingual 'quarto' documents. Run 'SAS' c
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://docs.ropensci.org/sasquatch}
+  \item \url{https://docs.ropensci.org/sasquatch/}
   \item \url{https://github.com/ropensci/sasquatch}
   \item Report bugs at \url{https://github.com/ropensci/sasquatch/issues}
 }

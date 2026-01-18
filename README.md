@@ -46,7 +46,7 @@ reticulate::install_python()
 ```
 
 or download the installer from the [Python Software
-Foundation](https://www.python.org/downloads/').
+Foundation](https://www.python.org/downloads/).
 
 ### `SASPy` installation
 
@@ -82,9 +82,7 @@ the profile dropdown). We will need these for later.
 #### Java installation
 
 ODA relies on the IOM access method, which requires Java. Make sure Java
-is installed on your system. You can download Java from [their
-website](https://www.java.com/en/download/). Note the Java installation
-path.
+is installed on your system. Note the Java installation path.
 
 #### ODA Configuration
 

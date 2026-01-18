@@ -30,10 +30,11 @@ When utilizing Python, R, and SAS, start the session within R using
 }
 }
 \examples{
-\dontrun{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 sas_connect()
+
 sas_get_session()
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other session management functions: 

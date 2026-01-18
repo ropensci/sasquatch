@@ -51,10 +51,10 @@
 #' @export
 #'
 #' @seealso [install_saspy()]
-#' @examples
-#' \dontrun{
-#' config_saspy()
-#' }
+#' @examplesIf interactive()
+#'
+#' # set up an ODA connection
+#' config_saspy(template = "oda")
 configure_saspy <- function(
   template = c("none", "oda"),
   overwrite = FALSE

@@ -24,11 +24,10 @@
 #' @export
 #'
 #' @seealso [sas_from_r()]
-#' @examples
-#' \dontrun{
+#' @examplesIf interactive()
 #' sas_connect()
+#'
 #' cars <- sas_to_r("cars", "sashelp")
-#' }
 sas_to_r <- function(table_name, libref = "WORK") {
   check_session()
   check_string(table_name)

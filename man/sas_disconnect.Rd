@@ -13,9 +13,11 @@ No return value.
 Disconnects from the current SAS session.
 }
 \examples{
-\dontrun{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+sas_connect()
+
 sas_disconnect()
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other session management functions: 

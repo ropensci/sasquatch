@@ -15,13 +15,13 @@ widget. See \code{vignette("overview")} for more information on how to utilize
 the addin within RStudio or Positron.
 }
 \examples{
-\dontrun{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 sas_connect()
 
 # highlight something in the active editor of RStudio or Positron
 
 sas_run_selected()
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other code execution functions: 

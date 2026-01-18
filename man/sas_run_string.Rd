@@ -23,10 +23,11 @@ sas_run_string(input, capture = "both", height = "auto", width = "auto")
 Execute SAS code in current session and render html output.
 }
 \examples{
-\dontrun{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 sas_connect()
+
 sas_run_string("PROC MEANS DATA = sashelp.cars;RUN;")
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other code execution functions: 

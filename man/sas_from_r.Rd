@@ -38,10 +38,11 @@ as follows:
 }
 }
 \examples{
-\dontrun{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 sas_connect()
+
 sas_from_r(mtcars, "mtcars")
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=sas_to_r]{sas_to_r()}}

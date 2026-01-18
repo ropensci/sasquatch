@@ -8,10 +8,10 @@
 #' @export
 #'
 #' @family session management functions
-#' @examples
-#' \dontrun{
+#' @examplesIf interactive()
+#' sas_connect()
+#'
 #' sas_disconnect()
-#' }
 sas_disconnect <- function() {
   if (!valid_session()) {
     return(invisible())

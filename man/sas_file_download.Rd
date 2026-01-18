@@ -18,17 +18,20 @@ sas_file_download(sas_path, local_path)
 Downloads a file to the remote SAS server.
 }
 \examples{
-\dontrun{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # connect to SAS
 sas_connect()
 
 # create a file and upload it to SAS
-cat("PROC MEANS DATA = sashelp.cars;RUN;", file = "script.sas")
-sas_file_upload(local_path = "script.sas", sas_path = "~/script.sas")
+tempfile_path <- tempfile(fileext = ".sas")
+tempfile_basename <- basename(tempfile_path)
+tempfile_path_copy <- sub("\\\\.sas$", "_copy.sas", tempfile_path)
+cat("PROC MEANS DATA = sashelp.cars;RUN;", file = tempfile_path)
+sas_file_upload(local_path = tempfile_path, sas_path = paste0("~/", tempfile_basename))
 
 # download file from SAS
-sas_file_download(sas_path = "~/script.sas", local_path = "script.sas")
-}
+sas_file_download(paste0("~/", tempfile_basename), tempfile_path_copy)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other file management functions: 

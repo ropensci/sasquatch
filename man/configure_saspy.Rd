@@ -56,9 +56,11 @@ automatically configured using the information you provide through prompts.
 }
 }
 \examples{
-\dontrun{
-config_saspy()
-}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+
+# set up an ODA connection
+config_saspy(template = "oda")
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=install_saspy]{install_saspy()}}

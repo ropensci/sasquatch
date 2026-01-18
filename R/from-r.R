@@ -28,11 +28,10 @@
 #' @export
 #'
 #' @seealso [sas_to_r()]
-#' @examples
-#' \dontrun{
+#' @examplesIf interactive()
 #' sas_connect()
+#'
 #' sas_from_r(mtcars, "mtcars")
-#' }
 sas_from_r <- function(
   x,
   table_name,

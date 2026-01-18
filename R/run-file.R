@@ -13,13 +13,13 @@
 #' @export
 #'
 #' @family code execution functions
-#' @examples
-#' \dontrun{
-#' cat("PROC MEANS DATA = sashelp.cars;\n RUN;", file = "test.sas")
-#'
+#' @examplesIf interactive()
 #' sas_connect()
-#' sas_run_file("test.sas", "test.html")
-#' }
+#'
+#' tempfile_sas_path <- tempfile(fileext = ".sas")
+#' tempfile_html_path <- sub("\\.sas$", ".html", tempfile_sas_path)
+#' cat("PROC MEANS DATA = sashelp.cars;RUN;", file = tempfile_sas_path)
+#' sas_run_file(tempfile_sas_path, tempfile_html_path)
 sas_run_file <- function(input_path, output_path, overwrite = FALSE) {
   check_session()
   check_file(input_path, x_name = "input_path")

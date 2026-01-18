@@ -14,11 +14,10 @@
 #' @export
 #'
 #' @family code execution functions
-#' @examples
-#' \dontrun{
+#' @examplesIf interactive()
 #' sas_connect()
+#'
 #' sas_run_string("PROC MEANS DATA = sashelp.cars;RUN;")
-#' }
 sas_run_string <- function(
   input,
   capture = "both",

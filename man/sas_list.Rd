@@ -16,10 +16,11 @@ sas_list(path)
 Lists the files or directories of a directory within the remote SAS server.
 }
 \examples{
-\dontrun{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 sas_connect()
+
 sas_list(".")
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other file management functions: 

@@ -34,6 +34,12 @@ to create reproducible multilingual reports. `sasquatch` can:
 
 ### Package installation
 
+You can install `socratadata` from CRAN.
+
+```{r eval = FALSE}
+install.packages("socratadata")
+```
+
 You can install the development version of sasquatch like so:
 
 ```{r eval = FALSE}
@@ -55,7 +61,7 @@ you can install Python like so:
 reticulate::install_python()
 ```
 
-or download the installer from the [Python Software Foundation](https://www.python.org/downloads/').
+or download the installer from the [Python Software Foundation](https://www.python.org/downloads/).
 
 ### `SASPy` installation
 
@@ -82,7 +88,7 @@ Once you have set up your account, log in and note the ODA server (in the pictur
 
 #### Java installation
 
-ODA relies on the IOM access method, which requires Java. Make sure Java is installed on your system. You can download Java from [their website](https://www.java.com/en/download/). Note the Java installation path.
+ODA relies on the IOM access method, which requires Java. Make sure Java is installed on your system. Note the Java installation path.
 
 #### ODA Configuration
 

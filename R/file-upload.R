@@ -10,17 +10,17 @@
 #' @export
 #'
 #' @family file management functions
-#' @examples
-#' \dontrun{
+#' @examplesIf interactive()
 #' # connect to SAS
 #' sas_connect()
 #'
 #' # create a file to upload
-#' cat("PROC MEANS DATA = sashelp.cars;RUN;", file = "script.sas")
+#' tempfile_path <- tempfile(fileext = ".sas")
+#' tempfile_basename <- basename(tempfile_path)
+#' cat("PROC MEANS DATA = sashelp.cars;RUN;", file = tempfile_path)
 #'
 #' # upload file
-#' sas_file_upload(local_path = "script.sas", sas_path = "~/script.sas")
-#' }
+#' sas_file_upload(local_path = tempfile_path, sas_path = paste0("~/", tempfile_basename))
 sas_file_upload <- function(local_path, sas_path) {
   check_session()
   check_file(local_path, x_name = "local_path")

@@ -21,12 +21,14 @@ If \code{output_path} specified, \code{htmlwidget}. Else, no return value.
 Execute a SAS file and render html output or save output as html and log.
 }
 \examples{
-\dontrun{
-cat("PROC MEANS DATA = sashelp.cars;\n RUN;", file = "test.sas")
-
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 sas_connect()
-sas_run_file("test.sas", "test.html")
-}
+
+tempfile_sas_path <- tempfile(fileext = ".sas")
+tempfile_html_path <- sub("\\\\.sas$", ".html", tempfile_sas_path)
+cat("PROC MEANS DATA = sashelp.cars;RUN;", file = tempfile_sas_path)
+sas_run_file(tempfile_sas_path, tempfile_html_path)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other code execution functions: 

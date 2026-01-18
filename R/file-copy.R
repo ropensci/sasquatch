@@ -11,18 +11,19 @@
 #' @export
 #'
 #' @family file management functions
-#' @examples
-#' \dontrun{
+#' @examplesIf interactive()
 #' # connect to SAS
 #' sas_connect()
 #'
 #' # create a file and upload it to SAS
-#' cat("PROC MEANS DATA = sashelp.cars;RUN;", file = "script.sas")
-#' sas_file_upload(local_path = "script.sas", sas_path = "~/script.sas")
+#' tempfile_path <- tempfile(fileext = ".sas")
+#' tempfile_basename <- basename(tempfile_path)
+#' tempfile_basename_copy <- sub("\\.sas$", "_copy.sas", tempfile_basename)
+#' cat("PROC MEANS DATA = sashelp.cars;RUN;", file = tempfile_path)
+#' sas_file_upload(local_path = tempfile_path, sas_path = paste0("~/", tempfile_basename))
 #'
 #' # copy file on SAS
-#' sas_file_copy("~/script.sas", "~/script_copy.sas")
-#' }
+#' sas_file_copy(paste0("~/", tempfile_basename), paste0("~/", tempfile_basename_copy))
 sas_file_copy <- function(from_path, to_path) {
   check_session()
   check_string(from_path)

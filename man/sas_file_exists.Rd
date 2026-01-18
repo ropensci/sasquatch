@@ -17,17 +17,18 @@ Checks if a file exists on the remote SAS server. Is analogous to
 \code{file.exists()}, but for the remote SAS server.
 }
 \examples{
-\dontrun{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # connect to SAS
 sas_connect()
 
 # create a file and upload it to SAS
-cat("PROC MEANS DATA = sashelp.cars;RUN;", file = "script.sas")
-sas_file_upload(local_path = "script.sas", sas_path = "~/script.sas")
+tempfile_path <- tempfile(fileext = ".sas")
+tempfile_basename <- basename(tempfile_path)
+cat("PROC MEANS DATA = sashelp.cars;RUN;", file = tempfile_path)
+sas_file_upload(local_path = tempfile_path, sas_path = paste0("~/", tempfile_basename))
 
-# check if file exists on SAS
-sas_file_exists("~/script.sas")
-}
+sas_file_exists(paste0("~/", tempfile_basename))
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other file management functions: 

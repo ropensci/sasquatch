@@ -57,9 +57,12 @@ virtual Python environment.
 Behavior was derived from \code{tensorflow::install_tensorflow()}.
 }
 \examples{
-\dontrun{
-install_saspy()
-}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+install_saspy(
+  envname = "new-sasquatch-env",
+  extra_packages = c("matplotlib", "numpy"),
+)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=configure_saspy]{configure_saspy()}}

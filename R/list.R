@@ -9,11 +9,10 @@
 #' @export
 #'
 #' @family file management functions
-#' @examples
-#' \dontrun{
+#' @examplesIf interactive()
 #' sas_connect()
+#'
 #' sas_list(".")
-#' }
 sas_list <- function(path) {
   check_session()
   check_string(path)

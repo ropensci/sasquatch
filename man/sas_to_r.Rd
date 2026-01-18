@@ -32,10 +32,11 @@ time. If utilizing another timezone, use \verb{attr(date, "tzone") <-} or
 \code{lubridate::with_tz()} to convert back to the desired time zone.
 }
 \examples{
-\dontrun{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 sas_connect()
+
 cars <- sas_to_r("cars", "sashelp")
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=sas_from_r]{sas_from_r()}}

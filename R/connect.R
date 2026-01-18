@@ -19,10 +19,8 @@
 #' @export
 #'
 #' @family session management functions
-#' @examples
-#' \dontrun{
+#' @examplesIf interactive()
 #' sas_connect(cfgname = "oda")
-#' }
 sas_connect <- function(cfgname, reconnect = FALSE) {
   if (!missing(cfgname)) {
     check_string(cfgname)

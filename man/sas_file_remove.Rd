@@ -17,17 +17,19 @@ Deletes a file or directory from the remote SAS server. Is analogous to
 \code{file.remove()}, but for the remote SAS server.
 }
 \examples{
-\dontrun{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # connect to SAS
 sas_connect()
 
 # create a file and upload it to SAS
-cat("PROC MEANS DATA = sashelp.cars;RUN;", file = "script.sas")
-sas_file_upload(local_path = "script.sas", sas_path = "~/script.sas")
+tempfile_path <- tempfile(fileext = ".sas")
+tempfile_basename <- basename(tempfile_path)
+cat("PROC MEANS DATA = sashelp.cars;RUN;", file = tempfile_path)
+sas_file_upload(local_path = tempfile_path, sas_path = paste0("~/", tempfile_basename))
 
 # remove file from SAS
-sas_file_remove(sas_path = "~/script.sas")
-}
+sas_file_remove(paste0("~/", tempfile_basename))
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other file management functions: 

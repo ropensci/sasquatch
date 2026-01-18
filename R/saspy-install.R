@@ -33,10 +33,11 @@
 #' @export
 #'
 #' @seealso [configure_saspy()]
-#' @examples
-#' \dontrun{
-#' install_saspy()
-#' }
+#' @examplesIf interactive()
+#' install_saspy(
+#'   envname = "new-sasquatch-env",
+#'   extra_packages = c("matplotlib", "numpy"),
+#' )
 install_saspy <- function(
   method = c("auto", "virtualenv", "conda"),
   conda = "auto",
@@ -63,7 +64,8 @@ install_saspy <- function(
   if (isTRUE(new_env)) {
     if (
       # fmt: skip
-      method %in% c("auto", "virtualenv") &&
+      method %in%
+        c("auto", "virtualenv") &&
         reticulate::virtualenv_exists(envname)
     ) {
       reticulate::virtualenv_remove(envname = envname, confirm = FALSE)

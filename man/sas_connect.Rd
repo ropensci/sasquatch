@@ -26,9 +26,9 @@ out the \href{https://sassoftware.github.io/saspy/configuration.html}{configurat
 or \code{vignette("configuration")}.
 }
 \examples{
-\dontrun{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 sas_connect(cfgname = "oda")
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other session management functions: 

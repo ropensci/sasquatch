@@ -10,7 +10,7 @@ Description: Use R and 'SAS' within reproducible multilingual 'quarto'
     documents. 'SAS' connections are established through a combination of
     'SASPy' and 'reticulate'.
 License: MIT + file LICENSE
-URL: https://docs.ropensci.org/sasquatch,
+URL: https://docs.ropensci.org/sasquatch/,
     https://github.com/ropensci/sasquatch
 BugReports: https://github.com/ropensci/sasquatch/issues
 Depends: 
