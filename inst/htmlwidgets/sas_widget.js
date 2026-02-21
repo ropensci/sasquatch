@@ -25,7 +25,7 @@ HTMLWidgets.widget({
                 <button class="nav-link active" id="${id_prefix}-lst-tab" data-bs-toggle="tab" data-bs-target="#${id_prefix}-lst" type="button" role="tab" aria-controls="${id_prefix}-lst" aria-selected="true">Listing</button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link" id="${id_prefix}-log-tab" data-bs-toggle="tab" data-bs-target="${id_prefix}-log" type="button" role="tab" aria-controls="${id_prefix}-log" aria-selected="false">Log</button>
+                <button class="nav-link" id="${id_prefix}-log-tab" data-bs-toggle="tab" data-bs-target="#${id_prefix}-log" type="button" role="tab" aria-controls="${id_prefix}-log" aria-selected="false">Log</button>
               </li>
             </ul>
             <div style = "display: inline-block; width: 100%" class="tab-content" id="${id_prefix}-myTabContent">
