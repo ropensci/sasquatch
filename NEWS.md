@@ -1,3 +1,5 @@
+# sasquatch 0.1.3
+
 # sasquatch 0.1.2
 
 - Tabsets no longer alter each other's states.
