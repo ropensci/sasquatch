@@ -1,5 +1,8 @@
 # sasquatch (development version)
 
+- Tabsets no longer alter each other's states.
+- Tabsets properly render in the ropensci docs.
+
 # sasquatch 0.1.1
 
 # sasquatch 0.1.0

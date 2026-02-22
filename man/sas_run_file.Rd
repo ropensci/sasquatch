@@ -26,8 +26,14 @@ sas_connect()
 
 tempfile_sas_path <- tempfile(fileext = ".sas")
 tempfile_html_path <- sub("\\\\.sas$", ".html", tempfile_sas_path)
+tempfile_log_path <- sub("\\\\.sas$", ".log", tempfile_sas_path)
 cat("PROC MEANS DATA = sashelp.cars;RUN;", file = tempfile_sas_path)
 sas_run_file(tempfile_sas_path, tempfile_html_path)
+
+# clean up
+unlink(tempfile_sas_path)
+unlink(tempfile_html_path)
+unlink(tempfile_log_path)
 \dontshow{\}) # examplesIf}
 }
 \seealso{

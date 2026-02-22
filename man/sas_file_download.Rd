@@ -22,15 +22,21 @@ Downloads a file to the remote SAS server.
 # connect to SAS
 sas_connect()
 
-# create a file and upload it to SAS
-tempfile_path <- tempfile(fileext = ".sas")
-tempfile_basename <- basename(tempfile_path)
-tempfile_path_copy <- sub("\\\\.sas$", "_copy.sas", tempfile_path)
-cat("PROC MEANS DATA = sashelp.cars;RUN;", file = tempfile_path)
-sas_file_upload(local_path = tempfile_path, sas_path = paste0("~/", tempfile_basename))
+# create an example file
+local_path <- tempfile(fileext = ".txt")
+cat("some example test", file = tempfile_path)
 
-# download file from SAS
-sas_file_download(paste0("~/", tempfile_basename), tempfile_path_copy)
+sas_path <- readline("Please provide the full path to upload an example file to (e.g., ~/example.txt).")
+sas_file_upload(local_path, sas_path)
+
+# download the uploaded file
+local_copy_path <- sub("\\\\.txt$", "_copy.txt", tempfile_path)
+sas_file_download(sas_path, local_copy_path)
+
+# cleanup
+unlink(local_path)
+unlink(local_copy_path)
+sas_file_remove(sas_path)
 \dontshow{\}) # examplesIf}
 }
 \seealso{

@@ -23,15 +23,21 @@ Copies a file on the remote SAS server. Is analogous to
 # connect to SAS
 sas_connect()
 
-# create a file and upload it to SAS
-tempfile_path <- tempfile(fileext = ".sas")
-tempfile_basename <- basename(tempfile_path)
-tempfile_basename_copy <- sub("\\\\.sas$", "_copy.sas", tempfile_basename)
-cat("PROC MEANS DATA = sashelp.cars;RUN;", file = tempfile_path)
-sas_file_upload(local_path = tempfile_path, sas_path = paste0("~/", tempfile_basename))
+# create an example file
+local_path <- tempfile(fileext = ".txt")
+cat("some example test", file = tempfile_path)
 
-# copy file on SAS
-sas_file_copy(paste0("~/", tempfile_basename), paste0("~/", tempfile_basename_copy))
+sas_path <- readline("Please provide the full path to upload an example file to (e.g., ~/example.txt).")
+sas_file_upload(local_path, sas_path)
+
+from_path <- sas_path
+to_path <- readline("Please provide the full path to copy the example file to (e.g., ~/example_copy.txt).")
+sas_file_copy(from_path, to_path)
+
+# cleanup
+unlink(local_path)
+sas_file_remove(from_path)
+sas_file_remove(to_path)
 \dontshow{\}) # examplesIf}
 }
 \seealso{

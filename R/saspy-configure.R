@@ -91,7 +91,7 @@ configure_saspy <- function(
   }
 
   cli::cli_inform(c(
-    "i" = "For more information about {.pkg SASPy} configuration see the {.vignette sasquatch::configuration} vignette or the {.href [SASPy documentation](https://sassoftware.github.io/saspy/configuration.html)}."
+    "i" = "For more information about {.pkg SASPy} configuration see the {.vignette [Configuration](sasquatch::configuration)} vignette or the {.href [SASPy documentation](https://sassoftware.github.io/saspy/configuration.html)}."
   ))
 
   invisible()
