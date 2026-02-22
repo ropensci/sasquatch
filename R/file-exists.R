@@ -14,13 +14,18 @@
 #' # connect to SAS
 #' sas_connect()
 #'
-#' # create a file and upload it to SAS
-#' tempfile_path <- tempfile(fileext = ".sas")
-#' tempfile_basename <- basename(tempfile_path)
-#' cat("PROC MEANS DATA = sashelp.cars;RUN;", file = tempfile_path)
-#' sas_file_upload(local_path = tempfile_path, sas_path = paste0("~/", tempfile_basename))
+#' # create an example file
+#' local_path <- tempfile(fileext = ".txt")
+#' cat("some example test", file = tempfile_path)
 #'
-#' sas_file_exists(paste0("~/", tempfile_basename))
+#' sas_path <- readline("Please provide the full path to upload an example file to (e.g., ~/example.txt).")
+#' sas_file_upload(local_path, sas_path)
+#'
+#' sas_file_exists(sas_path)
+#'
+#' # cleanup
+#' unlink(local_path)
+#' sas_file_remove(sas_path)
 sas_file_exists <- function(path) {
   check_session()
   check_string(path)
