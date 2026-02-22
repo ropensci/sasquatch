@@ -25,13 +25,17 @@ sas_connect()
 
 # create an example file
 local_path <- tempfile(fileext = ".txt")
-cat("some example test", file = tempfile_path)
+cat("some example text", file = tempfile_path)
 
-sas_path <- readline("Please provide the full path to upload an example file to (e.g., ~/example.txt).")
+sas_path <- readline(
+  "Please provide the full path to upload an example file to (e.g., ~/example.txt)."
+)
 sas_file_upload(local_path, sas_path)
 
 from_path <- sas_path
-to_path <- readline("Please provide the full path to copy the example file to (e.g., ~/example_copy.txt).")
+to_path <- readline(
+  "Please provide the full path to copy the example file to (e.g., ~/example_copy.txt)."
+)
 sas_file_copy(from_path, to_path)
 
 # cleanup

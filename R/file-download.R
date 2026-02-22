@@ -16,9 +16,11 @@
 #'
 #' # create an example file
 #' local_path <- tempfile(fileext = ".txt")
-#' cat("some example test", file = tempfile_path)
+#' cat("some example text", file = tempfile_path)
 #'
-#' sas_path <- readline("Please provide the full path to upload an example file to (e.g., ~/example.txt).")
+#' sas_path <- readline(
+#'   "Please provide the full path to upload an example file to (e.g., ~/example.txt)."
+#' )
 #' sas_file_upload(local_path, sas_path)
 #'
 #' # download the uploaded file

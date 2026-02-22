@@ -24,6 +24,12 @@ together to create reproducible multilingual reports. `sasquatch` can:
 
 ### Package installation
 
+You can install `socratadata` from CRAN.
+
+``` r
+install.packages("socratadata")
+```
+
 You can install the development version of sasquatch like so:
 
 ``` r
