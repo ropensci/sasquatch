@@ -6,8 +6,6 @@ HTMLWidgets.widget({
 
   factory: function (el, width, height) {
 
-    // TODO: define shared variables for this instance
-
     return {
 
       renderValue: function (x) {
@@ -19,7 +17,15 @@ HTMLWidgets.widget({
 
         if (capture == "both") {
           el.innerHTML = `
-            <style>body {overflow: auto !important;}</style>
+            <style>
+            body {
+              overflow: auto !important;
+            }
+            /* Force non-active tabs to hide even if the template uses flexbox */
+            #${id_prefix}-myTabContent .tab-pane:not(.active) {
+              display: none !important;
+            }
+            </style>
             <ul class="nav nav-tabs" id="${id_prefix}-myTab" role="tablist">
               <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="${id_prefix}-lst-tab" data-bs-toggle="tab" data-bs-target="#${id_prefix}-lst" type="button" role="tab" aria-controls="${id_prefix}-lst" aria-selected="true">Listing</button>
