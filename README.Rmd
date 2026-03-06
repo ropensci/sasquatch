@@ -34,10 +34,10 @@ to create reproducible multilingual reports. `sasquatch` can:
 
 ### Package installation
 
-You can install `socratadata` from CRAN.
+You can install `sasquatch` from CRAN.
 
 ```{r eval = FALSE}
-install.packages("socratadata")
+install.packages("sasquatch")
 ```
 
 You can install the development version of sasquatch like so:
