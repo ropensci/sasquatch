@@ -30,7 +30,11 @@
 #' # The below function is run internally within `sasquatch` on startup
 #' knitr::knit_engines$set(sas = sas_engine)
 sas_engine <- function(options) {
+  # Pandoc highlights a code block in the first language it knows. Pandoc
+  # 3.12 and later know "sas"; older versions fall back to "txt", which keeps
+  # the block styled as code.
   options$engine <- "sas"
+  options$class.source <- c("txt", options$class.source)
 
   # allows html widgets to be returned within the rstudio rmd/quarto interface
   if (!isTRUE(getOption('knitr.in.progress'))) {

@@ -31,6 +31,6 @@ test_that("echoed source is labelled as SAS for syntax highlighting", {
   ))
   out <- sas_engine(options)
 
-  expect_match(out, "```\\s*sas\\b")
-  expect_no_match(out, "txt")
+  # "sas" first, so Pandoc 3.12+ highlights it; "txt" as the fallback
+  expect_match(out, "{.sas .txt}", fixed = TRUE)
 })
