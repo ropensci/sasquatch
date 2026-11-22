@@ -15,3 +15,22 @@ test_that("htmlwidget output if kniting is not in progress", {
   expect_s3_class(sas_engine(options), c("sas_widget", "htmlwidget"))
   expect_true(sas_get_session()$exist("cars", libref = "WORK"))
 })
+
+test_that("echoed source is labelled as SAS for syntax highlighting", {
+  withr::local_options(list(knitr.in.progress = TRUE))
+  old_to <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+  knitr::opts_knit$set(rmarkdown.pandoc.to = "html")
+  withr::defer(knitr::opts_knit$set(rmarkdown.pandoc.to = old_to))
+  knitr::render_markdown()
+  withr::defer(knitr::knit_hooks$restore())
+
+  options <- knitr::opts_chunk$merge(list(
+    code = c("data a;", "run;"),
+    eval = FALSE,
+    engine = "sas"
+  ))
+  out <- sas_engine(options)
+
+  expect_match(out, "```\\s*sas\\b")
+  expect_no_match(out, "txt")
+})

@@ -30,7 +30,7 @@
 #' # The below function is run internally within `sasquatch` on startup
 #' knitr::knit_engines$set(sas = sas_engine)
 sas_engine <- function(options) {
-  options$engine <- "txt"
+  options$engine <- "sas"
 
   # allows html widgets to be returned within the rstudio rmd/quarto interface
   if (!isTRUE(getOption('knitr.in.progress'))) {
