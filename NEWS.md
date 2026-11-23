@@ -1,5 +1,7 @@
 # sasquatch (development version)
 
+- The source code of `{sas}` chunks is now labelled as SAS, with plain text as the fallback, so Pandoc 3.12 and later (Quarto 1.12 and later) highlight it. Older versions show it as before (#27).
+
 # sasquatch 0.1.3
 
 - Tabsets no longer alter each other's states.
