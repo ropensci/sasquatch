@@ -1,13 +1,32 @@
 function adjustIframeHeight(iframe) {
-    const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-    if (!iframeDocument) return;
+    if (iframe.offsetParent === null) return;
 
-    // Temporarily force horizontal scroll to measure its size
-    const hasHorizontalScroll = iframeDocument.documentElement.scrollWidth > iframeDocument.documentElement.clientWidth;
-    const scrollbarHeight = hasHorizontalScroll ? 17 : 0; // Approx height of horizontal scrollbar
+    const iframeWin = iframe.contentWindow;
+    const iframeDocument = iframe.contentDocument || iframeWin?.document;
+    if (!iframeDocument || !iframeDocument.documentElement) return;
 
-    // Adjust height to content's scrollHeight minus scrollbar if needed
-    iframe.style.height = (iframeDocument.documentElement.scrollHeight + scrollbarHeight) + 'px';
+    const docEl = iframeDocument.documentElement;
+    const body = iframeDocument.body;
+
+    iframe.style.height = '0px';
+
+    const contentHeight = Math.ceil(Math.max(
+        docEl.scrollHeight,
+        body ? body.scrollHeight : 0,
+        docEl.getBoundingClientRect().height,
+        body ? body.getBoundingClientRect().height : 0
+    ));
+
+    if (contentHeight === 0) return;
+
+    const chromeHeight = iframe.offsetHeight - iframe.clientHeight;
+
+    iframe.style.height = (contentHeight + chromeHeight) + 'px';
+
+    const hScrollbarHeight = iframeWin.innerHeight - docEl.clientHeight;
+    if (hScrollbarHeight > 0) {
+        iframe.style.height = (contentHeight + chromeHeight + hScrollbarHeight) + 'px';
+    }
 }
 
 function adjustAllIframes() {
@@ -15,11 +34,6 @@ function adjustAllIframes() {
         adjustIframeHeight(iframe);
     });
 }
-
-// Adjust height when iframe is loaded
-document.querySelectorAll('.resizable-iframe').forEach((iframe) => {
-    iframe.addEventListener('load', () => adjustIframeHeight(iframe));
-});
 
 // Re-adjust on window resize
 window.addEventListener('resize', adjustAllIframes);

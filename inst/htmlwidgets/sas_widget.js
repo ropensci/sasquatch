@@ -5,10 +5,16 @@ HTMLWidgets.widget({
   type: 'output',
 
   factory: function (el, width, height) {
+    let observer = null;
 
     return {
 
       renderValue: function (x) {
+        if (observer) {
+          observer.disconnect();
+          observer = null;
+        }
+
         let lst = x.lst;
         let log = x.log;
         let capture = x.capture;
@@ -51,10 +57,35 @@ HTMLWidgets.widget({
           `;
         }
 
+        const iframe = el.querySelector('.resizable-iframe');
+        if (iframe && typeof adjustIframeHeight === 'function') {
+          iframe.addEventListener('load', () => adjustIframeHeight(iframe));
+
+          if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+            adjustIframeHeight(iframe);
+          }
+
+          let lastWidth = 0;
+          observer = new ResizeObserver(() => {
+            const currentWidth = iframe.clientWidth;
+            if (currentWidth === 0) {
+              lastWidth = 0;
+              return;
+            }
+            if (currentWidth !== lastWidth) {
+              lastWidth = currentWidth;
+              adjustIframeHeight(iframe);
+            }
+          });
+          observer.observe(iframe);
+        }
       },
 
       resize: function (width, height) {
-
+        const iframe = el.querySelector('.resizable-iframe');
+        if (iframe && typeof adjustIframeHeight === 'function') {
+          adjustIframeHeight(iframe);
+        }
       }
 
     };
