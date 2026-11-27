@@ -62,3 +62,17 @@ test_that("execute_if_connection_active() executes if connection not disrupted",
 
   expect_true(sas_get_session()$exist("cars", "work"))
 })
+
+test_that("execute_if_connection_active() re-signals active-session errors", {
+  old_session <- .pkgenv$session
+  withr::defer(.pkgenv$session <- old_session)
+  .pkgenv$session <- list(SASpid = 12345L)
+
+  expect_error(
+    execute_if_connection_active(stop("SASPy failure")),
+    "SASPy failure"
+  )
+
+  local_mocked_bindings(.sas_list = function(path) stop("SASPy failure"))
+  expect_error(sas_list("."), "SASPy failure")
+})

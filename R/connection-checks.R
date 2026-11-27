@@ -52,7 +52,7 @@ execute_if_connection_active <- function(code, call = rlang::caller_env()) {
           call = call
         )
       } else {
-        e
+        rlang::cnd_signal(e)
       }
     }
   )
