@@ -1,5 +1,6 @@
 # sasquatch (development version)
 
+- Errors raised by SAS operations while the SAS session is still active are now re-signaled instead of returned silently.
 - The source code of `{sas}` chunks is now labelled as SAS, with plain text as the fallback, so Pandoc 3.12 and later (Quarto 1.12 and later) highlight it. Older versions show it as before (#27).
 
 # sasquatch 0.1.3
